@@ -1,0 +1,1 @@
+<?= $aibody['catalog/stock'] ?><?php /**PATH C:\Users\boukl\github\maisonfraiche.com\htdocs\resources\views/vendor/shop/catalog/stock.blade.php ENDPATH**/ ?>

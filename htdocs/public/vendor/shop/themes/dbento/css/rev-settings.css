@@ -1,0 +1,107 @@
+.fullwidthbanner-container{
+	width: 100% !important;
+	color: #fff;
+	position:relative;
+	padding: 0;
+	overflow:hidden;
+	background: #000;
+}
+.tp-dottedoverlay{
+	width: 0;
+	height: 0;
+}
+.tp-caption{
+	white-space: unset;
+}
+.slide-big-heading{
+	font-family: 'Latin';
+	font-size: 44pt;
+	line-height:normal;
+	font-weight: 700;
+	text-align: center;
+	text-shadow:0px 0px 7px rgba(0, 0, 0, 0.25);
+}
+.slide-sub-heading{
+	font-size: 18px;
+	max-width: 600px;
+	line-height:normal;
+	font-weight: 400;
+	text-align: center;
+	text-shadow:0px 0px 7px rgba(0, 0, 0, 0.25);
+}
+.btn-slider { 
+	display: block;
+	position:relative;
+	float:left;
+	width: auto;
+	height: auto;
+	font-size: 11pt !important;
+	font-weight: 700;
+	text-align: center;
+	letter-spacing:.3px;
+	text-shadow: none;
+	line-height: 15px;
+	padding: 13px 36px !important;
+    background: #af872f;
+	cursor: pointer;
+	overflow: hidden;
+	-ms-transform: scale(1, 1);
+    transform: scale(1, 1);
+	-moz-transition: all 0.6s ease;
+	-ms-transition: all 0.6s ease;
+	-o-transition: all 0.6s ease;
+	transition: all 0.6s ease;
+}
+.btn-slider a{
+	font-weight: 600;
+	color: #fff;
+	text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+}
+.btn-slider:hover { 
+    -moz-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    transition: all .3s ease;
+}
+.btn-slider:hover .shine{
+	-webkit-animation: sheen .9s alternate;
+	animation: sheen .9s alternate;
+} 
+.btn-slider:hover a{ 
+	color:#fff;
+}
+.tp-bannertimer{
+	display: none;
+}
+.tparrows.preview1{
+	width: 70px;
+	height: 70px;
+}
+.tparrows.preview1::after {
+	font-size: 18px;
+	width: 70px;
+	height: 70px;
+	line-height: 70px;
+	background: rgba(0,0,0,.6);
+}
+.tparrows.preview1:hover::after {
+	color: #fff;
+	background: rgba(0,0,0,1);
+}
+.tparrows.preview1:hover .tp-arr-imgholder{
+	display: none;
+}
+@media only screen and (max-width: 500px) {
+	.slide-big-heading{
+	 font-size: 45pt;
+	}
+	.slide-sub-heading{
+	 font-size: 21pt;
+	 max-width: unset;
+	 padding: 0 60px;
+	}
+	.btn-slider { 
+	font-size: 28px
+	padding: 15px 25px;
+    }
+}
