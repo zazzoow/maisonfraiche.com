@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('aimeos_header'); ?>
     <?= $aiheader['locale/select'] ?? '' ?>
     <?= $aiheader['basket/mini'] ?? '' ?>
