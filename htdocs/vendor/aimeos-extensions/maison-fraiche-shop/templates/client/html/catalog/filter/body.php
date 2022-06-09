@@ -8,9 +8,6 @@ $linkKey = $this->param( 'f_catid' ) ? 'client/html/catalog/tree/url' : 'client/
 
 <div class="catalog-filter" data-jsonurl="<?= $enc->attr( $this->link( 'client/jsonapi/url' ) ) ?>">
 
-	<nav class="container-xxl">
-		<h1><?= $enc->html( $this->translate( 'client', 'Filter' ), $enc::TRUST ) ?></h1>
-
 		<form method="GET" action="<?= $enc->attr( $this->link( $linkKey, $this->param() ) ) ?>">
 
 			<?php foreach( map( $this->param() )->only( ['f_sort', 'l_type'] ) as $name => $value ) : ?>
@@ -24,6 +21,5 @@ $linkKey = $this->param( 'f_catid' ) ? 'client/html/catalog/tree/url' : 'client/
 			<?= $this->block()->get( 'catalog/filter/attribute' ) ?>
 
 		</form>
-	</nav>
 
 </div>

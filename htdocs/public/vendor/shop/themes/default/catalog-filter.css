@@ -763,7 +763,7 @@ aside .catalog-filter section {
 		color: var(--ai-primary);
 	}
 
-	.catalog-filter-tree .zeynep .back,
+	/* .catalog-filter-tree .zeynep .back,
 	.catalog-filter-tree .zeynep .close,
 	.catalog-filter-tree .zeynep .name,
 	.catalog-filter-tree .zeynep .next {
@@ -772,7 +772,7 @@ aside .catalog-filter section {
 		font-size: 125%;
 		cursor: pointer;
 		padding: .5rem;
-	}
+	} */
 
 	.catalog-filter-tree .zeynep .close::before {
 		font: normal normal normal 14px/1 bootstrap-icons;

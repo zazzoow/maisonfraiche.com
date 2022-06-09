@@ -16,8 +16,6 @@ $enforce = $this->config( 'client/html/catalog/filter/tree/force-search', false 
 
 			<div class="row header">
 				<div class="col-2"></div>
-				<div class="col-8 name"><?= $enc->html( $this->translate( 'client', 'Categories' ), $enc::TRUST ) ?></div>
-				<div class="col-2 close" data-submenu-close="<?= $enc->attr( $this->treeCatalogTree->getId() ) ?>"></div>
 			</div>
 
 			<?php if( $this->param( 'f_catid' ) ) : ?>
