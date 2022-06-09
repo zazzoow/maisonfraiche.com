@@ -20,7 +20,7 @@ return [
 						// base_path('packages/maison-fraiche-shop/templates/client/html/catalog/filter/body-v2'),
 			],
 			'detail' => [
-				'name' => 'DetailStandardFromOrderExt',
+				// 'name' => 'DetailStandardFromOrderExt',
 				// 'template-body' =>
 				 // 	 base_path('packages/maison-fraiche-shop/client/html/templates/catalog/detail/body-standard-v1'),
 				'domains' => [
@@ -37,15 +37,15 @@ return [
 				'subparts' => [/*'tree',*/ 'search', 'price', 'supplier', 'attribute']
 			],
 			'lists' => [
-				'domains' => [
-						'media',
-						'media/property',
-						// 'price',
-						// 'text'
-				],
-				'items' => [
-					'template-body-list' => 'catalog/lists/items-body-list',
-				],
+				// 'domains' => [
+				// 		'media',
+				// 		'media/property',
+				// 		// 'price',
+				// 		// 'text'
+				// ],
+				// 'items' => [
+				// 	'template-body-list' => 'catalog/lists/items-body-list',
+				// ],
 			],
 		],
 		'checkout' => [

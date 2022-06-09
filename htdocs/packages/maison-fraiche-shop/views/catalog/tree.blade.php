@@ -32,15 +32,5 @@
 @stop
 
 @section('aimeos_body')
-    <div class="container-fluid">
-        <div class="row">
-            <aside class="col-lg-3">
-                <?= $aibody['catalog/filter'] ?? '' ?>
-                <?= $aibody['catalog/session'] ?? '' ?>
-            </aside>
-            <div class="col-lg-9">
-                <?= $aibody['catalog/lists'] ?>
-            </div>
-        </div>
-    </div>
+   <?= $aibody['catalog/lists'] ?>
 @stop

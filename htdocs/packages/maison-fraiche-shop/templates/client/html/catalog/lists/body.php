@@ -23,33 +23,37 @@ $key = $this->param( 'f_catid' ) ? 'client/html/catalog/tree/url' : 'client/html
 
 
 ?>
+
+
+<?php
+
+/**
+ * @license LGPLv3, http://opensource.org/licenses/LGPL-3.0
+ * @copyright Aimeos (aimeos.org), 2015-2022
+ */
+
+$enc = $this->encoder();
+$key = $this->param( 'f_catid' ) ? 'client/html/catalog/tree/url' : 'client/html/catalog/lists/url';
+
+
+/** client/html/catalog/lists/pagination
+ * Enables or disables pagination in list views
+ *
+ * Pagination is automatically hidden if there are not enough products in the
+ * category or search result. But sometimes you don't want to show the pagination
+ * at all, e.g. if you implement infinite scrolling by loading more results
+ * dynamically using AJAX.
+ *
+ * @param boolean True for enabling, false for disabling pagination
+ * @since 2019.04
+ */
+
+
+?>
 <section class="aimeos catalog-list <?= $enc->attr( $this->get( 'listCatPath', map() )->getConfigValue( 'css-class', '' )->join( ' ' ) ) ?>"
 	data-jsonurl="<?= $enc->attr( $this->link( 'client/jsonapi/url' ) ) ?>">
 
 	<div class="container-xxl">
-
-		<?php if( ( $catItem = $this->get( 'listCatPath', map() )->last() ) !== null ) : ?>
-
-			<div class="catalog-list-head">
-
-				<?php foreach( $catItem->getRefItems( 'media', 'default', 'default' ) as $mediaItem ) : ?>
-
-					<div class="head-image">
-						<img class="<?= $enc->attr( $mediaItem->getType() ) ?>"
-							src="<?= $enc->attr( $this->content( $mediaItem->getPreview( true ), $mediaItem->getFileSystem() ) ) ?>"
-							srcset="<?= $enc->attr( $this->imageset( $mediaItem->getPreviews(), $mediaItem->getFileSystem() ) ) ?>"
-							alt="<?= $enc->attr( $mediaItem->getProperties( 'title' )->first() ) ?>"
-						>
-					</div>
-
-				<?php endforeach ?>
-
-			</div>
-
-			<h1><?= $enc->html( $catItem->getName() ) ?></h1>
-
-		<?php endif ?>
-
 
 		<?php if( $this->get( 'listProductTotal', 0 ) > 0 ) : ?>
 

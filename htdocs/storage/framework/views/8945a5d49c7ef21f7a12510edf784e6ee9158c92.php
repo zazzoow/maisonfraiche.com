@@ -1,12 +1,11 @@
 <?php $__env->startSection('aimeos_header'); ?>
     <?= $aiheader['locale/select'] ?? '' ?>
     <?= $aiheader['basket/mini'] ?? '' ?>
-    <?= $aiheader['catalog/search'] ?? '' ?>
-    <?= $aiheader['catalog/filter'] ?? '' ?>
     <?= $aiheader['catalog/tree'] ?? '' ?>
-    <?= $aiheader['catalog/session'] ?? '' ?>
+    <?= $aiheader['catalog/search'] ?? '' ?>
     <?= $aiheader['catalog/stage'] ?? '' ?>
-    <?= $aiheader['catalog/lists'] ?? '' ?>
+    <?= $aiheader['catalog/detail'] ?? '' ?>
+    <?= $aiheader['catalog/session'] ?? '' ?>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('aimeos_head_basket'); ?>
@@ -30,7 +29,11 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('aimeos_body'); ?>
-   <?= $aibody['catalog/lists'] ?>
+    <?= $aibody['catalog/detail'] ?? '' ?>
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('shop::base', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\boukl\github\maisonfraiche.com\htdocs\packages\maison-fraiche-shop\views/catalog/tree.blade.php ENDPATH**/ ?>
+<?php $__env->startSection('aimeos_aside'); ?>
+    <?= $aibody['catalog/session'] ?? '' ?>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('shop::base', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\boukl\github\maisonfraiche.com\htdocs\packages\maison-fraiche-shop\views/catalog/detail.blade.php ENDPATH**/ ?>
