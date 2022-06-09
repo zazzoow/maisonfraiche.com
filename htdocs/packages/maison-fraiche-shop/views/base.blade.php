@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta http-equiv="Content-Security-Policy" content="base-uri 'self'; default-src 'self' 'nonce-{{ app( 'aimeos.context' )->get()->nonce() }}'; style-src 'unsafe-inline' 'self'; img-src 'self' data: https://aimeos.org; frame-src https://www.youtube.com https://player.vimeo.com">
+		<!-- <meta http-equiv="Content-Security-Policy" content="base-uri 'self'; default-src 'self' 'nonce-{{ app( 'aimeos.context' )->get()->nonce() }}'; style-src 'unsafe-inline' 'self'; img-src 'self' data: https://aimeos.org; frame-src https://www.youtube.com https://player.vimeo.com"> -->
 		<meta name="csrf-token" content="{{ csrf_token() }}">
 
 		<link href="<?= asset('dbento') ?>/css/bootstrap.min.css" rel="stylesheet">
@@ -28,14 +28,17 @@
     <link href="<?= asset('dbento') ?>/css/style.css" rel="stylesheet">
     <link href="<?= asset('dbento') ?>/css/queriesstyle.css" media="all" rel="stylesheet">
 
-		<link rel="stylesheet" href="<?= asset('mdb') ?>/plugins/css/all.min.css" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <!-- Google Fonts Roboto -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+    />
 
-		<!-- @if( in_array(app()->getLocale(), ['ar', 'az', 'dv', 'fa', 'he', 'ku', 'ur']) ) -->
-			<!-- <link type="text/css" rel="stylesheet" href="{{ asset('vendor/shop/themes/default/app.rtl.css?v=' . config( 'shop.version', 1 ) ) }}"> -->
-		<!-- @else -->
-			<!-- <link type="text/css" rel="stylesheet" href="{{ asset('vendor/shop/themes/default/app.css?v=' . config( 'shop.version', 1 ) ) }}"> -->
-		<!-- @endif -->
-		<!-- <link type="text/css" rel="stylesheet" href="{{ asset('vendor/shop/themes/default/aimeos.css?v=' . config( 'shop.version', 1 ) ) }}" /> -->
+		<!-- <link rel="stylesheet" href="<= asset('mdb') ?>/css/mdb.min.css" />
+
+		<link rel="stylesheet" href="<= asset('mdb') ?>/plugins/css/all.min.css" /> -->
+
 
 		@yield('aimeos_header')
 
@@ -81,48 +84,6 @@
 									@yield('aimeos_head_nav')
 							</div><!-- mainmenu end -->
 
-							<nav class="navbar navbar-expand-lg navbar-light bg-light">
-							  <div class="container-fluid">
-							    <ul class="navbar-nav d-flex flex-row">
-							      <!-- Icons -->
-							      <li class="nav-item me-3 me-lg-0">
-							        <a class="nav-link" href="#">
-							          <i class="fas fa-shopping-cart"></i>
-							        </a>
-							      </li>
-							      <li class="nav-item me-3 me-lg-0">
-							        <a class="nav-link" href="#">
-							          <i class="fab fa-twitter"></i>
-							        </a>
-							      </li>
-							      <!-- Icon dropdown -->
-							      <li class="nav-item me-3 me-lg-0 dropdown">
-							        <a
-							          class="nav-link dropdown-toggle"
-							          href="#"
-							          id="navbarDropdown"
-							          role="button"
-							          data-mdb-toggle="dropdown"
-							          aria-expanded="false"
-							        >
-							          <i class="fas fa-user"></i>
-							        </a>
-							        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							          <li>
-							            <a class="dropdown-item" href="#">Action</a>
-							          </li>
-							          <li>
-							            <a class="dropdown-item" href="#">Another action</a>
-							          </li>
-							          <li><hr class="dropdown-divider" /></li>
-							          <li>
-							            <a class="dropdown-item" href="#">Something else here</a>
-							          </li>
-							        </ul>
-							      </li>
-							    </ul>
-							  </div>
-							</nav>
 
 							<ul class="navbar-nav align-self-center">
 								@if (Auth::guest() && config('app.shop_registration'))
@@ -132,10 +93,10 @@
 									<li class="nav-item login"><a class="nav-link" href="{{ airoute( 'login' ) }}" title="{{ __( 'Login' ) }}"><span class="name">{{ __( 'Login' ) }}</span></a></li>
 								@else
 									<li class="nav-item login profile dropdown">
-										<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" title="{{ __( 'Account' ) }}"><span class="name">{{ __( 'Account' ) }}</span> <span class="caret"></span></a>
-										<ul class="dropdown-menu dropdown-menu-end" role="menu">
+										<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" title="{{ __( 'Account' ) }}"><span class="name"><i class="fas fa-user"></i></span> <span class="caret"></span></a>
+										<ul class="dropdown-menu dropdown-menu-end login" role="menu">
 											<li class="dropdown-item"><a class="nav-link" href="{{ airoute( 'aimeos_shop_account' ) }}"><span class="name">{{ __( 'Profile' ) }}</span></a></li>
-											<li class="dropdown-item"><form id="logout" action="{{ airoute( 'logout' ) }}" method="POST">{{ csrf_field() }}<button class="nav-link"><span class="name">{{ __( 'Logout' ) }}</span></button></form></li>
+											<li class="dropdown-item"><form id="logout" action="{{ airoute( 'logout' ) }}" method="POST">{{ csrf_field() }}<button class="btn btn-light" data-mdb-ripple-color="dark"><span class="name">{{ __( 'Logout' ) }}</span></button></form></li>
 										</ul>
 									</li>
 								@endif
@@ -463,12 +424,18 @@
 		<!-- Custom user JS codes -->
 		<script type="text/javascript" src="<?= asset('Kallyas') ?>/js/kl-custom.js"></script>
 
+
+				<script
+						type="text/javascript"
+						src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.11.0/mdb.min.js">
+				</script>
+
 		<script type="text/javascript" src="<?= asset('mdb') ?>/js/mdb.min.js"></script>
+
+		<script type="text/javascript" src="<?= asset('mdb') ?>/plugins/js/all.min.js"></script>
 
 		<script type="text/javascript" src="<?= asset('mdb') ?>/js/mdb.min.js.map"></script>
 
-
-    <script type="text/javascript" src="<?= asset('mdb') ?>/plugins/js/all.min.js"></script>
 
 		@yield('aimeos_scripts')
 	</body>
