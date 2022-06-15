@@ -5,8 +5,7 @@ $enc = $this->encoder();
 $linkKey = $this->param( 'f_catid' ) ? 'client/html/catalog/tree/url' : 'client/html/catalog/lists/url';
 
 ?>
-
-<div class="catalog-filter" data-jsonurl="<?= $enc->attr( $this->link( 'client/jsonapi/url' ) ) ?>">
+<section class="aimeos catalog-filter" data-jsonurl="<?= $enc->attr( $this->link( 'client/jsonapi/url' ) ) ?>">
 
 		<form method="GET" action="<?= $enc->attr( $this->link( $linkKey, $this->param() ) ) ?>">
 
@@ -16,10 +15,6 @@ $linkKey = $this->param( 'f_catid' ) ? 'client/html/catalog/tree/url' : 'client/
 
 			<?= $this->block()->get( 'catalog/filter/tree' ) ?>
 			<?= $this->block()->get( 'catalog/filter/search' ) ?>
-			<?= $this->block()->get( 'catalog/filter/price' ) ?>
-			<?= $this->block()->get( 'catalog/filter/supplier' ) ?>
-			<?= $this->block()->get( 'catalog/filter/attribute' ) ?>
-
 		</form>
 
-</div>
+</section>

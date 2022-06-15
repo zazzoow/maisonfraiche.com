@@ -1,3 +1,0 @@
-User-agent: Googlebot 
-Disallow: /php-helpers/
-Disallow: /costin/

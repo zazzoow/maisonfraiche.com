@@ -38,8 +38,6 @@
 			@yield('aimeos_head_locale')
 			@yield('aimeos_head_search')
 
-			git filter-branch --tree-filter 'rm -rf path/to/your/file' HEAD
-
 			@yield('aimeos_head_basket')
 		</nav>
 

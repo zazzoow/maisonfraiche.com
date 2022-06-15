@@ -74,6 +74,7 @@ return [
         public_path('theme-maison-fraiche-shop') => base_path('packages/maison-fraiche-shop/themes/client/html'),
         public_path('dbento') => public_path('vendor/shop/themes/dbento'),
         public_path('Kallyas') => public_path('vendor/shop/themes/Kallyas'),
+        public_path('delice') => public_path('vendor/shop/themes/Delice'),
         public_path('mdb') => public_path('vendor/shop/themes/mdb'),
     ],
 

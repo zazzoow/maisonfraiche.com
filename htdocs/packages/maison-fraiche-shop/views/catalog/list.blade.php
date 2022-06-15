@@ -29,5 +29,7 @@
 
 @section('aimeos_body')
     <?= $aibody['catalog/stage'] ?? '' ?>
+    <?= $aibody['catalog/filter'] ?? '' ?>
+    <?= $aibody['catalog/session'] ?? '' ?>
     <?= $aibody['catalog/lists'] ?>
 @stop

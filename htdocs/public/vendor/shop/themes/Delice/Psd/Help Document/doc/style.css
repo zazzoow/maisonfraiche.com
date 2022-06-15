@@ -1,0 +1,38 @@
+html,body{
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	font-family: arial;
+}
+body{
+	background:#fff;
+}
+.main{
+	padding: 25px;
+	font: 400 12px/24px;
+	color: #555;
+	max-width: 900px;
+	margin: 0 auto;
+	line-height: 24px;
+}
+h3{
+	font: 400 24px/1.2em;
+	color: #222;
+}
+.logo{
+	width: 103px;
+	height: 33px;
+	margin: 0 auto;
+	background: url(logo.png) no-repeat;
+	margin-top:50px; margin-bottom:50px;
+}
+a{
+	color: #f4a01c;
+}
+.intro{
+	font-size: 18px;
+	text-align: center;
+	margin-bottom: 36px;
+	line-height: 24px;
+}

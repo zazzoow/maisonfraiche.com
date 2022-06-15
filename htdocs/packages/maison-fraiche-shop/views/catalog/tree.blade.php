@@ -32,5 +32,5 @@
 @stop
 
 @section('aimeos_body')
-   <?= $aibody['catalog/lists'] ?>
+    <?= $aibody['catalog/lists'] ?>
 @stop
