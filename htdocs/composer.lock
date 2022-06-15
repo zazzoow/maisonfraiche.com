@@ -203,16 +203,16 @@
         },
         {
             "name": "aimeos/ai-client-jsonapi",
-            "version": "2022.04.1",
+            "version": "2022.04.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aimeos/ai-client-jsonapi.git",
-                "reference": "d0816ff465b71e6fc6ca16e0e9d08915230d0b1b"
+                "reference": "a8ee8877a4c52dae026be58adabdb5e350315dc5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aimeos/ai-client-jsonapi/zipball/d0816ff465b71e6fc6ca16e0e9d08915230d0b1b",
-                "reference": "d0816ff465b71e6fc6ca16e0e9d08915230d0b1b",
+                "url": "https://api.github.com/repos/aimeos/ai-client-jsonapi/zipball/a8ee8877a4c52dae026be58adabdb5e350315dc5",
+                "reference": "a8ee8877a4c52dae026be58adabdb5e350315dc5",
                 "shasum": ""
             },
             "require": {
@@ -250,7 +250,7 @@
                 "source": "https://github.com/aimeos/ai-client-jsonapi",
                 "wiki": "https://aimeos.org/docs"
             },
-            "time": "2022-04-05T07:46:20+00:00"
+            "time": "2022-06-12T05:35:13+00:00"
         },
         {
             "name": "aimeos/ai-controller-frontend",
@@ -409,16 +409,16 @@
         },
         {
             "name": "aimeos/aimeos-base",
-            "version": "2022.04.2",
+            "version": "2022.04.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aimeos/aimeos-base.git",
-                "reference": "24de028ab6443900d2a84f52f12f947a85b1cda4"
+                "reference": "54c526560282830b821a718c089b7d2fa000087c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aimeos/aimeos-base/zipball/24de028ab6443900d2a84f52f12f947a85b1cda4",
-                "reference": "24de028ab6443900d2a84f52f12f947a85b1cda4",
+                "url": "https://api.github.com/repos/aimeos/aimeos-base/zipball/54c526560282830b821a718c089b7d2fa000087c",
+                "reference": "54c526560282830b821a718c089b7d2fa000087c",
                 "shasum": ""
             },
             "require": {
@@ -466,7 +466,7 @@
                 "source": "https://github.com/aimeos/aimeos-base",
                 "wiki": "https://aimeos.org/docs"
             },
-            "time": "2022-05-31T15:36:36+00:00"
+            "time": "2022-06-14T18:52:10+00:00"
         },
         {
             "name": "aimeos/aimeos-core",
@@ -664,16 +664,16 @@
         },
         {
             "name": "aimeos/map",
-            "version": "3.0.1",
+            "version": "3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aimeos/map.git",
-                "reference": "9ab885a62156cfff416d63b8a233a7b1e4b8c2b5"
+                "reference": "2d2bcb3fe87ec8310f29d91c34b8642002a7c74c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aimeos/map/zipball/9ab885a62156cfff416d63b8a233a7b1e4b8c2b5",
-                "reference": "9ab885a62156cfff416d63b8a233a7b1e4b8c2b5",
+                "url": "https://api.github.com/repos/aimeos/map/zipball/2d2bcb3fe87ec8310f29d91c34b8642002a7c74c",
+                "reference": "2d2bcb3fe87ec8310f29d91c34b8642002a7c74c",
                 "shasum": ""
             },
             "require": {
@@ -700,7 +700,7 @@
             "license": [
                 "MIT"
             ],
-            "description": "Easy and elegant handling of PHP arrays as array-like map objects similar to jQuery and Laravel Collections",
+            "description": "Easy and elegant handling of PHP arrays as array-like collection objects similar to jQuery and Laravel Collections",
             "keywords": [
                 "array",
                 "collection",
@@ -709,9 +709,9 @@
             ],
             "support": {
                 "issues": "https://github.com/aimeos/map/issues",
-                "source": "https://github.com/aimeos/map/tree/3.0.1"
+                "source": "https://github.com/aimeos/map/tree/3.1.0"
             },
-            "time": "2022-03-02T08:46:06+00:00"
+            "time": "2022-06-15T05:41:08+00:00"
         },
         {
             "name": "aimeos/upscheme",
@@ -2746,16 +2746,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "3.0.20",
+            "version": "3.0.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "42a2f47dcf39944e2aee1b660ee55ab6ef69b535"
+                "reference": "8f1fcf9d2304ff77a006aa36dd2cb5f236999b12"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/42a2f47dcf39944e2aee1b660ee55ab6ef69b535",
-                "reference": "42a2f47dcf39944e2aee1b660ee55ab6ef69b535",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/8f1fcf9d2304ff77a006aa36dd2cb5f236999b12",
+                "reference": "8f1fcf9d2304ff77a006aa36dd2cb5f236999b12",
                 "shasum": ""
             },
             "require": {
@@ -2816,7 +2816,7 @@
             ],
             "support": {
                 "issues": "https://github.com/thephpleague/flysystem/issues",
-                "source": "https://github.com/thephpleague/flysystem/tree/3.0.20"
+                "source": "https://github.com/thephpleague/flysystem/tree/3.0.21"
             },
             "funding": [
                 {
@@ -2832,7 +2832,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-05-25T19:18:39+00:00"
+            "time": "2022-06-12T17:54:28+00:00"
         },
         {
             "name": "league/mime-type-detection",
@@ -9251,16 +9251,16 @@
         },
         {
             "name": "spatie/laravel-ignition",
-            "version": "1.2.4",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-ignition.git",
-                "reference": "b90026ba26fe6589101dc5cd6527846290560aea"
+                "reference": "5409e699fc19f4d53e59427445b08f90593fda28"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-ignition/zipball/b90026ba26fe6589101dc5cd6527846290560aea",
-                "reference": "b90026ba26fe6589101dc5cd6527846290560aea",
+                "url": "https://api.github.com/repos/spatie/laravel-ignition/zipball/5409e699fc19f4d53e59427445b08f90593fda28",
+                "reference": "5409e699fc19f4d53e59427445b08f90593fda28",
                 "shasum": ""
             },
             "require": {
@@ -9337,7 +9337,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-06-08T07:07:57+00:00"
+            "time": "2022-06-15T13:55:18+00:00"
         },
         {
             "name": "theseer/tokenizer",

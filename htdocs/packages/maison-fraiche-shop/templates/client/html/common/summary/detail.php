@@ -1,18 +1,5 @@
 <?php
 
-/**
- * @license LGPLv3, http://opensource.org/licenses/LGPL-3.0
- * @copyright Metaways Infosystems GmbH, 2013
- * @copyright Aimeos (aimeos.org), 2015-2022
- */
-
-/* Available data:
- * - orderItem : Order item (optional, only available after checkout)
- * - summaryBasket : Order base item (basket) including products, addresses, services, etc.
- * - summaryEnableModify : True if users are allowed to change the basket content, false if not (optional)
- * - summaryErrorCodes : List of error codes including those for the products (optional)
- */
-
 
 $totalQuantity = 0;
 $enc = $this->encoder();
@@ -21,86 +8,6 @@ $detailTarget = $this->config( 'client/html/catalog/detail/url/target' );
 $detailController = $this->config( 'client/html/catalog/detail/url/controller', 'catalog' );
 $detailAction = $this->config( 'client/html/catalog/detail/url/action', 'detail' );
 $detailConfig = $this->config( 'client/html/catalog/detail/url/config', array( 'absoluteUri' => 1 ) );
-
-
-/** client/html/account/download/url/target
- * Destination of the URL where the controller specified in the URL is known
- *
- * The destination can be a page ID like in a content management system or the
- * module of a software development framework. This "target" must contain or know
- * the controller that should be called by the generated URL.
- *
- * @param string Destination of the URL
- * @since 2016.02
- * @see client/html/account/download/url/controller
- * @see client/html/account/download/url/action
- * @see client/html/account/download/url/config
- */
-
-/** client/html/account/download/url/controller
- * Name of the controller whose action should be called
- *
- * In Model-View-Controller (MVC) applications, the controller contains the methods
- * that create parts of the output displayed in the generated HTML page. Controller
- * names are usually alpha-numeric.
- *
- * @param string Name of the controller
- * @since 2016.02
- * @see client/html/account/download/url/target
- * @see client/html/account/download/url/action
- * @see client/html/account/download/url/config
- */
-
-/** client/html/account/download/url/action
- * Name of the action that should create the output
- *
- * In Model-View-Controller (MVC) applications, actions are the methods of a
- * controller that create parts of the output displayed in the generated HTML page.
- * Action names are usually alpha-numeric.
- *
- * @param string Name of the action
- * @since 2016.02
- * @see client/html/account/download/url/target
- * @see client/html/account/download/url/controller
- * @see client/html/account/download/url/config
- */
-
-/** client/html/account/download/url/config
- * Associative list of configuration options used for generating the URL
- *
- * You can specify additional options as key/value pairs used when generating
- * the URLs, like
- *
- *  client/html/<clientname>/url/config = array( 'absoluteUri' => true )
- *
- * The available key/value pairs depend on the application that embeds the e-commerce
- * framework. This is because the infrastructure of the application is used for
- * generating the URLs. The full list of available config options is referenced
- * in the "see also" section of this page.
- *
- * @param string Associative list of configuration options
- * @since 2016.02
- * @see client/html/account/download/url/target
- * @see client/html/account/download/url/controller
- * @see client/html/account/download/url/action
- */
-
-/** client/html/common/summary/detail/product/attribute/types
- * List of attribute type codes that should be displayed in the basket along with their product
- *
- * The products in the basket can store attributes that exactly define an ordered
- * product or which are important for the back office. By default, the product
- * variant attributes are always displayed and the configurable product attributes
- * are displayed separately.
- *
- * Additional attributes for each ordered product can be added by basket plugins.
- * Depending on the attribute types and if they should be shown to the customers,
- * you need to extend the list of displayed attribute types ab adding their codes
- * to the configurable list.
- *
- * @param array List of attribute type codes
- * @since 2014.09
- */
 $attrTypes = $this->config( 'client/html/common/summary/detail/product/attribute/types', ['variant', 'config', 'custom'] );
 
 

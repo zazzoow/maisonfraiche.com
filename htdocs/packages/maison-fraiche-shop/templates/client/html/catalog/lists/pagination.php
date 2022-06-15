@@ -35,35 +35,6 @@ if( $sort === 'price' ) {
 ?>
 <nav class="pagination">
 
-	<div class="sort">
-		<span><?= $enc->html( $this->translate( 'client', 'Sort by:' ), $enc::TRUST ) ?></span>
-		<ul>
-			<li>
-				<?php $url = $this->link( $key, ['f_sort' => 'relevance'] + $params ) ?>
-				<a class="option-relevance <?= ( $sort === 'relevance' ? 'active' : '' ) ?>" href="<?= $enc->attr( $url ) ?>">
-					<?= $enc->html( $this->translate( 'client', 'Relevance' ), $enc::TRUST ) ?>
-				</a>
-			</li>
-			<li>
-				<?php $url = $this->link( $key, ['f_sort' => '-ctime'] + $params ) ?>
-				<a class="option-ctime <?= ( $sort === '-ctime' ? 'active' : '' ) ?>" href="<?= $enc->attr( $url ) ?>">
-					<?= $enc->html( $this->translate( 'client', 'Latest' ), $enc::TRUST ) ?>
-				</a>
-			</li>
-			<li>
-				<?php $url = $this->link( $key, ['f_sort' => $nameDir . 'name'] + $params ) ?>
-				<a class="option-name <?= ( $sortname === 'name' ? 'active' : '' ) ?>" href="<?= $enc->attr( $url ) ?>">
-					<?= $enc->html( $nameSort, $enc::TRUST ) ?>
-				</a>
-			</li>
-			<li>
-				<?php $url = $this->link( $key, ['f_sort' => $priceDir . 'price'] + $params ) ?>
-				<a class="option-price <?= ( $sortname === 'price' ? 'active' : '' ) ?>" href="<?= $enc->attr( $url ) ?>">
-					<?= $enc->html( $priceSort, $enc::TRUST ) ?>
-				</a>
-			</li>
-		</ul>
-	</div>
 
 	<?php if( !$infiniteScroll && $this->last > 1 ) : ?>
 		<div class="browser">

@@ -30,13 +30,30 @@
 
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-top" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
-			</button
-			<div class="coll apse navbar-collapse" id="navbar-top">
+			</button>
+			<div class="collapse navbar-collapse" id="navbar-top">
 				@yield('aimeos_head_nav')
 			</div>
 
 			@yield('aimeos_head_locale')
 			@yield('aimeos_head_search')
+
+			<ul class="navbar-nav">
+				@if (Auth::guest() && config('app.shop_registration'))
+					<li class="nav-item register"><a class="nav-link" href="{{ airoute( 'register' ) }}" title="{{ __( 'Register' ) }}"><span class="name">{{ __('Register') }}</span></a></li>
+				@endif
+				@if (Auth::guest())
+					<li class="nav-item login"><a class="nav-link" href="{{ airoute( 'login' ) }}" title="{{ __( 'Login' ) }}"><span class="name">{{ __( 'Login' ) }}</span></a></li>
+				@else
+					<li class="nav-item login profile dropdown">
+						<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" title="{{ __( 'Account' ) }}"><span class="name">{{ __( 'Account' ) }}</span> <span class="caret"></span></a>
+						<ul class="dropdown-menu dropdown-menu-end" role="menu">
+							<li class="dropdown-item"><a class="nav-link" href="{{ airoute( 'aimeos_shop_account' ) }}"><span class="name">{{ __( 'Profile' ) }}</span></a></li>
+							<li class="dropdown-item"><form id="logout" action="{{ airoute( 'logout' ) }}" method="POST">{{ csrf_field() }}<button class="nav-link"><span class="name">{{ __( 'Logout' ) }}</span></button></form></li>
+						</ul>
+					</li>
+				@endif
+			</ul>
 
 			@yield('aimeos_head_basket')
 		</nav>
@@ -56,16 +73,16 @@
 							<div class="col-sm-6 footer-left">
 								<div class="footer-block">
 									<h2 class="pb-3">{{ __( 'LEGAL' ) }}</h2>
-									<p><a style="color:white" href="#">{{ __( 'Terms & Conditions' ) }}</a></p>
-									<p><a style="color:white" href="#">{{ __( 'Privacy Notice' ) }}</a></p>
-									<p><a style="color:white" href="#">{{ __( 'Imprint' ) }}</a></p>
+									<p><a href="#">{{ __( 'Terms & Conditions' ) }}</a></p>
+									<p><a href="#">{{ __( 'Privacy Notice' ) }}</a></p>
+									<p><a href="#">{{ __( 'Imprint' ) }}</a></p>
 								</div>
 							</div>
 							<div class="col-sm-6 footer-center">
 								<div class="footer-block">
-									<h2 class="pb-3">{{ __( 'A PROPOS' ) }}</h2>
-									<p><a style="color:white" href="#">{{ __( 'Nous Contacter' ) }}</a></p>
-									<p><a style="color:white" href="#">{{ __( 'Societé' ) }}</a></p>
+									<h2 class="pb-3">{{ __( 'ABOUT US' ) }}</h2>
+									<p><a href="#">{{ __( 'Contact us' ) }}</a></p>
+									<p><a href="#">{{ __( 'Company' ) }}</a></p>
 								</div>
 							</div>
 						</div>
@@ -75,11 +92,11 @@
 							<a class="logo" href="/" title="Logo">
 							    <img src="{{ asset( 'aimeos/' . ( app( 'aimeos.context' )->get()->locale()->getSiteItem()->getLogo() ?: '../vendor/shop/themes/default/assets/logo.png' ) ) }}" height="40" title="Logo">
 							</a>
-							<div class="social" style="color:white">
-								<p><a href="#" style="color:white" class="sm facebook" title="Facebook" rel="noopener">Facebook</a></p>
-								<p><a href="#" style="color:white" class="sm twitter" title="Twitter" rel="noopener">Twitter</a></p>
-								<p><a href="#" style="color:white" class="sm instagram" title="Instagram" rel="noopener">Instagram</a></p>
-								<p><a href="#" style="color:white" class="sm youtube" title="Youtube" rel="noopener">Youtube</a></p>
+							<div class="social">
+								<p><a href="#" class="sm facebook" title="Facebook" rel="noopener">Facebook</a></p>
+								<p><a href="#" class="sm twitter" title="Twitter" rel="noopener">Twitter</a></p>
+								<p><a href="#" class="sm instagram" title="Instagram" rel="noopener">Instagram</a></p>
+								<p><a href="#" class="sm youtube" title="Youtube" rel="noopener">Youtube</a></p>
 							</div>
 						</div>
 					</div>
