@@ -17,7 +17,7 @@ $detailConfig = $this->config( 'client/html/catalog/detail/url/config', [] );
 
 
 $detailFilter = array_flip( $this->config( 'client/html/catalog/detail/url/filter', ['d_prodid'] ) );
-
+$count = 0;
 
 ?>
 <?php foreach( $this->get( 'products', [] ) as $id => $productItem ) : ?>
@@ -52,7 +52,8 @@ $detailFilter = array_flip( $this->config( 'client/html/catalog/detail/url/filte
 								<div class="vertical-align full menu-button">
 										<a href="#" class="page-button button-style-1 type-4"><span class="txt">Add to cart</span></a>
 										<div class="empty-sm-10 empty-xs-10"></div>
-										<a href="#" class="page-button button-style-1 type-2 open-popup" data-open="popup-gallery" data-rel="<?= $enc->attr( $productItem->getId()) ?>">
+
+										<a href="#" class="page-button button-style-1 type-2" data-mdb-toggle="modal" data-mdb-target="#product-<?= $enc->attr( $productItem->getId() ) ?>">
 											<span class="txt">quick view</span>
 										</a>
 								</div>
@@ -95,106 +96,111 @@ $detailFilter = array_flip( $this->config( 'client/html/catalog/detail/url/filte
 										<?php endif ?>
 								</div>
 						</div>
+				</div><!-- Button trigger modal -->
+
+
+
+				<!-- Modal -->
+				<div class="modal top fade" id="product-<?= $productItem->getId() ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-mdb-backdrop="true" data-mdb-keyboard="true">
+					<div class="modal-dialog modal-lg">
+				     <div class="modal-content">
+					<div class="popup-wrap type-2">
+						 <div class="empty-sm-0 empty-xs-15"></div>
+						 <div class="container quick-wrapp">
+						 <div class="close-popup type-2">
+							   <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+						</div>
+							 <div class="row left-right-item">
+								 <div class="col-md-6 col-xs-12 text-center">
+									 <?php if( $mediaItem = $mediaItems->first() ) : ?>
+										 <img src="<?= $enc->attr( $this->content( $mediaItem->getPreview(), $mediaItem->getFileSystem() ) ) ?>" alt="<?= $enc->attr( $mediaItem->getProperties( 'title' )->first() ) ?>">
+									 <?php endif ?>
+								 </div>
+								 <div class="col-md-6 col-xs-12">
+									 <div class="quick-content">
+										 <div class="empty-sm-0 empty-xs-30"></div>
+										 <aside>
+											 <div class="empty-sm-20 empty-xs-20"></div>
+											 <h4 class="h3 sm tt color-2">
+												 <?= $enc->attr( $productItem->getName(), $enc::TRUST ) ?>
+											 </h4>
+											 <div class="empty-sm-20 empty-xs-20"></div>
+											 <?php if( $productItem->getType() === 'select' ) : ?>
+													 <?php foreach( $productItem->getRefItems( 'product', 'default', 'default' ) as $prodid => $product ) : ?>
+														 <?php if( !( $prices = $product->getRefItems( 'price', null, 'default' ) )->isEmpty() ) : ?>
+
+															 <div class="articleitem price" data-prodid="<?= $enc->attr( $prodid ) ?>">
+																 <?= $this->partial(
+																	 $this->config( 'client/html/common/partials/price', 'common/partials/price' ),
+																	 array( 'prices' => $prices )
+																 ) ?>
+															 </div>
+
+														 <?php endif ?>
+													 <?php endforeach ?>
+												 <?php endif ?>
+
+										 </aside>
+										 <div class="empty-sm-25 empty-xs-20"></div>
+										 <aside>
+											 <?php if( !( $textItems->isEmpty() ) ) : ?>
+
+													 <div class="block description simple-text">
+
+														 <?php foreach( $textItems as $textItem ) : ?>
+															 <div class="simple-text">
+																 <p>
+																 <?= $enc->html( $textItem->getContent(), $enc::TRUST ) ?>
+																 </p>
+															 </div>
+														 <?php endforeach ?>
+
+													 </div>
+
+												 <?php endif ?>
+										 </aside>
+										 <div class="empty-sm-25 empty-xs-20"></div>
+										 <aside>
+										 <div class="buy-bar type-2">
+												<div class="fl">
+													 <h5 class="h5 sm follow-title quntity"><?= $enc->attr( $this->translate( 'client', 'Quantity' ) ) ?></h5>
+													 <div class="custom-input-number type-2">
+														 <button type="button" class="cin-btn cin-decrement">
+															 <img src="<?= asset('delice') ?>/img/left_arr.png" alt="">
+														 </button>
+														 <?php if($productItem->getType() !== 'group' ) : ?>
+															 <input type="number" class="form-control cin-input input-field" <?= $productItem->isAvailable() ? 'disabled' : '' ?>
+																 name="<?= $enc->attr( $this->formparam( ['b_prod', 0, 'quantity'] ) ) ?>"
+																 step="<?=$productItem->getScale() ?>"
+																 min="<?=$productItem->getScale() ?>" max="2147483647"
+																 value="<?=$productItem->getScale() ?>" required="required"
+																 title="<?= $enc->attr( $this->translate( 'client', 'Quantity' ) ) ?>"
+															 >
+														 <?php endif ?>
+														 <button type="button" class="cin-btn cin-increment">
+															<img src="<?= asset('delice') ?>/img/right_arr.png" alt="">
+														 </button>
+													 </div>
+													 <div class="empty-sm-0 empty-xs-15"></div>
+												</div>
+												<div class="fr">
+														<a href="#" class="page-button button-style-1 type-2"><span class="txt">
+																<?= $enc->html( $this->translate( 'client', 'Add to basket' ), $enc::TRUST ) ?>
+														</span></a>
+												</div>
+										 </div>
+										 </aside>
+									 </div>
+								 </div>
+							 </div>
+						 </div>
+						 <div class="empty-sm-0 empty-xs-15"></div>
+					</div>
+					</div>
+					</div>
 				</div>
 
 
-				<div class="popup index-popup-gallery" data-rel="<?= $enc->attr( $productItem->getId() ) ?>">
-					 <div class="popup-wrap type-2">
-							<div class="empty-sm-0 empty-xs-15"></div>
-							<div class="container quick-wrapp">
-							<div class="close-popup type-2">
-								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 21.9 21.9" enable-background="new 0 0 21.9 21.9" width="14px" height="14px">
-								<path d="M14.1,11.3c-0.2-0.2-0.2-0.5,0-0.7l7.5-7.5c0.2-0.2,0.3-0.5,0.3-0.7s-0.1-0.5-0.3-0.7l-1.4-1.4C20,0.1,19.7,0,19.5,0  c-0.3,0-0.5,0.1-0.7,0.3l-7.5,7.5c-0.2,0.2-0.5,0.2-0.7,0L3.1,0.3C2.9,0.1,2.6,0,2.4,0S1.9,0.1,1.7,0.3L0.3,1.7C0.1,1.9,0,2.2,0,2.4  s0.1,0.5,0.3,0.7l7.5,7.5c0.2,0.2,0.2,0.5,0,0.7l-7.5,7.5C0.1,19,0,19.3,0,19.5s0.1,0.5,0.3,0.7l1.4,1.4c0.2,0.2,0.5,0.3,0.7,0.3  s0.5-0.1,0.7-0.3l7.5-7.5c0.2-0.2,0.5-0.2,0.7,0l7.5,7.5c0.2,0.2,0.5,0.3,0.7,0.3s0.5-0.1,0.7-0.3l1.4-1.4c0.2-0.2,0.3-0.5,0.3-0.7  s-0.1-0.5-0.3-0.7L14.1,11.3z" fill="#484848"/>
-								</svg>
-						 </div>
-								<div class="row left-right-item">
-									<div class="col-md-6 col-xs-12 text-center">
-										<?php if( $mediaItem = $mediaItems->first() ) : ?>
-											<img src="<?= $enc->attr( $this->content( $mediaItem->getPreview(), $mediaItem->getFileSystem() ) ) ?>" alt="<?= $enc->attr( $mediaItem->getProperties( 'title' )->first() ) ?>">
-										<?php endif ?>
-									</div>
-									<div class="col-md-6 col-xs-12">
-										<div class="quick-content">
-											<div class="empty-sm-0 empty-xs-30"></div>
-											<aside>
-												<div class="empty-sm-20 empty-xs-20"></div>
-												<h4 class="h3 sm tt color-2">
-													<?= $enc->attr( $productItem->getName(), $enc::TRUST ) ?>
-												</h4>
-												<div class="empty-sm-20 empty-xs-20"></div>
-												<?php if( $productItem->getType() === 'select' ) : ?>
-														<?php foreach( $productItem->getRefItems( 'product', 'default', 'default' ) as $prodid => $product ) : ?>
-															<?php if( !( $prices = $product->getRefItems( 'price', null, 'default' ) )->isEmpty() ) : ?>
-
-																<div class="articleitem price" data-prodid="<?= $enc->attr( $prodid ) ?>">
-																	<?= $this->partial(
-																		$this->config( 'client/html/common/partials/price', 'common/partials/price' ),
-																		array( 'prices' => $prices )
-																	) ?>
-																</div>
-
-															<?php endif ?>
-														<?php endforeach ?>
-													<?php endif ?>
-
-											</aside>
-											<div class="empty-sm-25 empty-xs-20"></div>
-											<aside>
-												<?php if( !( $textItems->isEmpty() ) ) : ?>
-
-														<div class="block description simple-text">
-
-															<?php foreach( $textItems as $textItem ) : ?>
-																<div class="simple-text">
-																	<p>
-																	<?= $enc->html( $textItem->getContent(), $enc::TRUST ) ?>
-																	</p>
-																</div>
-															<?php endforeach ?>
-
-														</div>
-
-													<?php endif ?>
-											</aside>
-											<div class="empty-sm-25 empty-xs-20"></div>
-											<aside>
-											<div class="buy-bar type-2">
-												 <div class="fl">
-														<h5 class="h5 sm follow-title quntity"><?= $enc->attr( $this->translate( 'client', 'Quantity' ) ) ?></h5>
-														<div class="custom-input-number type-2">
-															<button type="button" class="cin-btn cin-decrement">
-																<img src="<?= asset('delice') ?>/img/left_arr.png" alt="">
-															</button>
-															<?php if($productItem->getType() !== 'group' ) : ?>
-																<input type="number" class="form-control cin-input input-field" <?= $productItem->isAvailable() ? 'disabled' : '' ?>
-																	name="<?= $enc->attr( $this->formparam( ['b_prod', 0, 'quantity'] ) ) ?>"
-																	step="<?=$productItem->getScale() ?>"
-																	min="<?=$productItem->getScale() ?>" max="2147483647"
-																	value="<?=$productItem->getScale() ?>" required="required"
-																	title="<?= $enc->attr( $this->translate( 'client', 'Quantity' ) ) ?>"
-																>
-															<?php endif ?>
-															<button type="button" class="cin-btn cin-increment">
-															 <img src="<?= asset('delice') ?>/img/right_arr.png" alt="">
-															</button>
-														</div>
-														<div class="empty-sm-0 empty-xs-15"></div>
-												 </div>
-												 <div class="fr">
-														 <a href="#" class="page-button button-style-1 type-2"><span class="txt">
-																 <?= $enc->html( $this->translate( 'client', 'Add to basket' ), $enc::TRUST ) ?>
-														 </span></a>
-												 </div>
-											</div>
-											</aside>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="empty-sm-0 empty-xs-15"></div>
-					 </div>
-			 </div>
 		</div>
-
 
 <?php endforeach ?>

@@ -68,12 +68,25 @@ Pinned products<span class="count">0</span>
 </ul>
 </div>
 </section>
-";s:9:"_previous";a:1:{s:3:"url";s:38:"http://localhost:8007/shop/favicon.ico";}s:6:"_flash";a:2:{s:3:"old";a:0:{}s:3:"new";a:0:{}}s:40:"aimeos/catalog/lists/params/last/default";a:2:{s:6:"f_name";s:6:"potato";s:7:"f_catid";s:1:"3";}s:3:"url";a:0:{}s:50:"login_web_59ba36addc2b2f9401580f014c7f58ea4e30989d";i:1;s:32:"aimeos/catalog/session/seen/list";a:1:{i:15;s:250:"
+";s:9:"_previous";a:1:{s:3:"url";s:38:"http://localhost:8007/shop/favicon.ico";}s:6:"_flash";a:2:{s:3:"old";a:0:{}s:3:"new";a:0:{}}s:40:"aimeos/catalog/lists/params/last/default";a:2:{s:6:"f_name";s:6:"potato";s:7:"f_catid";s:1:"3";}s:3:"url";a:0:{}s:50:"login_web_59ba36addc2b2f9401580f014c7f58ea4e30989d";i:1;s:32:"aimeos/catalog/session/seen/list";a:2:{i:15;s:250:"
 <a href="/shop/potato">
 
 <div class="media-item" style="background-image: url('/aimeos/1.d/preview/c/9/c9f36904_thumb-1920-19016.webp')"></div>
 
 <h2 class="name">potato</h2>
+
+<div class="price-list">
+<meta itemprop="price" content="">
+
+</div>
+
+</a>
+";i:16;s:261:"
+<a href="/shop/pomme">
+
+<div class="media-item" style="background-image: url('/aimeos/1.d/preview/6/f/6f525f41_portion-tomatoes-french-fries.webp')"></div>
+
+<h2 class="name">pomme</h2>
 
 <div class="price-list">
 <meta itemprop="price" content="">
