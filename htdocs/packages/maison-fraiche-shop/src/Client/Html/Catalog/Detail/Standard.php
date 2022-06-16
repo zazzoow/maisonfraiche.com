@@ -398,7 +398,7 @@ class Standard
 				 "order.datedelivery" => null,
 				 "order.statuspayment" => "4",
 				 "order.statusdelivery" => 0,
-				 "order.relatedid" => 0,
+				 "order.relatedid" => $productItem->getId(),
 			 ];
 
 			 $data['order.baseid'] = $itemBase->getId();

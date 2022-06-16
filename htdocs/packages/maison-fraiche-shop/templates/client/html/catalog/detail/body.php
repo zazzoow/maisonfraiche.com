@@ -141,97 +141,6 @@ $pos = 0;
 							</div>
 
 
-						<form class="basket" method="POST" action="<?= $enc->attr( $this->link( 'client/html/basket/standard/url' ) ) ?>">
-							<!-- catalog.detail.csrf -->
-							<?= $this->csrf()->formfield() ?>
-							<!-- catalog.detail.csrf -->
-
-							<?php if( $this->detailProductItem->getType() === 'select' ) : ?>
-
-								<div class="catalog-detail-basket-selection">
-
-									<?= $this->partial(
-										$this->config( 'client/html/common/partials/selection', 'common/partials/selection' ),
-										[
-											'productItems' => $this->detailProductItem->getRefItems( 'product', null, 'default' ),
-											'productItem' => $this->detailProductItem
-										]
-									) ?>
-
-								</div>
-
-							<?php elseif( $this->detailProductItem->getType() === 'group' ) : ?>
-
-								<div class="catalog-detail-basket-selection">
-
-									<?= $this->partial(
-										$this->config( 'client/html/catalog/detail/partials/group', 'catalog/detail/group' ),
-										[
-											'productItems' => $this->detailProductItem->getRefItems( 'product', null, 'default' ),
-											'productItem' => $this->detailProductItem
-										]
-									) ?>
-
-								</div>
-
-							<?php endif ?>
-
-							<div class="catalog-detail-basket-attribute">
-
-								<?= $this->partial(
-									$this->config( 'client/html/common/partials/attribute', 'common/partials/attribute' ),
-									['productItem' => $this->detailProductItem]
-								) ?>
-
-							</div>
-
-
-							<div class="stock-list">
-								<div class="articleitem <?= !in_array( $this->detailProductItem->getType(), ['select', 'group'] ) ? 'stock-actual' : '' ?>"
-									data-prodid="<?= $enc->attr( $this->detailProductItem->getId() ) ?>">
-								</div>
-
-								<?php foreach( $this->detailProductItem->getRefItems( 'product', null, 'default' ) as $articleId => $articleItem ) : ?>
-
-									<div class="articleitem" data-prodid="<?= $enc->attr( $articleId ) ?>"></div>
-
-								<?php endforeach ?>
-
-							</div>
-
-
-							<?php if( !$this->detailProductItem->getRefItems( 'price', 'default', 'default' )->empty() ) : ?>
-								<div class="addbasket">
-									<input type="hidden" value="add" name="<?= $enc->attr( $this->formparam( 'b_action' ) ) ?>">
-									<input type="hidden"
-										name="<?= $enc->attr( $this->formparam( ['b_prod', 0, 'prodid'] ) ) ?>"
-										value="<?= $enc->attr( $this->detailProductItem->getId() ) ?>"
-									>
-									<div class="input-group">
-										<?php if( $this->detailProductItem->getType() !== 'group' ) : ?>
-											<input type="number" class="form-control input-lg" <?= !$this->detailProductItem->isAvailable() ? 'disabled' : '' ?>
-												name="<?= $enc->attr( $this->formparam( ['b_prod', 0, 'quantity'] ) ) ?>"
-												step="<?= $this->detailProductItem->getScale() ?>"
-												min="<?= $this->detailProductItem->getScale() ?>" max="2147483647"
-												value="<?= $this->detailProductItem->getScale() ?>" required="required"
-												title="<?= $enc->attr( $this->translate( 'client', 'Quantity' ) ) ?>"
-											>
-										<?php endif ?>
-										<button class="btn btn-primary btn-lg btn-action" type="submit" value="" <?= !$this->detailProductItem->isAvailable() ? 'disabled' : '' ?>>
-											<?= $enc->html( $this->translate( 'client', 'Add to basket' ), $enc::TRUST ) ?>
-										</button>
-									</div>
-								</div>
-							<?php endif ?>
-
-						</form>
-
-
-							<form class="basket" method="POST" action="<?= $enc->attr( $url ) ?>">
-
-							<!-- catalog.detail.csrf -->
-									 <?= $this->csrf()->formfield() ?>
-							<!-- catalog.detail.csrf -->
 
 			            <div class="buy-bar type-2">
 			               <div class="fl">
@@ -263,84 +172,63 @@ $pos = 0;
 														<span class="txt">
 													        <?= $enc->html( $this->translate( 'client', 'Add to basket' ), $enc::TRUST ) ?>
 												    </span>
+												  </a>
 
 														 <!-- Modal -->
-														 <div class="modal top fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-mdb-backdrop="true" data-mdb-keyboard="true">
-														   <div class="modal-dialog modal-lg ">
+														 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+															 <div class="modal-dialog" role="document">
 														     <div class="modal-content">
-														       <div class="modal-header">
-														         <h5 class="modal-title" id="exampleModalLabel">
-																			 Confirmation
-																		 </h5>
-														         <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
-														       </div>
-														       <div class="modal-body">
-																		 <div class="block description simple-text">
+																	 <div class="modal-body">
 
-									 											<div class="long item">
-																					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-																				</div>
+																					 <form class="basket" method="POST" action="<?= $enc->attr( $url ) ?>">
 
-									 									</div>
-																	 </div>
-														       <div class="modal-footer">
-														         <button type="submit" class="page-button button-style-1 type-2">
-																			 <span class="txt">
-																					<?= $enc->html( $this->translate( 'client', 'order' ), $enc::TRUST ) ?>
-																			 </span>
-																		 </button>
-														       </div>
+																	 									 <?= $this->csrf()->formfield() ?>
+
+																										 <div class="cf_response"></div>
+
+																	 							<input type="hidden" value="add" name="<?= $enc->attr( $this->formparam( 'b_action' ) ) ?>">
+																	 							<input type="hidden"
+																	 											name="<?= $enc->attr( $this->formparam( ['b_prod', 0, 'prodid'] ) ) ?>"
+																	 											value="<?= $enc->attr( $this->detailProductItem->getId() ) ?>">
+
+																					       <div class="modal-header">
+																					         <h5 class="modal-title" id="exampleModalLabel">
+																										 Confirmation
+																									 </h5>
+																					         <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+																					       </div>
+
+																									 <div class="block description simple-text">
+
+																 											<div class="long item">
+																												Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+																											</div>
+
+																 									</div>
+
+																					       <div class="modal-footer">
+																					         <button type="submit" class="page-button button-style-1 type-2">
+																										 <span class="txt">
+																												<?= $enc->html( $this->translate( 'client', 'order' ), $enc::TRUST ) ?>
+																										 </span>
+																									 </button>
+																					       </div>
+																					 </form>
+																     </div>
 														     </div>
 														   </div>
 														 </div>
-											   </a>
+
 			               </div>
 			            </div>
-     					</form>
+
             </aside>
           </div>
         </div>
       </div>
     </section>
 
-		<form class="basket" method="POST" action="<?= $enc->attr( $url ) ?>">
 
-		<!-- catalog.detail.csrf -->
-				 <?= $this->csrf()->formfield() ?>
-		<!-- catalog.detail.csrf -->
-		<input type="hidden" value="add" name="<?= $enc->attr( $this->formparam( 'b_action' ) ) ?>">
-		<input type="hidden"
-						name="<?= $enc->attr( $this->formparam( ['b_prod', 0, 'prodid'] ) ) ?>"
-						value="<?= $enc->attr( $this->detailProductItem->getId() ) ?>">
-
-							<div class="custom-input-number type-2">
-								<button type="button" class="cin-btn cin-decrement">
-									<img src="<?= asset('delice') ?>/img/left_arr.png" alt="">
-								</button>
-								<?php if( $this->detailProductItem->getType() !== 'group' ) : ?>
-									<input type="number" class="form-control cin-input input-field" <?= !$this->detailProductItem->isAvailable() ? 'disabled' : '' ?>
-										name="<?= $enc->attr( $this->formparam( ['b_prod', 0, 'quantity'] ) ) ?>"
-										step="<?= $this->detailProductItem->getScale() ?>"
-										min="<?= $this->detailProductItem->getScale() ?>" max="2147483647"
-										value="<?= $this->detailProductItem->getScale() ?>" required="required"
-										title="<?= $enc->attr( $this->translate( 'client', 'Quantity' ) ) ?>"
-									>
-								<?php endif ?>
-								<button type="button" class="cin-btn cin-increment">
-									<img src="<?= asset('delice') ?>/img/right_arr.png" alt="">
-								</button>
-							</div>
-					 <div class="fr">
-							 <div class="modal-footer">
-								 <button type="submit" class="page-button button-style-1 type-2">
-									 <span class="txt">
-											<?= $enc->html( $this->translate( 'client', 'order' ), $enc::TRUST ) ?>
-									 </span>
-								 </button>
-				      </div>
-					 </div>
-				</div>
-		</form>
 
     <section class="section">
       <div class="empty-lg-50 empty-md-50 empty-sm-40 empty-xs-30"></div>
