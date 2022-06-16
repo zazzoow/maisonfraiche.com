@@ -1,22 +1,11 @@
 <?php
 
-/**
- * @license LGPLv3, http://opensource.org/licenses/LGPL-3.0
- * @copyright Aimeos (aimeos.org), 2015-2022
- * @package Client
- * @subpackage Html
- */
-
 
 namespace Aimeos\Client\Html\Catalog\Detail;
 
+use Illuminate\Support\Facades\DB;
 
-/**
- * Default implementation of catalog detail section HTML clients.
- *
- * @package Client
- * @subpackage Html
- */
+
 class Standard
 	extends \Aimeos\Client\Html\Catalog\Base
 	implements \Aimeos\Client\Html\Common\Client\Factory\Iface
@@ -25,13 +14,6 @@ class Standard
 	private $expire;
 	private $view;
 
-
-	/**
-	 * Returns the HTML code for insertion into the body.
-	 *
-	 * @param string $uid Unique identifier for the output if the content is placed more than once on the same page
-	 * @return string HTML code
-	 */
 	public function body( string $uid = '' ) : string
 	{
 		$view = $this->view();
@@ -45,54 +27,12 @@ class Standard
 			return '';
 		}
 
-		/** client/html/catalog/detail/cache
-		 * Enables or disables caching only for the catalog detail component
-		 *
-		 * Disable caching for components can be useful if you would have too much
-		 * entries to cache or if the component contains non-cacheable parts that
-		 * can't be replaced using the modify() method.
-		 *
-		 * @param boolean True to enable caching, false to disable
-		 * @see client/html/catalog/filter/cache
-		 * @see client/html/catalog/lists/cache
-		 * @see client/html/catalog/stage/cache
-		 */
-
-		/** client/html/catalog/detail
-		 * All parameters defined for the catalog detail component and its subparts
-		 *
-		 * This returns all settings related to the detail component.
-		 * Please refer to the single settings for details.
-		 *
-		 * @param array Associative list of name/value settings
-		 * @see client/html/catalog#detail
-		 */
 		$confkey = 'client/html/catalog/detail';
 
 		if( $html = $this->cached( 'body', $uid, $prefixes, $confkey ) ) {
 			return $this->modify( $html, $uid );
 		}
 
-		/** client/html/catalog/detail/template-body
-		 * Relative path to the HTML body template of the catalog detail client.
-		 *
-		 * The template file contains the HTML code and processing instructions
-		 * to generate the result shown in the body of the frontend. The
-		 * configuration string is the path to the template file relative
-		 * to the templates directory (usually in client/html/templates).
-		 *
-		 * You can overwrite the template file configuration in extensions and
-		 * provide alternative templates. These alternative templates should be
-		 * named like the default one but suffixed by
-		 * an unique name. You may use the name of your project for this. If
-		 * you've implemented an alternative client class as well, it
-		 * should be suffixed by the name of the new class.
-		 *
-		 * @param string Relative path to the template creating code for the HTML page body
-		 * @since 2014.03
-		 * @see client/html/catalog/detail/template-header
-		 * @see client/html/catalog/detail/404
-		 */
 		$template = $config->get( 'client/html/catalog/detail/template-body', 'catalog/detail/body' );
 
 		$view = $this->view = $this->view ?? $this->object()->data( $view, $this->tags, $this->expire );
@@ -102,12 +42,6 @@ class Standard
 	}
 
 
-	/**
-	 * Returns the HTML string for insertion into the header.
-	 *
-	 * @param string $uid Unique identifier for the output if the content is placed more than once on the same page
-	 * @return string|null String including HTML tags for the header on error
-	 */
 	public function header( string $uid = '' ) : ?string
 	{
 		$view = $this->view();
@@ -126,27 +60,6 @@ class Standard
 			return $this->modify( $html, $uid );
 		}
 
-		/** client/html/catalog/detail/template-header
-		 * Relative path to the HTML header template of the catalog detail client.
-		 *
-		 * The template file contains the HTML code and processing instructions
-		 * to generate the HTML code that is inserted into the HTML page header
-		 * of the rendered page in the frontend. The configuration string is the
-		 * path to the template file relative to the templates directory (usually
-		 * in client/html/templates).
-		 *
-		 * You can overwrite the template file configuration in extensions and
-		 * provide alternative templates. These alternative templates should be
-		 * named like the default one but suffixed by
-		 * an unique name. You may use the name of your project for this. If
-		 * you've implemented an alternative client class as well, it
-		 * should be suffixed by the name of the new class.
-		 *
-		 * @param string Relative path to the template creating code for the HTML page head
-		 * @since 2014.03
-		 * @see client/html/catalog/detail/template-body
-		 * @see client/html/catalog/detail/404
-		 */
 		$template = $config->get( 'client/html/catalog/detail/template-header', 'catalog/detail/header' );
 
 		$view = $this->view = $this->view ?? $this->object()->data( $this->view(), $this->tags, $this->expire );
@@ -155,14 +68,6 @@ class Standard
 		return $this->cache( 'header', $uid, $prefixes, $confkey, $html, $this->tags, $this->expire );
 	}
 
-
-	/**
-	 * Modifies the cached content to replace content based on sessions or cookies.
-	 *
-	 * @param string $content Cached content
-	 * @param string $uid Unique identifier for the output if the content is placed more than once on the same page
-	 * @return string Modified content
-	 */
 	public function modify( string $content, string $uid ) : string
 	{
 		$content = $this->replaceSection( $content, $this->navigator(), 'catalog.detail.navigator' );
@@ -170,16 +75,19 @@ class Standard
 	}
 
 
-	/**
-	 * Processes the input, e.g. store given values.
-	 *
-	 * A view must be available and this method doesn't generate any output
-	 * besides setting view variables if necessary.
-	 */
 	public function init()
 	{
 		$context = $this->context();
 		$session = $context->session();
+
+		$view = $this->view();
+
+
+		if( $view->param('b_action') == 'add' && $this->context()->getUserId() !== null ) {
+
+			// $this->createOrderItem();
+			$this->saveOrderItem();
+	  }
 
 		$site = $context->locale()->getSiteItem()->getCode();
 		$params = $this->getClientParams( $this->view()->param() );
@@ -187,15 +95,6 @@ class Standard
 		$session->set( 'aimeos/catalog/detail/params/last/' . $site, $params );
 	}
 
-
-	/**
-	 * Sets the necessary parameter values in the view.
-	 *
-	 * @param \Aimeos\Base\View\Iface $view The view object which generates the HTML output
-	 * @param array &$tags Result array for the list of tags that are associated to the output
-	 * @param string|null &$expire Result variable for the expiration date of the output (null for no expiry)
-	 * @return \Aimeos\Base\View\Iface Modified view object
-	 */
 	public function data( \Aimeos\Base\View\Iface $view, array &$tags = [], string &$expire = null ) : \Aimeos\Base\View\Iface
 	{
 		$context = $this->context();
@@ -205,63 +104,12 @@ class Standard
 			'product', 'product/property', 'supplier', 'supplier/address', 'text'
 		];
 
-		/** client/html/catalog/domains
-		 * A list of domain names whose items should be available in the catalog view templates
-		 *
-		 * @see client/html/catalog/detail/domains
-		 */
 		$domains = $config->get( 'client/html/catalog/domains', $domains );
 
-		/** client/html/catalog/detail/domains
-		 * A list of domain names whose items should be available in the product detail view template
-		 *
-		 * The templates rendering product details usually add the images,
-		 * prices, texts, attributes, products, etc. associated to the product
-		 * item. If you want to display additional or less content, you can
-		 * configure your own list of domains (attribute, media, price, product,
-		 * text, etc. are domains) whose items are fetched from the storage.
-		 * Please keep in mind that the more domains you add to the configuration,
-		 * the more time is required for fetching the content!
-		 *
-		 * Since version 2014.05 this configuration option overwrites the
-		 * "client/html/catalog/domains" option that allows to configure the
-		 * domain names of the items fetched for all catalog related data.
-		 *
-		 * @param array List of domain names
-		 * @since 2014.03
-		 * @see client/html/catalog/domains
-		 * @see client/html/catalog/lists/domains
-		 */
 		$domains = $config->get( 'client/html/catalog/detail/domains', $domains );
 
-		/** client/html/catalog/detail/prodid-default
-		 * The default product ID used if none is given as parameter
-		 *
-		 * To display a product detail view or a part of it for a specific
-		 * product, you can configure its ID using this setting. This is
-		 * most useful in a CMS where the product ID can be configured
-		 * separately for each content node.
-		 *
-		 * @param string Product ID
-		 * @since 2016.01
-		 * @see client/html/catalog/detail/prodid-default
-		 * @see client/html/catalog/lists/catid-default
-		 */
 		$id = $view->param( 'd_prodid', $config->get( 'client/html/catalog/detail/prodid-default' ) );
 
-		/** client/html/catalog/detail/prodcode-default
-		 * The default product code used if none is given as parameter
-		 *
-		 * To display a product detail view or a part of it for a specific
-		 * product, you can configure its code using this setting. This is
-		 * most useful in a CMS where the product code can be configured
-		 * separately for each content node.
-		 *
-		 * @param string Product code
-		 * @since 2019.10
-		 * @see client/html/catalog/detail/prodid-default
-		 * @see client/html/catalog/lists/catid-default
-		 */
 		$code = $config->get( 'client/html/catalog/detail/prodcode-default' );
 
 		$cntl = \Aimeos\Controller\Frontend::create( $context, 'product' )->uses( $domains );
@@ -294,26 +142,6 @@ class Standard
 			}
 		}
 
-		/** client/html/catalog/detail/stock/enable
-		 * Enables or disables displaying product stock levels in product detail view
-		 *
-		 * This configuration option allows shop owners to display product
-		 * stock levels for each product in the detail views or to disable
-		 * fetching product stock information.
-		 *
-		 * The stock information is fetched via AJAX and inserted via Javascript.
-		 * This allows to cache product items by leaving out such highly
-		 * dynamic content like stock levels which changes with each order.
-		 *
-		 * @param boolean Value of "1" to display stock levels, "0" to disable displaying them
-		 * @since 2014.03
-		 * @see client/html/catalog/lists/stock/enable
-		 * @see client/html/catalog/stock/url/target
-		 * @see client/html/catalog/stock/url/controller
-		 * @see client/html/catalog/stock/url/action
-		 * @see client/html/catalog/stock/url/config
-		 */
-
 		if( (bool) $view->config( 'client/html/catalog/detail/stock/enable', true ) === true )
 		{
 			$products = $productItem->getRefItems( 'product', null, 'default' )->push( $productItem );
@@ -332,14 +160,6 @@ class Standard
 	}
 
 
-	/**
-	 * Sets the necessary parameter values in the view.
-	 *
-	 * @param \Aimeos\Base\View\Iface $view The view object which generates the HTML output
-	 * @param array &$tags Result array for the list of tags that are associated to the output
-	 * @param string|null &$expire Result variable for the expiration date of the output (null for no expiry)
-	 * @return \Aimeos\Base\View\Iface Modified view object
-	 */
 	public function navigator() : string
 	{
 		$view = $this->view();
@@ -396,11 +216,6 @@ class Standard
 	}
 
 
-	/**
-	 * Adds the product to the list of last seen products.
-	 *
-	 * @param \Aimeos\MShop\Product\Item\Iface $product Product item
-	 */
 	protected function seen( \Aimeos\MShop\Product\Item\Iface $product )
 	{
 		$id = $product->getId();
@@ -412,36 +227,9 @@ class Standard
 		{
 			$config = $context->config();
 
-			/** client/html/catalog/detail/partials/seen
-			 * Relative path to the HTML body template of the catalog detail seen client.
-			 *
-			 * The template file contains the HTML code and processing instructions
-			 * to generate the result shown in the body of the frontend. The
-			 * configuration string is the path to the template file relative
-			 * to the templates directory (usually in client/html/templates).
-			 *
-			 * You can overwrite the template file configuration in extensions and
-			 * provide alternative templates. These alternative templates should be
-			 * named like the default one but suffixed by
-			 * an unique name. You may use the name of your project for this. If
-			 * you've implemented an alternative client class as well, it
-			 * should be suffixed by the name of the new class.
-			 *
-			 * @param string Relative path to the template creating the HTML fragment
-			 * @since 2014.03
-			 */
+
 			$template = $config->get( 'client/html/catalog/detail/partials/seen', 'catalog/detail/seen' );
 
-			/** client/html/catalog/session/seen/maxitems
-			 * Maximum number of products displayed in the "last seen" section
-			 *
-			 * This option limits the number of products that are shown in the
-			 * "last seen" section after the user visited their detail pages. It
-			 * must be a positive integer value greater than 0.
-			 *
-			 * @param integer Number of products
-			 * @since 2014.03
-			 */
 			$max = $config->get( 'client/html/catalog/session/seen/maxitems', 6 );
 
 			$html = $this->view()->set( 'product', $product )->render( $template );
@@ -450,4 +238,431 @@ class Standard
 
 		$session->set( 'aimeos/catalog/session/seen/list', $lastSeen->put( $id, $lastSeen->pull( $id ) )->all() );
 	}
+
+	protected function saveOrderItem()
+  {
+     $context = $this->context();
+
+		 $view = $this->view();
+
+     $manager = \Aimeos\MShop::create( $this->context(), 'order' );
+		 $managerBase = \Aimeos\MShop::create( $this->context(), 'order/base' );
+		 $managerAddressBase = \Aimeos\MShop::create( $this->context(), 'order/base/address' );
+		 $managerProductBase = \Aimeos\MShop::create( $this->context(), 'order/base/product' );
+
+		 $managerProduct = \Aimeos\MShop::create( $this->context(), 'product' );
+
+     $manager->begin();
+     $managerBase->begin();
+     $managerProduct->begin();
+		 $managerAddressBase->begin();
+		 $managerProductBase->begin();
+
+		 $user = DB::table('users')->where( 'id' , $context->getUserId() )->get()->first();
+
+		 $productid = $view->param('b_prod/0/prodid');
+
+		 $productItem = $managerProduct->get( $productid,  ['price','media'] );
+
+		 if( !( $productItem->getRefItems('media')->isEmpty() ) ) {
+			 $mediaItem = $productItem->getRefItems('media')->first();
+		 }
+		 else {
+			 $mediaItem = '';
+		 }
+
+		 if( !( $productItem->getRefItems('price')->isEmpty() ) ) {
+
+			 $priceItem = $productItem->getRefItems('price')->first();
+
+			 $price = $priceItem->getValue();
+			 $costs = $priceItem->getCosts();
+			 $tax = $priceItem->getTaxRate();
+			 $rebate = $priceItem->getRebate();
+		 }
+		 else {
+			 $price = '0.00';
+			 $costs = '0.00';
+			 $tax = '0.00';
+			 $rebate = '0.00';
+		 }
+
+
+     try
+     {
+			 $dataBase = [
+					"order.baseid" => null,
+					"order.base.languageid" => $context->getLocale()->getLanguageId(),
+					"order.base.customerid" => $context->getUserId(),
+					"order.base.customerref" => null,
+					"order.base.price" => '0.00',
+					"order.base.costs" => '0.00',
+					"order.base.rebate" => '0.00',
+					"order.base.tax" => '0.00',
+					"order.base.comment" => null,
+					"order.base.comment" => $view->param('cs_comment'),
+			 ];
+
+			 // $dataBase = [
+				// 	"order.baseid" => null,
+				// 	"order.base.languageid" => $context->getLocale()->getLanguageId(),
+				// 	"order.base.customerid" => $context->getUserId(),
+				// 	"order.base.customerref" => null,
+				// 	"order.base.price" => $price,
+				// 	"order.base.costs" => $costs,
+				// 	"order.base.rebate" => $rebate,
+				// 	"order.base.tax" => $tax,
+				// 	"order.base.comment" => null,
+				// 	"order.base.comment" => $view->param('cs_comment'),
+			 // ];
+
+			 $dataAddressBase = [
+					"order.base.address.email" => $user->email,
+					"order.base.address.languageid" => $user->langid,
+					"order.base.address.salutation" => $user->salutation,
+					"order.base.address.title" => $user->title,
+					"order.base.address.lastname" => $user->lastname,
+					"order.base.address.firstname" => $user->firstname,
+					"order.base.address.address1" => $user->address1,
+					"order.base.address.address2" =>$user->address2,
+					"order.base.address.address3" =>$user->address3,
+					"order.base.address.postal" => $user->postal,
+					"order.base.address.city" => $user->city,
+					"order.base.address.countryid" => $user->countryid,
+					"order.base.address.state" => $user->state,
+					"order.base.address.telephone" => $user->telephone,
+					"order.base.address.telefax" => $user->telefax,
+					"order.base.address.website" => $user->website,
+					"order.base.address.company" => $user->company,
+					"order.base.address.vatid" => $user->vatid,
+			 ];
+
+
+			 $dataProductBase = [
+				   "order.base.product.prodid" => $productItem->getId(),
+					 "order.base.product.qtyopen" => $view->param('b_prod/0/quantity') ,
+					 "order.base.product.type" => $productItem->getType(),
+					 "order.base.product.stocktype" => "default",
+					 "order.base.product.prodcode" => $productItem->getCode(),
+					 "order.base.product.supplierid" => "",
+					 "order.base.product.suppliername" => "",
+					 "order.base.product.currencyid" => "EUR",
+					 "order.base.product.taxflag" => true,
+					 "order.base.product.name" => $productItem->getName(),
+					 "order.base.product.description" => "",
+					 "order.base.product.mediaurl" => $mediaItem->getUrl(),
+					 "order.base.product.timeframe" => "",
+					 "order.base.product.position" => 0,
+					 "order.base.product.notes" => "",
+					 "order.base.product.statuspayment" => "4",
+					 "order.base.product.statusdelivery" => null,
+					 "order.base.product.timeframe" => '',
+					 "order.base.product.notes" => '',
+					 "order.base.product.status" => -1,
+			 ];
+
+			 $itemBase = $managerBase->create( $dataBase );
+       $itemBase = $itemBase->setModified();
+			 $itemBase = $managerBase->save( $itemBase );
+			 $itemBase = $itemBase->setModified();
+
+			 $managerBase->commit();
+			 $managerBase->commit();
+			 $managerBase->commit();
+
+			 $dataAddressBase['order.base.address.baseid'] = $itemBase->getId();
+
+			 $itemAddressBase = $managerAddressBase->create( $dataAddressBase );
+			 $itemAddressBase = $itemAddressBase->setModified();
+			 $itemAddressBase = $managerAddressBase->save( $itemAddressBase );
+			 $itemAddressBase = $itemAddressBase->setModified();
+
+			 $managerAddressBase->commit();
+			 $managerAddressBase->commit();
+			 $managerAddressBase->commit();
+
+			 $dataProductBase['order.base.product.baseid'] = $itemBase->getId();
+
+			 $itemProductBase = $managerProductBase->create( $dataProductBase );
+       $itemProductBase = $itemProductBase->setModified();
+			 $itemProductBase = $managerProductBase->save( $itemProductBase );
+			 $itemProductBase = $itemProductBase->setModified();
+
+			 $managerProductBase->commit();
+			 $managerProductBase->commit();
+			 $managerProductBase->commit();
+
+			 $data = [
+				 "order.siteid" => "1.",
+				 "order.type" => "web",
+				 "order.datedelivery" => null,
+				 "order.statuspayment" => "4",
+				 "order.statusdelivery" => null,
+				 "order.relatedid" => null,
+			 ];
+
+			 $data['order.baseid'] = $itemBase->getId();
+
+			 $item = $manager->create( $data );
+
+			 $item = $item->setModified();
+
+			 $item = $manager->save( $item );
+
+			 $item = $item->setModified();
+
+			 $manager->commit();
+			 $manager->commit();
+			 $manager->commit();
+
+     }
+     catch( \Exception $e )
+     {
+       $manager->rollback();
+			 $error = array( $context->translate( 'client', 'A non-recoverable error occured' ) );
+ 			 $view->detailErrorList = array_merge( $view->get( 'detailErrorList', [] ), $error );
+  		 $this->logException( $e );
+     }
+
+  }
+
+	protected function fromArray( \Aimeos\MShop\Order\Item\Base\Iface $order, array $data )
+	{
+		$invoiceIds = $this->getValue( $data, 'order.id', [] );
+		$manager = \Aimeos\MShop::create( $this->context(), 'order' );
+
+		$search = $manager->filter()->slice( 0, count( $invoiceIds ) );
+		$search->setConditions( $search->compare( '==', 'order.id', $invoiceIds ) );
+
+		$items = $manager->search( $search );
+
+
+		foreach( $invoiceIds as $idx => $id )
+		{
+			if( !isset( $items[$id] ) ) {
+				$item = $manager->create();
+			} else {
+				$item = $items[$id];
+			}
+
+			$item->setType( $this->getValue( $data, 'order.type/' . $idx, $item->getType() ) );
+			$value = $this->getValue( $data, 'order.statusdelivery/' . $idx );
+			$item->setStatusDelivery( is_numeric( $value ) ? (int) $value : null );
+			$value = $this->getValue( $data, 'order.statuspayment/' . $idx );
+			$item->setStatusPayment( is_numeric( $value ) ? (int) $value : null );
+			$item->setDateDelivery( $this->getValue( $data, 'order.datedelivery/' . $idx ) );
+			$item->setDatePayment( $this->getValue( $data, 'order.datepayment/' . $idx ) );
+			$item->setRelatedId( $this->getValue( $data, 'order.relatedid/' . $idx ) );
+			$item->setBaseId( $order->getId() );
+
+			$manager->save( $item );
+		}
+	}
+
+	protected function toArray( \Aimeos\Map $invoices ) : array
+	{
+		$data = [];
+
+		foreach( $invoices as $item )
+		{
+			foreach( $item->toArray( true ) as $key => $value ) {
+				$data[$key][] = $value;
+			}
+		}
+
+		return $data;
+	}
+
+	protected function getSubClientNames() : array
+	{
+		return $this->context()->config()->get( $this->subPartPath, $this->subPartNames );
+	}
+
+	protected function getValue( array $values, $key, $default = null )
+	{
+		foreach( explode( '/', trim( $key, '/' ) ) as $part )
+		{
+			if( array_key_exists( $part, $values ) ) {
+				$values = $values[$part];
+			} else {
+				return $default;
+			}
+		}
+
+		return $values;
+	}
+
+	protected function fromArrayBase( array $data ) : \Aimeos\MShop\Order\Item\Base\Iface
+	{
+		$manager = \Aimeos\MShop::create( $this->context(), 'order/base' );
+		$attrManager = \Aimeos\MShop::create( $this->context(), 'order/base/service/attribute' );
+		$domains = ['order/base/address', 'order/base/product', 'order/base/service'];
+
+		if( isset( $data['order.base.id'] ) ) {
+			$basket = $manager->get( $data['order.base.id'], $domains )->off();
+		} else {
+			$basket = $manager->create()->off();
+		}
+
+		$basket->fromArray( $data, true );
+		$allowed = array_flip( [
+			'order.base.product.statusdelivery',
+			'order.base.product.statuspayment',
+			'order.base.product.qtyopen',
+			'order.base.product.timeframe',
+			'order.base.product.notes',
+		] );
+
+		foreach( $basket->getProducts() as $pos => $product )
+		{
+			$list = array_intersect_key( $data['product'][$pos], $allowed );
+			$product->fromArray( $list );
+		}
+
+		foreach( $basket->getAddresses() as $type => $addresses )
+		{
+			foreach( $addresses as $pos => $address )
+			{
+				if( isset( $data['address'][$type][$pos] ) ) {
+					$list = (array) $data['address'][$type][$pos];
+					$basket->addAddress( $address->fromArray( $list, true ), $type, $pos );
+				} else {
+					$basket->deleteAddress( $type, $pos );
+				}
+			}
+		}
+
+		foreach( $basket->getServices() as $type => $services )
+		{
+			foreach( $services as $index => $service )
+			{
+				$list = [];
+				$attrItems = $service->getAttributeItems();
+
+				if( isset( $data['service'][$type][$service->getServiceId()] ) )
+				{
+					foreach( (array) $data['service'][$type][$service->getServiceId()] as $key => $pair )
+					{
+						foreach( $pair as $pos => $value ) {
+							$list[$pos][$key] = $value;
+						}
+					}
+
+					foreach( $list as $array )
+					{
+						if( isset( $attrItems[$array['order.base.service.attribute.id']] ) )
+						{
+							$attrItem = $attrItems[$array['order.base.service.attribute.id']];
+							unset( $attrItems[$array['order.base.service.attribute.id']] );
+						}
+						else
+						{
+							$attrItem = $attrManager->create();
+						}
+
+						$attrItem->fromArray( $array, true );
+						$attrItem->setParentId( $service->getId() );
+
+						$item = $attrManager->save( $attrItem );
+					}
+				}
+
+				$attrManager->delete( $attrItems->toArray() );
+			}
+		}
+
+		return $basket;
+	}
+
+	protected function toArrayBase( \Aimeos\MShop\Order\Item\Base\Iface $item, bool $copy = false ) : array
+	{
+		$siteId = $this->context()->getLocale()->getSiteId();
+		$data = $item->toArray( true );
+
+		if( $item->getCustomerId() != '' )
+		{
+			$manager = \Aimeos\MShop::create( $this->context(), 'customer' );
+
+			try {
+				$data += $manager->get( $item->getCustomerId() )->toArray();
+			} catch( \Exception $e ) {};
+		}
+
+
+		if( $copy === true )
+		{
+			$data['order.base.siteid'] = $siteId;
+			$data['order.base.id'] = '';
+		}
+
+		foreach( $item->getAddresses() as $type => $addresses )
+		{
+			foreach( $addresses as $pos => $addrItem )
+			{
+				$list = $addrItem->toArray( true );
+
+				foreach( $list as $key => $value ) {
+					$data['address'][$type][$pos][$key] = $value;
+				}
+
+				if( $copy === true )
+				{
+					$data['address'][$type][$pos]['order.base.address.siteid'] = $siteId;
+					$data['address'][$type][$pos]['order.base.address.id'] = '';
+				}
+			}
+		}
+
+		if( $copy !== true )
+		{
+			foreach( $item->getServices() as $type => $services )
+			{
+				foreach( $services as $serviceItem )
+				{
+					$serviceId = $serviceItem->getServiceId();
+
+					foreach( $serviceItem->getAttributeItems() as $attrItem )
+					{
+						foreach( $attrItem->toArray( true ) as $key => $value ) {
+							$data['service'][$type][$serviceId][$key][] = $value;
+						}
+					}
+				}
+			}
+		}
+
+		foreach( $item->getProducts() as $pos => $productItem ) {
+			$data['product'][$pos] = $productItem->toArray();
+		}
+
+		return $data;
+	}
+
+	protected function createOrderItem()
+  {
+    $context = $this->context();
+
+		$view = $this->view();
+
+
+    try
+    {
+      $data = [];
+
+      if( !isset( $view->item ) ) {
+        $view->item = \Aimeos\MShop::create( $this->context(), 'order' )->create();
+      }
+
+      $data['order.siteid'] = $view->item->getSiteId();
+
+      $view->itemData = array_replace_recursive( $this->toArray( $view->item ), $data );
+    }
+    catch( \Exception $e )
+    {
+      $error = array( $context->translate( 'client', 'A non-recoverable error occured' ) );
+			$view->detailErrorList = array_merge( $view->get( 'detailErrorList', [] ), $error );
+			$this->logException( $e );
+    }
+
+  }
 }
