@@ -83,7 +83,7 @@ class Standard
 		$view = $this->view();
 
 
-		if( $view->param('b_action') == 'add' && $this->context()->getUserId() !== null ) {
+		if( $view->param('b_action') == 'add' && $this->context()->user() !== null ) {
 
 			// $this->createOrderItem();
 			$this->saveOrderItem();
@@ -227,7 +227,6 @@ class Standard
 		{
 			$config = $context->config();
 
-
 			$template = $config->get( 'client/html/catalog/detail/partials/seen', 'catalog/detail/seen' );
 
 			$max = $config->get( 'client/html/catalog/session/seen/maxitems', 6 );
@@ -258,7 +257,8 @@ class Standard
 		 $managerAddressBase->begin();
 		 $managerProductBase->begin();
 
-		 $user = DB::table('users')->where( 'id' , $context->getUserId() )->get()->first();
+
+		 $user = DB::table('users')->where( 'id' , $this->context()->user() )->get()->first();
 
 		 $productid = $view->param('b_prod/0/prodid');
 
@@ -292,8 +292,8 @@ class Standard
      {
 			 $dataBase = [
 					"order.baseid" => null,
-					"order.base.languageid" => $context->getLocale()->getLanguageId(),
-					"order.base.customerid" => $context->getUserId(),
+					"order.base.languageid" => $context->locale()->getLanguageId(),
+					"order.base.customerid" => $context->user(),
 					"order.base.customerref" => null,
 					"order.base.price" => '0.00',
 					"order.base.costs" => '0.00',
@@ -305,8 +305,8 @@ class Standard
 
 			 // $dataBase = [
 				// 	"order.baseid" => null,
-				// 	"order.base.languageid" => $context->getLocale()->getLanguageId(),
-				// 	"order.base.customerid" => $context->getUserId(),
+				// 	"order.base.languageid" => $context->locale()->getLanguageId(),
+				// 	"order.base.customerid" => $context->user(),
 				// 	"order.base.customerref" => null,
 				// 	"order.base.price" => $price,
 				// 	"order.base.costs" => $costs,
@@ -337,7 +337,6 @@ class Standard
 					"order.base.address.vatid" => $user->vatid,
 			 ];
 
-
 			 $dataProductBase = [
 				   "order.base.product.prodid" => $productItem->getId(),
 					 "order.base.product.qtyopen" => $view->param('b_prod/0/quantity') ,
@@ -355,7 +354,7 @@ class Standard
 					 "order.base.product.position" => 0,
 					 "order.base.product.notes" => "",
 					 "order.base.product.statuspayment" => "4",
-					 "order.base.product.statusdelivery" => null,
+					 "order.base.product.statusdelivery" => 0,
 					 "order.base.product.timeframe" => '',
 					 "order.base.product.notes" => '',
 					 "order.base.product.status" => -1,
@@ -365,6 +364,7 @@ class Standard
        $itemBase = $itemBase->setModified();
 			 $itemBase = $managerBase->save( $itemBase );
 			 $itemBase = $itemBase->setModified();
+
 
 			 $managerBase->commit();
 			 $managerBase->commit();
@@ -397,8 +397,8 @@ class Standard
 				 "order.type" => "web",
 				 "order.datedelivery" => null,
 				 "order.statuspayment" => "4",
-				 "order.statusdelivery" => null,
-				 "order.relatedid" => null,
+				 "order.statusdelivery" => 0,
+				 "order.relatedid" => 0,
 			 ];
 
 			 $data['order.baseid'] = $itemBase->getId();
@@ -418,6 +418,7 @@ class Standard
      }
      catch( \Exception $e )
      {
+			 dd($e);
        $manager->rollback();
 			 $error = array( $context->translate( 'client', 'A non-recoverable error occured' ) );
  			 $view->detailErrorList = array_merge( $view->get( 'detailErrorList', [] ), $error );
@@ -576,7 +577,7 @@ class Standard
 
 	protected function toArrayBase( \Aimeos\MShop\Order\Item\Base\Iface $item, bool $copy = false ) : array
 	{
-		$siteId = $this->context()->getLocale()->getSiteId();
+		$siteId = $this->context()->locale()->getSiteId();
 		$data = $item->toArray( true );
 
 		if( $item->getCustomerId() != '' )
@@ -585,7 +586,9 @@ class Standard
 
 			try {
 				$data += $manager->get( $item->getCustomerId() )->toArray();
-			} catch( \Exception $e ) {};
+			} catch( \Exception $e ) {
+				dd($e);
+			};
 		}
 
 
@@ -659,6 +662,7 @@ class Standard
     }
     catch( \Exception $e )
     {
+			dd($e);
       $error = array( $context->translate( 'client', 'A non-recoverable error occured' ) );
 			$view->detailErrorList = array_merge( $view->get( 'detailErrorList', [] ), $error );
 			$this->logException( $e );

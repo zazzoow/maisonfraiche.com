@@ -29,7 +29,7 @@ return [
 				'domains' => [
 					 'media',
 					 'media/property',
-					 // 'price',
+					 'price',
 					 'text'
 			 ],
 				'url' => [

@@ -303,6 +303,45 @@ $pos = 0;
       </div>
     </section>
 
+		<form class="basket" method="POST" action="<?= $enc->attr( $url ) ?>">
+
+		<!-- catalog.detail.csrf -->
+				 <?= $this->csrf()->formfield() ?>
+		<!-- catalog.detail.csrf -->
+		<input type="hidden" value="add" name="<?= $enc->attr( $this->formparam( 'b_action' ) ) ?>">
+		<input type="hidden"
+						name="<?= $enc->attr( $this->formparam( ['b_prod', 0, 'prodid'] ) ) ?>"
+						value="<?= $enc->attr( $this->detailProductItem->getId() ) ?>">
+
+							<div class="custom-input-number type-2">
+								<button type="button" class="cin-btn cin-decrement">
+									<img src="<?= asset('delice') ?>/img/left_arr.png" alt="">
+								</button>
+								<?php if( $this->detailProductItem->getType() !== 'group' ) : ?>
+									<input type="number" class="form-control cin-input input-field" <?= !$this->detailProductItem->isAvailable() ? 'disabled' : '' ?>
+										name="<?= $enc->attr( $this->formparam( ['b_prod', 0, 'quantity'] ) ) ?>"
+										step="<?= $this->detailProductItem->getScale() ?>"
+										min="<?= $this->detailProductItem->getScale() ?>" max="2147483647"
+										value="<?= $this->detailProductItem->getScale() ?>" required="required"
+										title="<?= $enc->attr( $this->translate( 'client', 'Quantity' ) ) ?>"
+									>
+								<?php endif ?>
+								<button type="button" class="cin-btn cin-increment">
+									<img src="<?= asset('delice') ?>/img/right_arr.png" alt="">
+								</button>
+							</div>
+					 <div class="fr">
+							 <div class="modal-footer">
+								 <button type="submit" class="page-button button-style-1 type-2">
+									 <span class="txt">
+											<?= $enc->html( $this->translate( 'client', 'order' ), $enc::TRUST ) ?>
+									 </span>
+								 </button>
+				      </div>
+					 </div>
+				</div>
+		</form>
+
     <section class="section">
       <div class="empty-lg-50 empty-md-50 empty-sm-40 empty-xs-30"></div>
       <div class="container">
