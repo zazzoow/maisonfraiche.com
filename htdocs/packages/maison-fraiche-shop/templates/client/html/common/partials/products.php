@@ -16,14 +16,24 @@ $detailAction = $this->config( 'client/html/catalog/detail/url/action', 'detail'
 $detailConfig = $this->config( 'client/html/catalog/detail/url/config', [] );
 
 
+
+$listsTarget = $this->config( 'client/html/catalog/lists/url/target' );
+$listsController = $this->config( 'client/html/catalog/lists/url/controller', 'catalog' );
+$listsAction = $this->config( 'client/html/catalog/lists/url/action', 'lists' );
+$listsConfig = $this->config( 'client/html/catalog/lists/url/config', [] );
+
+
 $detailFilter = array_flip( $this->config( 'client/html/catalog/detail/url/filter', ['d_prodid'] ) );
 $count = 0;
+
 
 ?>
 <?php foreach( $this->get( 'products', [] ) as $id => $productItem ) : ?>
 	<?php
-		$params = array_diff_key( ['d_name' => $productItem->getName( 'url' ), 'd_prodid' => $productItem->getId(), 'd_pos' => $position !== null ? $position++ : ''], $detailFilter );
+		$params = array_diff_key( ['f_catid' => $this->param('f_catid'), 'f_name' => $this->param('f_name'), 'd_name' => $productItem->getName( 'url' ), 'd_prodid' => $productItem->getId(), 'd_pos' => $position !== null ? $position++ : ''], $detailFilter );
 		$url = $this->url( ( $productItem->getTarget() ?: $detailTarget ), $detailController, $detailAction, $params, [], $detailConfig );
+
+		$listsUrl = $this->link( 'client/html/catalog/tree/url', array_merge( ['f_name' => $this->param('f_name'), 'f_catid' => $this->param('f_catid')] ) );
 
 		$mediaItems = $productItem->getRefItems( 'media', 'default', 'default' );
 		$textItems = $productItem->getRefItems( 'text', 'short' );
@@ -136,34 +146,47 @@ $count = 0;
 										 </aside>
 										 <div class="empty-sm-25 empty-xs-20"></div>
 										 <aside>
-										 <div class="buy-bar type-2">
-												<div class="fl">
-													 <h5 class="h5 sm follow-title quntity"><?= $enc->attr( $this->translate( 'client', 'Quantity' ) ) ?></h5>
-													 <div class="custom-input-number type-2">
-														 <button type="button" class="cin-btn cin-decrement">
-															 <img src="<?= asset('delice') ?>/img/left_arr.png" alt="">
-														 </button>
-														 <?php if($productItem->getType() !== 'group' ) : ?>
-															 <input type="number" class="form-control cin-input input-field" <?= $productItem->isAvailable() ? 'disabled' : '' ?>
-																 name="<?= $enc->attr( $this->formparam( ['b_prod', 0, 'quantity'] ) ) ?>"
-																 step="<?=$productItem->getScale() ?>"
-																 min="<?=$productItem->getScale() ?>" max="2147483647"
-																 value="<?=$productItem->getScale() ?>" required="required"
-																 title="<?= $enc->attr( $this->translate( 'client', 'Quantity' ) ) ?>"
-															 >
-														 <?php endif ?>
-														 <button type="button" class="cin-btn cin-increment">
-															<img src="<?= asset('delice') ?>/img/right_arr.png" alt="">
-														 </button>
+											 <form class="basket" method="POST" action="<?= $enc->attr( $listsUrl ) ?>">
+
+												 <?= $this->csrf()->formfield() ?>
+
+												 <input type="hidden" value="add" name="<?= $enc->attr( $this->formparam( 'b_action' ) ) ?>">
+												 <input type="hidden"
+																 name="<?= $enc->attr( $this->formparam( ['b_prod', 0, 'prodid'] ) ) ?>"
+																 value="<?= $enc->attr( $productItem->getId() ) ?>">
+
+												 <div class="cf_response"></div>
+
+													 <div class="buy-bar type-2">
+															<div class="fl">
+																 <h5 class="h5 sm follow-title quntity"><?= $enc->attr( $this->translate( 'client', 'Quantity' ) ) ?></h5>
+																 <div class="custom-input-number type-2">
+																	 <button type="button" class="cin-btn cin-decrement">
+																		 <img src="<?= asset('delice') ?>/img/left_arr.png" alt="">
+																	 </button>
+																	 <?php if($productItem->getType() !== 'group' ) : ?>
+																		 <input type="number" class="form-control cin-input input-field" <?= $productItem->isAvailable() ? 'disabled' : '' ?>
+																			 name="<?= $enc->attr( $this->formparam( ['b_prod', 0, 'quantity'] ) ) ?>"
+																			 step="<?=$productItem->getScale() ?>"
+																			 min="<?=$productItem->getScale() ?>" max="2147483647"
+																			 value="<?=$productItem->getScale() ?>" required="required"
+																			 title="<?= $enc->attr( $this->translate( 'client', 'Quantity' ) ) ?>"
+																		 >
+																	 <?php endif ?>
+																	 <button type="button" class="cin-btn cin-increment">
+																		<img src="<?= asset('delice') ?>/img/right_arr.png" alt="">
+																	 </button>
+																 </div>
+																 <div class="empty-sm-0 empty-xs-15"></div>
+															</div>
+
+																<button type="submit" name="order" value="1" class="page-button button-style-1 type-2">
+																	<span class="txt">
+																		 <?= $enc->html( $this->translate( 'client', 'order' ), $enc::TRUST ) ?>
+																	</span>
+																</button>
 													 </div>
-													 <div class="empty-sm-0 empty-xs-15"></div>
-												</div>
-												<div class="fr">
-														<a href="#" class="page-button button-style-1 type-2"><span class="txt">
-																<?= $enc->html( $this->translate( 'client', 'Add to basket' ), $enc::TRUST ) ?>
-														</span></a>
-												</div>
-										 </div>
+										 </form>
 										 </aside>
 									 </div>
 								 </div>

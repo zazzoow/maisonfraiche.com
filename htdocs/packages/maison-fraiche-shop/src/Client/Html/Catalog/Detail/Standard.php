@@ -87,6 +87,8 @@ class Standard
 
 			// $this->createOrderItem();
 			$this->saveOrderItem();
+
+			return back();
 	  }
 
 		$site = $context->locale()->getSiteItem()->getCode();

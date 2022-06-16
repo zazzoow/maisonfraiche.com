@@ -1,22 +1,9 @@
 <?php
 
-/**
- * @license LGPLv3, http://opensource.org/licenses/LGPL-3.0
- * @copyright Aimeos (aimeos.org), 2015-2022
- * @package Client
- * @subpackage Html
- */
-
-
 namespace Aimeos\Client\Html\Catalog\Lists;
 
+use Illuminate\Support\Facades\DB;
 
-/**
- * Default implementation of catalog list section HTML clients.
- *
- * @package Client
- * @subpackage Html
- */
 class Standard
 	extends \Aimeos\Client\Html\Catalog\Base
 	implements \Aimeos\Client\Html\Common\Client\Factory\Iface
@@ -192,6 +179,14 @@ class Standard
 	{
 		$view = $this->view();
 		$context = $this->context();
+
+		if( $view->param('b_action') == 'add' && $this->context()->user() !== null ) {
+
+			// $this->createOrderItem();
+			$this->saveOrderItem();
+
+			return back();
+	  }
 
 		$site = $context->locale()->getSiteItem()->getCode();
 		$params = $this->getClientParams( $view->param() );
@@ -678,4 +673,439 @@ class Standard
 
 		return map();
 	}
+
+	protected function saveOrderItem()
+  {
+     $context = $this->context();
+
+		 $view = $this->view();
+
+     $manager = \Aimeos\MShop::create( $this->context(), 'order' );
+		 $managerBase = \Aimeos\MShop::create( $this->context(), 'order/base' );
+		 $managerAddressBase = \Aimeos\MShop::create( $this->context(), 'order/base/address' );
+		 $managerProductBase = \Aimeos\MShop::create( $this->context(), 'order/base/product' );
+
+		 $managerProduct = \Aimeos\MShop::create( $this->context(), 'product' );
+
+     $manager->begin();
+     $managerBase->begin();
+     $managerProduct->begin();
+		 $managerAddressBase->begin();
+		 $managerProductBase->begin();
+
+
+		 $user = DB::table('users')->where( 'id' , $this->context()->user() )->get()->first();
+
+		 $productid = $view->param('b_prod/0/prodid');
+
+		 $productItem = $managerProduct->get( $productid,  ['price','media'] );
+
+		 if( !( $productItem->getRefItems('media')->isEmpty() ) ) {
+			 $mediaItem = $productItem->getRefItems('media')->first();
+		 }
+		 else {
+			 $mediaItem = '';
+		 }
+
+		 if( !( $productItem->getRefItems('price')->isEmpty() ) ) {
+
+			 $priceItem = $productItem->getRefItems('price')->first();
+
+			 $price = $priceItem->getValue();
+			 $costs = $priceItem->getCosts();
+			 $tax = $priceItem->getTaxRate();
+			 $rebate = $priceItem->getRebate();
+		 }
+		 else {
+			 $price = '0.00';
+			 $costs = '0.00';
+			 $tax = '0.00';
+			 $rebate = '0.00';
+		 }
+
+
+     try
+     {
+			 $dataBase = [
+					"order.baseid" => null,
+					"order.base.languageid" => $context->locale()->getLanguageId(),
+					"order.base.customerid" => $context->user(),
+					"order.base.customerref" => null,
+					"order.base.price" => '0.00',
+					"order.base.costs" => '0.00',
+					"order.base.rebate" => '0.00',
+					"order.base.tax" => '0.00',
+					"order.base.comment" => null,
+					"order.base.comment" => $view->param('cs_comment'),
+			 ];
+
+			 // $dataBase = [
+				// 	"order.baseid" => null,
+				// 	"order.base.languageid" => $context->locale()->getLanguageId(),
+				// 	"order.base.customerid" => $context->user(),
+				// 	"order.base.customerref" => null,
+				// 	"order.base.price" => $price,
+				// 	"order.base.costs" => $costs,
+				// 	"order.base.rebate" => $rebate,
+				// 	"order.base.tax" => $tax,
+				// 	"order.base.comment" => null,
+				// 	"order.base.comment" => $view->param('cs_comment'),
+			 // ];
+
+			 $dataAddressBase = [
+					"order.base.address.email" => $user->email,
+					"order.base.address.languageid" => $user->langid,
+					"order.base.address.salutation" => $user->salutation,
+					"order.base.address.title" => $user->title,
+					"order.base.address.lastname" => $user->lastname,
+					"order.base.address.firstname" => $user->firstname,
+					"order.base.address.address1" => $user->address1,
+					"order.base.address.address2" =>$user->address2,
+					"order.base.address.address3" =>$user->address3,
+					"order.base.address.postal" => $user->postal,
+					"order.base.address.city" => $user->city,
+					"order.base.address.countryid" => $user->countryid,
+					"order.base.address.state" => $user->state,
+					"order.base.address.telephone" => $user->telephone,
+					"order.base.address.telefax" => $user->telefax,
+					"order.base.address.website" => $user->website,
+					"order.base.address.company" => $user->company,
+					"order.base.address.vatid" => $user->vatid,
+			 ];
+
+			 dd( $view->param('b_prod')  );
+
+			 $dataProductBase = [
+				   "order.base.product.prodid" => $productItem->getId(),
+					 "order.base.product.qtyopen" => $view->param('b_prod/0/quantity') ,
+					 "order.base.product.type" => $productItem->getType(),
+					 "order.base.product.stocktype" => "default",
+					 "order.base.product.prodcode" => $productItem->getCode(),
+					 "order.base.product.supplierid" => "",
+					 "order.base.product.suppliername" => "",
+					 "order.base.product.currencyid" => "EUR",
+					 "order.base.product.taxflag" => true,
+					 "order.base.product.name" => $productItem->getName(),
+					 "order.base.product.description" => "",
+					 "order.base.product.mediaurl" => $mediaItem->getUrl(),
+					 "order.base.product.timeframe" => "",
+					 "order.base.product.position" => 0,
+					 "order.base.product.notes" => "",
+					 "order.base.product.statuspayment" => "4",
+					 "order.base.product.statusdelivery" => 0,
+					 "order.base.product.timeframe" => '',
+					 "order.base.product.notes" => '',
+					 "order.base.product.status" => -1,
+			 ];
+
+			 $itemBase = $managerBase->create( $dataBase );
+       $itemBase = $itemBase->setModified();
+			 $itemBase = $managerBase->save( $itemBase );
+			 $itemBase = $itemBase->setModified();
+
+
+			 $managerBase->commit();
+			 $managerBase->commit();
+			 $managerBase->commit();
+
+			 $dataAddressBase['order.base.address.baseid'] = $itemBase->getId();
+
+			 $itemAddressBase = $managerAddressBase->create( $dataAddressBase );
+			 $itemAddressBase = $itemAddressBase->setModified();
+			 $itemAddressBase = $managerAddressBase->save( $itemAddressBase );
+			 $itemAddressBase = $itemAddressBase->setModified();
+
+			 $managerAddressBase->commit();
+			 $managerAddressBase->commit();
+			 $managerAddressBase->commit();
+
+			 $dataProductBase['order.base.product.baseid'] = $itemBase->getId();
+
+			 $itemProductBase = $managerProductBase->create( $dataProductBase );
+       $itemProductBase = $itemProductBase->setModified();
+			 $itemProductBase = $managerProductBase->save( $itemProductBase );
+			 $itemProductBase = $itemProductBase->setModified();
+
+			 $managerProductBase->commit();
+			 $managerProductBase->commit();
+			 $managerProductBase->commit();
+
+			 $data = [
+				 "order.siteid" => "1.",
+				 "order.type" => "web",
+				 "order.datedelivery" => null,
+				 "order.statuspayment" => "4",
+				 "order.statusdelivery" => 0,
+				 "order.relatedid" => $productItem->getId(),
+			 ];
+
+			 $data['order.baseid'] = $itemBase->getId();
+
+			 $item = $manager->create( $data );
+
+			 $item = $item->setModified();
+
+			 $item = $manager->save( $item );
+
+			 $item = $item->setModified();
+
+			 $manager->commit();
+			 $manager->commit();
+			 $manager->commit();
+
+     }
+     catch( \Exception $e )
+     {
+
+       $manager->rollback();
+			 $error = array( $context->translate( 'client', 'A non-recoverable error occured' ) );
+ 			 $view->detailErrorList = array_merge( $view->get( 'detailErrorList', [] ), $error );
+  		 $this->logException( $e );
+     }
+
+  }
+
+	protected function fromArray( \Aimeos\MShop\Order\Item\Base\Iface $order, array $data )
+	{
+		$invoiceIds = $this->getValue( $data, 'order.id', [] );
+		$manager = \Aimeos\MShop::create( $this->context(), 'order' );
+
+		$search = $manager->filter()->slice( 0, count( $invoiceIds ) );
+		$search->setConditions( $search->compare( '==', 'order.id', $invoiceIds ) );
+
+		$items = $manager->search( $search );
+
+
+		foreach( $invoiceIds as $idx => $id )
+		{
+			if( !isset( $items[$id] ) ) {
+				$item = $manager->create();
+			} else {
+				$item = $items[$id];
+			}
+
+			$item->setType( $this->getValue( $data, 'order.type/' . $idx, $item->getType() ) );
+			$value = $this->getValue( $data, 'order.statusdelivery/' . $idx );
+			$item->setStatusDelivery( is_numeric( $value ) ? (int) $value : null );
+			$value = $this->getValue( $data, 'order.statuspayment/' . $idx );
+			$item->setStatusPayment( is_numeric( $value ) ? (int) $value : null );
+			$item->setDateDelivery( $this->getValue( $data, 'order.datedelivery/' . $idx ) );
+			$item->setDatePayment( $this->getValue( $data, 'order.datepayment/' . $idx ) );
+			$item->setRelatedId( $this->getValue( $data, 'order.relatedid/' . $idx ) );
+			$item->setBaseId( $order->getId() );
+
+			$manager->save( $item );
+		}
+	}
+
+	protected function toArray( \Aimeos\Map $invoices ) : array
+	{
+		$data = [];
+
+		foreach( $invoices as $item )
+		{
+			foreach( $item->toArray( true ) as $key => $value ) {
+				$data[$key][] = $value;
+			}
+		}
+
+		return $data;
+	}
+
+	protected function getSubClientNames() : array
+	{
+		return $this->context()->config()->get( $this->subPartPath, $this->subPartNames );
+	}
+
+	protected function getValue( array $values, $key, $default = null )
+	{
+		foreach( explode( '/', trim( $key, '/' ) ) as $part )
+		{
+			if( array_key_exists( $part, $values ) ) {
+				$values = $values[$part];
+			} else {
+				return $default;
+			}
+		}
+
+		return $values;
+	}
+
+	protected function fromArrayBase( array $data ) : \Aimeos\MShop\Order\Item\Base\Iface
+	{
+		$manager = \Aimeos\MShop::create( $this->context(), 'order/base' );
+		$attrManager = \Aimeos\MShop::create( $this->context(), 'order/base/service/attribute' );
+		$domains = ['order/base/address', 'order/base/product', 'order/base/service'];
+
+		if( isset( $data['order.base.id'] ) ) {
+			$basket = $manager->get( $data['order.base.id'], $domains )->off();
+		} else {
+			$basket = $manager->create()->off();
+		}
+
+		$basket->fromArray( $data, true );
+		$allowed = array_flip( [
+			'order.base.product.statusdelivery',
+			'order.base.product.statuspayment',
+			'order.base.product.qtyopen',
+			'order.base.product.timeframe',
+			'order.base.product.notes',
+		] );
+
+		foreach( $basket->getProducts() as $pos => $product )
+		{
+			$list = array_intersect_key( $data['product'][$pos], $allowed );
+			$product->fromArray( $list );
+		}
+
+		foreach( $basket->getAddresses() as $type => $addresses )
+		{
+			foreach( $addresses as $pos => $address )
+			{
+				if( isset( $data['address'][$type][$pos] ) ) {
+					$list = (array) $data['address'][$type][$pos];
+					$basket->addAddress( $address->fromArray( $list, true ), $type, $pos );
+				} else {
+					$basket->deleteAddress( $type, $pos );
+				}
+			}
+		}
+
+		foreach( $basket->getServices() as $type => $services )
+		{
+			foreach( $services as $index => $service )
+			{
+				$list = [];
+				$attrItems = $service->getAttributeItems();
+
+				if( isset( $data['service'][$type][$service->getServiceId()] ) )
+				{
+					foreach( (array) $data['service'][$type][$service->getServiceId()] as $key => $pair )
+					{
+						foreach( $pair as $pos => $value ) {
+							$list[$pos][$key] = $value;
+						}
+					}
+
+					foreach( $list as $array )
+					{
+						if( isset( $attrItems[$array['order.base.service.attribute.id']] ) )
+						{
+							$attrItem = $attrItems[$array['order.base.service.attribute.id']];
+							unset( $attrItems[$array['order.base.service.attribute.id']] );
+						}
+						else
+						{
+							$attrItem = $attrManager->create();
+						}
+
+						$attrItem->fromArray( $array, true );
+						$attrItem->setParentId( $service->getId() );
+
+						$item = $attrManager->save( $attrItem );
+					}
+				}
+
+				$attrManager->delete( $attrItems->toArray() );
+			}
+		}
+
+		return $basket;
+	}
+
+	protected function toArrayBase( \Aimeos\MShop\Order\Item\Base\Iface $item, bool $copy = false ) : array
+	{
+		$siteId = $this->context()->locale()->getSiteId();
+		$data = $item->toArray( true );
+
+		if( $item->getCustomerId() != '' )
+		{
+			$manager = \Aimeos\MShop::create( $this->context(), 'customer' );
+
+			try {
+				$data += $manager->get( $item->getCustomerId() )->toArray();
+			} catch( \Exception $e ) {
+
+			};
+		}
+
+
+		if( $copy === true )
+		{
+			$data['order.base.siteid'] = $siteId;
+			$data['order.base.id'] = '';
+		}
+
+		foreach( $item->getAddresses() as $type => $addresses )
+		{
+			foreach( $addresses as $pos => $addrItem )
+			{
+				$list = $addrItem->toArray( true );
+
+				foreach( $list as $key => $value ) {
+					$data['address'][$type][$pos][$key] = $value;
+				}
+
+				if( $copy === true )
+				{
+					$data['address'][$type][$pos]['order.base.address.siteid'] = $siteId;
+					$data['address'][$type][$pos]['order.base.address.id'] = '';
+				}
+			}
+		}
+
+		if( $copy !== true )
+		{
+			foreach( $item->getServices() as $type => $services )
+			{
+				foreach( $services as $serviceItem )
+				{
+					$serviceId = $serviceItem->getServiceId();
+
+					foreach( $serviceItem->getAttributeItems() as $attrItem )
+					{
+						foreach( $attrItem->toArray( true ) as $key => $value ) {
+							$data['service'][$type][$serviceId][$key][] = $value;
+						}
+					}
+				}
+			}
+		}
+
+		foreach( $item->getProducts() as $pos => $productItem ) {
+			$data['product'][$pos] = $productItem->toArray();
+		}
+
+		return $data;
+	}
+
+	protected function createOrderItem()
+  {
+    $context = $this->context();
+
+		$view = $this->view();
+
+
+    try
+    {
+      $data = [];
+
+      if( !isset( $view->item ) ) {
+        $view->item = \Aimeos\MShop::create( $this->context(), 'order' )->create();
+      }
+
+      $data['order.siteid'] = $view->item->getSiteId();
+
+      $view->itemData = array_replace_recursive( $this->toArray( $view->item ), $data );
+    }
+    catch( \Exception $e )
+    {
+
+      $error = array( $context->translate( 'client', 'A non-recoverable error occured' ) );
+			$view->detailErrorList = array_merge( $view->get( 'detailErrorList', [] ), $error );
+			$this->logException( $e );
+    }
+
+  }
+
 }
