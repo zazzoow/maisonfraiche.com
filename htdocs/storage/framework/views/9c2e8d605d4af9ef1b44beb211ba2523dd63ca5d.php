@@ -216,20 +216,7 @@
 							 <div class="empty-sm-30 empty-xs-30"></div>
 						 </div>
 
-						 <div class="col-md-3 col-sm-6 col-sm-12">
-							<div class="footer-item">
-								 <h5 class="h5">Subscribe to our news</h5>
-									<div class="empty-sm-20 empty-xs-20"></div>
-									<form action="/" onsubmit="return subscribeForm();" method="post" id="subscribe-form" class="subscribe-form flex-align form-type-2">
-										 <input type="email" placeholder="Your email" name="email" class="input-field" required>
-										 <div class="sub-submit">
-												 <input type="submit" value="">
-													 <span>Submit</span>
-										 </div>
-									 </form>
-								 </div>
-									<div class="empty-sm-30 empty-xs-30"></div>
-						 </div>
+						 
 				 </div>
 		 </div>
 		 <div class="copyright text-center">

@@ -141,7 +141,7 @@ $pos = 0;
 														>
 													<?php endif ?>
 			                    <button type="button" class="cin-btn cin-increment">
-			                      <img src="img/right_arr.png" alt="">
+			                      <img src="<?= asset('delice') ?>/img/right_arr.png" alt="">
 			                    </button>
 			                  </div>
 			                  <div class="empty-sm-0 empty-xs-15"></div>
