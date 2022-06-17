@@ -40,12 +40,13 @@ return [
 				'subparts' => [/*'tree',*/ 'search', 'price', 'supplier', 'attribute']
 			],
 			'lists' => [
-				// 'domains' => [
-				// 		'media',
-				// 		'media/property',
-				// 		// 'price',
-				// 		// 'text'
-				// ],
+				'catid-default' => '1',
+				'domains' => [
+						'media',
+						'media/property',
+						'price',
+						'text'
+				],
 				// 'items' => [
 				// 	'template-body-list' => 'catalog/lists/items-body-list',
 				// ],

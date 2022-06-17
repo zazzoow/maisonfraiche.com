@@ -6,7 +6,7 @@
     <?= $aiheader['account/review'] ?? '' ?>
     <?= $aiheader['account/subscription'] ?? '' ?>
     <?= $aiheader['account/history'] ?? '' ?>
-    <?= $aiheader['account/favorite'] ?? '' ?>
+    <!-- <= $aiheader['account/favorite'] ?? '' ?> -->
     <?= $aiheader['account/watch'] ?? '' ?>
     <?= $aiheader['catalog/search'] ?? '' ?>
     <?= $aiheader['catalog/session'] ?? '' ?>
@@ -30,12 +30,13 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('aimeos_body'); ?>
+  <?= $aibody['catalog/stage'] ?? '' ?>
     <div class="container-fluid">
         <?= $aibody['account/profile'] ?? '' ?>
         <?= $aibody['account/review'] ?? '' ?>
         <?= $aibody['account/subscription'] ?? '' ?>
         <?= $aibody['account/history'] ?? '' ?>
-        <?= $aibody['account/favorite'] ?? '' ?>
+        <!-- <= $aibody['account/favorite'] ?? '' ?> -->
         <?= $aibody['account/watch'] ?? '' ?>
     </div>
 <?php $__env->stopSection(); ?>

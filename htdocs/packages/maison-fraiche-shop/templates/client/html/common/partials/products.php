@@ -58,7 +58,7 @@ $count = 0;
 
 										<a href="#" class="page-button button-style-1 type-2" data-mdb-toggle="modal" data-mdb-target="#product-<?= $enc->attr( $productItem->getId() ) ?>">
 											<span class="txt">
-												<?= $enc->attr( $this->translate( 'client', 'Quick View' ) ) ?>
+												<?= $enc->attr( $this->translate( 'client', 'order' ) ) ?>
 											</span>
 										</a>
 								</div>

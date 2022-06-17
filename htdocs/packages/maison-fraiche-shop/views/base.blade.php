@@ -101,7 +101,7 @@
 
 	    <header class="header header-style-1">
 	      <div class="navigation flex-align">
-	         <a href="home_1.html" class="logo">
+	         <a href="{{ airoute('aimeos_home') }}" class="logo">
 						 <img src="{{ asset( 'aimeos/' . ( app( 'aimeos.context' )->get()->locale()->getSiteItem()->getLogo() ?: '../vendor/shop/themes/default/assets/logo.png' ) ) }}" height="40" title="Logo">
 					 </a>
 	          <div class="burger-menu"><i></i></div>
@@ -144,8 +144,8 @@
 									</div>
 					      </form>
 					 @endif
-				 </div>
 
+				 </div>
 
 	    </header>
 
@@ -215,7 +215,7 @@
 							 <div class="empty-sm-30 empty-xs-30"></div>
 						 </div>
 
-						 
+
 				 </div>
 		 </div>
 		 <div class="copyright text-center">
