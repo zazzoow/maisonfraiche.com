@@ -49,11 +49,17 @@ $count = 0;
 								<img src="<?= $enc->attr( $this->content( $mediaItem->getPreview(), $mediaItem->getFileSystem() ) ) ?>" alt="<?= $enc->attr( $mediaItem->getProperties( 'title' )->first() ) ?>">
 							<?php endif ?>
 								<div class="vertical-align full menu-button">
-										<a href="#" class="page-button button-style-1 type-4"><span class="txt">Add to cart</span></a>
+										<a href="<?= $enc->attr( $url ) ?>" title="<?= $enc->attr( $productItem->getName(), $enc::TRUST ) ?>" class="page-button button-style-1 type-4">
+											<span class="txt">
+												<?= $enc->attr( $this->translate( 'client', 'See Details' ) ) ?>
+											</span>
+										</a>
 										<div class="empty-sm-10 empty-xs-10"></div>
 
 										<a href="#" class="page-button button-style-1 type-2" data-mdb-toggle="modal" data-mdb-target="#product-<?= $enc->attr( $productItem->getId() ) ?>">
-											<span class="txt">quick view</span>
+											<span class="txt">
+												<?= $enc->attr( $this->translate( 'client', 'Quick View' ) ) ?>
+											</span>
 										</a>
 								</div>
 						</div>
@@ -148,43 +154,48 @@ $count = 0;
 										 <aside>
 											 <form class="basket" method="POST" action="<?= $enc->attr( $listsUrl ) ?>">
 
-												 <?= $this->csrf()->formfield() ?>
+														 <?= $this->csrf()->formfield() ?>
 
-												 <input type="hidden" value="add" name="<?= $enc->attr( $this->formparam( 'b_action' ) ) ?>">
-												 <input type="hidden"
-																 name="<?= $enc->attr( $this->formparam( ['b_prod', 0, 'prodid'] ) ) ?>"
-																 value="<?= $enc->attr( $productItem->getId() ) ?>">
+														 <input type="hidden" value="add" name="<?= $enc->attr( $this->formparam( 'b_action' ) ) ?>">
+														 <input type="hidden"
+																		 name="<?= $enc->attr( $this->formparam( ['b_prod', 0, 'prodid'] ) ) ?>"
+																		 value="<?= $enc->attr( $productItem->getId() ) ?>">
 
-												 <div class="cf_response"></div>
+														 <div class="cf_response"></div>
 
-													 <div class="buy-bar type-2">
-															<div class="fl">
-																 <h5 class="h5 sm follow-title quntity"><?= $enc->attr( $this->translate( 'client', 'Quantity' ) ) ?></h5>
-																 <div class="custom-input-number type-2">
-																	 <button type="button" class="cin-btn cin-decrement">
-																		 <img src="<?= asset('delice') ?>/img/left_arr.png" alt="">
-																	 </button>
-																	 <?php if($productItem->getType() !== 'group' ) : ?>
-																		 <input type="number" class="form-control cin-input input-field" <?= $productItem->isAvailable() ? 'disabled' : '' ?>
-																			 name="<?= $enc->attr( $this->formparam( ['b_prod', 0, 'quantity'] ) ) ?>"
-																			 step="<?=$productItem->getScale() ?>"
-																			 min="<?=$productItem->getScale() ?>" max="2147483647"
-																			 value="<?=$productItem->getScale() ?>" required="required"
-																			 title="<?= $enc->attr( $this->translate( 'client', 'Quantity' ) ) ?>"
-																		 >
-																	 <?php endif ?>
-																	 <button type="button" class="cin-btn cin-increment">
-																		<img src="<?= asset('delice') ?>/img/right_arr.png" alt="">
-																	 </button>
-																 </div>
-																 <div class="empty-sm-0 empty-xs-15"></div>
-															</div>
+															 <div class="buy-bar type-2">
 
-																<button type="submit" name="order" value="1" class="page-button button-style-1 type-2">
-																	<span class="txt">
-																		 <?= $enc->html( $this->translate( 'client', 'order' ), $enc::TRUST ) ?>
-																	</span>
-																</button>
+																	<div class="modal-footer">
+																		<div class="fl">
+																		 <h5 class="h5 sm follow-title quntity">
+																			 <?= $enc->attr( $this->translate( 'client', 'Quantity' ) ) ?>
+																		 </h5>
+
+																		 <div class="empty-sm-0 empty-xs-15"></div>
+																	</div>
+																		<div class="custom-input-number type-2">
+																		 <button type="button" class="cin-btn cin-decrement">
+																			 <img src="<?= asset('delice') ?>/img/left_arr.png" alt="">
+																		 </button>
+																		 <?php if( $productItem->getType() !== 'group' ) : ?>
+																			 <input type="number" class="form-control cin-input input-field" <?= !$productItem->isAvailable() ? 'disabled' : '' ?>
+																				 name="<?= $enc->attr( $this->formparam( ['b_prod', 0, 'quantity'] ) ) ?>"
+																				 step="<?= $productItem->getScale() ?>"
+																				 min="<?= $productItem->getScale() ?>" max="2147483647"
+																				 value="<?= $productItem->getScale() ?>" required="required"
+																				 title="<?= $enc->attr( $this->translate( 'client', 'Quantity' ) ) ?>"
+																			 >
+																		 <?php endif ?>
+																		 <button type="button" class="cin-btn cin-increment">
+																			 <img src="<?= asset('delice') ?>/img/right_arr.png" alt="">
+																		 </button>
+																	 </div>
+																		<button type="submit" class="page-button button-style-1 type-2">
+																			<span class="txt">
+																				 <?= $enc->html( $this->translate( 'client', 'order' ), $enc::TRUST ) ?>
+																			</span>
+																		</button>
+																	</div>
 													 </div>
 										 </form>
 										 </aside>

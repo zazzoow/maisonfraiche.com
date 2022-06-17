@@ -420,7 +420,7 @@ class Standard
      }
      catch( \Exception $e )
      {
-			 dd($e);
+
        $manager->rollback();
 			 $error = array( $context->translate( 'client', 'A non-recoverable error occured' ) );
  			 $view->detailErrorList = array_merge( $view->get( 'detailErrorList', [] ), $error );
@@ -589,7 +589,7 @@ class Standard
 			try {
 				$data += $manager->get( $item->getCustomerId() )->toArray();
 			} catch( \Exception $e ) {
-				dd($e);
+
 			};
 		}
 
@@ -664,7 +664,6 @@ class Standard
     }
     catch( \Exception $e )
     {
-			dd($e);
       $error = array( $context->translate( 'client', 'A non-recoverable error occured' ) );
 			$view->detailErrorList = array_merge( $view->get( 'detailErrorList', [] ), $error );
 			$this->logException( $e );

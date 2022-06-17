@@ -773,8 +773,6 @@ class Standard
 					"order.base.address.vatid" => $user->vatid,
 			 ];
 
-			 dd( $view->param('b_prod')  );
-
 			 $dataProductBase = [
 				   "order.base.product.prodid" => $productItem->getId(),
 					 "order.base.product.qtyopen" => $view->param('b_prod/0/quantity') ,
