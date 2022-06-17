@@ -253,14 +253,14 @@
                 <div class="focus"></div>
               </div>
               <div class="empty-sm-20 empty-xs-20"></div>
-							@if (Route::has('password.request'))
+							<!-- @if (Route::has('password.request'))
               <div class="simple-text xs forgot fl color-3">
                 <a href="#"><p>{{ __('Forgot your password?') }}</p></a>
               </div>
 							@endif
               <div class="simple-text xs reg-now fr">
                 <a href="#"><p>Register now</p></a>
-              </div>
+              </div> -->
               <div class="empty-sm-30 empty-xs-20"></div>
               <div class="text-center">
                 <div class="page-button button-style-1 type-2">
