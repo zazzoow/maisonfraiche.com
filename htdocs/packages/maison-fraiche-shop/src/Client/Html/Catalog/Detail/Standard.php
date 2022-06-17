@@ -398,6 +398,7 @@ class Standard
 				 "order.siteid" => "1.",
 				 "order.type" => "web",
 				 "order.datedelivery" => null,
+				 "order.datepayment" => null,
 				 "order.statuspayment" => "4",
 				 "order.statusdelivery" => 0,
 				 "order.relatedid" => $productItem->getId(),

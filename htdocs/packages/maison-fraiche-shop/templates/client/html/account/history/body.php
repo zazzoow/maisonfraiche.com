@@ -56,15 +56,20 @@ $enc = $this->encoder();
 													<?php if( ( $date = $orderItem->getDatePayment() ) !== null ) : ?>
 														<?php $code = 'pay:' . $orderItem->getStatusPayment(); $paystatus = $this->translate( 'mshop/code', $code ) ?>
 														<?= $enc->html( sprintf( $attrformat, $paystatus, date_create( $date )->format( $dateformat ) ), $enc::TRUST ) ?>
+                         <?php else : ?>
+												   <?= $enc->html( $this->translate( 'client', 'empty' ), $enc::TRUST ) ?>
 													<?php endif ?>
 												</td>
 												<td>
 													<?php if( ( $date = $orderItem->getDateDelivery() ) !== null ) : ?>
 														<?php $code = 'stat:' . $orderItem->getStatusDelivery(); $status = $this->translate( 'mshop/code', $code ) ?>
 														<?= $enc->html( sprintf( $attrformat, $status, date_create( $date )->format( $dateformat ) ), $enc::TRUST ) ?>
+													<?php else : ?>
+														 <?= $enc->html( $this->translate( 'client', 'empty' ), $enc::TRUST ) ?>
 													<?php endif ?>
 												</td>
 								      </tr>
+
 								<?php endforeach ?>
 					    </tbody>
 					  </table>
