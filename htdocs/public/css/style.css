@@ -1,7 +1,7 @@
 /* CSS Document */
 
 
-/* 
+/*
 *
 *
 [Table of contents]
@@ -9,36 +9,36 @@
 *
 *
     font / @import url
-    preloader / .preloader 
+    preloader / .preloader
     general / body
     navigation / .p-3-vh
     main menu  / .white nav
     menu right / .menu-right
     side gallery / #bgsidegalery
     gallery / .filter-wraper
-    gallery max width / #w-gallery-container 
+    gallery max width / #w-gallery-container
     s-social / .sidebar .s-social
     breadcumb / .breadcumb
     main content / .main-content
     content col / .content-col
     content-menu / .content-menu
-    accordion / .accordion 
+    accordion / .accordion
     food menu / .food-menu
     owl / .owl-theme .owl-nav
     owl logo / #owl-logo .item
     team / #owl-team
     owl service / #owl-testimony
-    map / #map-1 
+    map / #map-1
     contact / .text-side
     footer / footer
     custom modal / #resevmodal
     totop / #totop
     Blog / .blog-simple
-    post meta / .post-meta 
-    single post / .top-article 
-    aside, sidebar / aside 
+    post meta / .post-meta
+    single post / .top-article
+    aside, sidebar / aside
     Blog comment / #blog-comment
-    comment form / .comment-respond 
+    comment form / .comment-respond
     search menu / .search-container
     scroll onStep / .onStep
 
@@ -66,7 +66,7 @@ color: #6f6f6f;
 font-size: 16px;
 line-height: 1.6;
 letter-spacing: .3px;
-padding-right: 0 !important 
+padding-right: 0 !important
 }
 section {
 position: relative;
@@ -171,13 +171,13 @@ section.s-top.bggray:before{
   color: #464646;
   font-weight: 700;
 }
-.bgblack .h1, .bgblack .h2, .bgblack .h3, 
-.bgblack .h4, .bgblack .h5, .bgblack .h6, 
-.bgblack h1, .bgblack h2, .bgblack h3, 
+.bgblack .h1, .bgblack .h2, .bgblack .h3,
+.bgblack .h4, .bgblack .h5, .bgblack .h6,
+.bgblack h1, .bgblack h2, .bgblack h3,
 .bgblack h4, .bgblack h5, .bgblack h6, .bgblack .detailcontent .heading, .bgblack a.card-title{
-color:#fff; 
+color:#fff;
 }
-.btn-content { 
+.btn-content {
   border: 0;
   display: block;
   position: relative;
@@ -202,7 +202,7 @@ color:#fff;
   -o-transition: all 0.6s ease;
   transition: all 0.6s ease;
 }
-.btn-content:hover { 
+.btn-content:hover {
     text-decoration: none;
     -moz-transition: all .3s ease;
     -ms-transition: all .3s ease;
@@ -212,8 +212,8 @@ color:#fff;
 .btn-content:hover .shine{
   -webkit-animation: sheen .9s alternate;
   animation: sheen .9s alternate;
-} 
-.btn-content:hover a{ 
+}
+.btn-content:hover a{
   color:#fff;
 }
 /*** preloader ***/
@@ -699,7 +699,7 @@ ul#filter-porto li.selected:after{
   -o-transition: all .3s ease-in-out;
   transition: all .3s ease-in-out;
 }
-ul#filterheading li{  
+ul#filterheading li{
 position: relative;
 top: 5px;
 left: 0px;
@@ -952,7 +952,7 @@ transition: opacity .1s ease-in-out;
   display: inline-block;
   content: '/';
   position: relative;
-  
+
 }
 .main .img-icon{
   width: 60px;
@@ -1163,9 +1163,9 @@ section.s-img .main-content .heading .title{
 
 /* accordion */
 .accordion .card-header:after {
-    font-family: 'FontAwesome';  
+    font-family: 'FontAwesome';
     content: "\f068";
-    float: right; 
+    float: right;
 }
 .accordion .card{
   border: 0px;
@@ -1187,7 +1187,7 @@ section.s-img .main-content .heading .title{
   padding-right: 0;
 }
 .accordion .card-header.collapsed:after {
-    content: "\f067"; 
+    content: "\f067";
 }
 
 /* food menu */
@@ -1539,14 +1539,14 @@ font-size: 14px;
 line-height: 24px;
 color: inherit;
 background: none;
-border: 1px solid rgba(0,0,0,.3); 
+border: 1px solid rgba(0,0,0,.3);
 border-radius: 0;
 box-shadow: none;
 }
 .form-control:focus {
 background: none;
 color: inherit;
-border: 1px solid rgba(0,0,0,.3); 
+border: 1px solid rgba(0,0,0,.3);
 box-shadow: none;
 }
 .user-message textarea {
@@ -1613,7 +1613,7 @@ cursor:pointer;
 -o-transition: all 0.3s ease;
 transition: all 0.3s ease;
 }
-.btn-contact:hover{ 
+.btn-contact:hover{
 color:#fff;
 background:#999;
 }
@@ -1909,11 +1909,11 @@ margin-bottom: 60px;
 display: block;
 position: relative;
 width: 100%;
-padding: 15px 15px 15px 0px; 
+padding: 15px 15px 15px 0px;
 margin-bottom: 30px;
 letter-spacing:.3px;
 }
-.blog-simple blockquote{ 
+.blog-simple blockquote{
 font-size: 15px;
 font-style: italic;
 font-weight: 400;
@@ -1979,7 +1979,7 @@ position:relative;
 width: max-content;
 height: auto;
 color: #fff !important;
-text-decoration: none; 
+text-decoration: none;
 font-size: 12pt;
 font-weight: 800;
 text-align: center;
@@ -2000,8 +2000,8 @@ transition: all 0.6s ease;
 }
 .btn-blog:hover{
 color: #292929;
-text-decoration: none; 
-transition: all .3s cubic-bezier(.215,.61,.355,1); 
+text-decoration: none;
+transition: all .3s cubic-bezier(.215,.61,.355,1);
 }
 .blog-simple ul.pagination{
 position: relative !important;
@@ -2011,7 +2011,7 @@ left: 0px;
 margin-bottom: 0px;
 padding: 0;
 }
-.blog-simple ul.pagination li a{  
+.blog-simple ul.pagination li a{
 font-size: 9.5pt;
 font-weight: 700;
 color: #6f6f6f;
@@ -2023,9 +2023,9 @@ border: 1px solid rgba(0,0,0,.1);
 -o-transition: all .3s ease;
 transition: all .3s ease;
 }
-.blog-simple ul.pagination li a:hover, .page-item.active .page-link{ 
-color: #fff; 
-background: #af872f; 
+.blog-simple ul.pagination li a:hover, .page-item.active .page-link{
+color: #fff;
+background: #af872f;
 border: 1px solid rgba(255,255,255,.1);
 -moz-transition: all .3s ease;
 -ms-transition: all .3s ease;
@@ -2125,7 +2125,7 @@ cursor:pointer;
 -moz-transition: all 0.3s ease;
 -ms-transition: all 0.3s ease;
 -o-transition: all 0.3s ease;
-transition: all 0.3s ease; 
+transition: all 0.3s ease;
 }
 .bottom-article a.btn:hover{
 color:#999;
@@ -2248,14 +2248,14 @@ color:#111;
 .input-group span.icon{
 display:inline-block;
 padding:6px 12px;
-margin-bottom:0; 
-margin-left:0px; 
+margin-bottom:0;
+margin-left:0px;
 font-size:14px;
 font-weight:400;
 line-height:2;
 text-align:center;
 white-space:nowrap;
-vertical-align:middle; 
+vertical-align:middle;
 
 color:#fff;
 -webkit-transition: all 0.1s ease-in-out;
@@ -2522,4 +2522,10 @@ transition: all 0.3s ease;
 /* scroll onStep */
 .onStep {
 opacity: 0;
+}
+
+.col__title {
+  font-size: 1.375em;
+  font-weight: 500;
+  margin-bottom: 30px;
 }

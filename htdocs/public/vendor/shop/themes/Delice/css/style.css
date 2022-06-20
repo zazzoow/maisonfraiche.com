@@ -2073,3 +2073,49 @@ transition: all 0.35s ease-out; }
 .open-popup {
   color: white;
 }
+
+.markup ul {
+    list-style-type: disc;
+    list-style-position: inside;
+    font-size: 1em;
+    line-height: 26px;
+    margin: 20px 0;
+}
+.col__title {
+  font-size: 1.375em;
+  font-weight: 500;
+  margin-bottom: 30px;
+}
+
+.engagements__title {
+  text-align: center;
+  margin-bottom: 70px;
+}
+
+.engagements__desc.markup {
+  text-align: center;
+  margin-bottom: 70px;
+}
+
+.engagements__important {
+    color: #8b0000;
+    padding: 0 17.72152%;
+    text-align: center;
+    margin-bottom: 70px;
+}
+
+.engagements__pictos-container {
+
+}
+
+.engagements__pictos-container img  {
+      max-width: 100%;
+      width: 1190px;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      font-size: 100%;
+      font: inherit;
+      vertical-align: baseline;
+      color: #1a1f22;
+}

@@ -46,7 +46,7 @@ $count = 0;
 				<div class="menu-item menu-item-2 type-3">
 						<div class="image hover-zoom">
 							<?php if( $mediaItem = $mediaItems->first() ) : ?>
-								<img src="<?= $enc->attr( $this->content( $mediaItem->getPreview(), $mediaItem->getFileSystem() ) ) ?>" alt="<?= $enc->attr( $mediaItem->getProperties( 'title' )->first() ) ?>">
+								<img style="height: 216px;" src="<?= $enc->attr( $this->content( $mediaItem->getPreview(), $mediaItem->getFileSystem() ) ) ?>" alt="<?= $enc->attr( $mediaItem->getProperties( 'title' )->first() ) ?>">
 							<?php endif ?>
 								<div class="vertical-align full menu-button">
 										<a href="<?= $enc->attr( $url ) ?>" title="<?= $enc->attr( $productItem->getName(), $enc::TRUST ) ?>" class="page-button button-style-1 type-4">
@@ -104,7 +104,7 @@ $count = 0;
 							 <div class="row left-right-item">
 								 <div class="col-md-6 col-xs-12 text-center">
 									 <?php if( $mediaItem = $mediaItems->first() ) : ?>
-										 <img src="<?= $enc->attr( $this->content( $mediaItem->getPreview(), $mediaItem->getFileSystem() ) ) ?>" alt="<?= $enc->attr( $mediaItem->getProperties( 'title' )->first() ) ?>">
+										 <img style="width: inherit;" src="<?= $enc->attr( $this->content( $mediaItem->getPreview(), $mediaItem->getFileSystem() ) ) ?>" alt="<?= $enc->attr( $mediaItem->getProperties( 'title' )->first() ) ?>">
 									 <?php endif ?>
 								 </div>
 								 <div class="col-md-6 col-xs-12">

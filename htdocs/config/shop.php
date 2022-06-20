@@ -26,7 +26,7 @@ return [
 		'account-index' => ['catalog/stage','catalog/session','locale/select', 'basket/mini','catalog/tree','catalog/search','account/profile','account/review','account/subscription','account/history','account/favorite','account/watch' ],
 		'catalog-count' => [ 'catalog/count' ],
 		'catalog-detail' => [ 'catalog/stage','locale/select', 'basket/mini','catalog/tree','catalog/search','catalog/detail' ],
-		'catalog-home' => [ 'catalog/stage','locale/select','basket/mini','catalog/tree','catalog/search','catalog/home' ],
+		'catalog-home' => [ 'catalog/home','catalog/stage','locale/select','basket/mini','catalog/tree','catalog/search' ],
 		'catalog-list' => [ 'catalog/stage','locale/select','basket/mini','catalog/tree','catalog/search','catalog/price','catalog/supplier','catalog/attribute','catalog/lists' ],
 		'catalog-session' => [ 'catalog/stage','locale/select','basket/mini','catalog/tree','catalog/search' ],
 		'catalog-stock' => [ 'catalog/stock' ],
