@@ -348,17 +348,28 @@ $pos = 0;
 															</ul>
 												</div>
 									</div>
+									<div class="empty-sm-30 empty-xs-30"></div>
+									<div class="markup">
+										<p class="engagements__important">
+											IMPORTANT: La conservation de nos pommes de terre en sachet sous vide, ne doit pas dépasser 7 jours au réfrigérateur entre 3°C et 4°C. Après ouverture, nous recommandons la conservation de nos produits, dans l’eau, au maximum 24H, et toujours au réfrigérateur.
+										</p>
+									</div>
+									<div class="engagements__pictos-container">
+	                    <img src="https://maison-fraiche.fr/wp-content/uploads/2021/06/pictos.svg" alt="pictogramme">
+	                </div>
 								</div>
-								<div class="empty-sm-30 empty-xs-30"></div>
-								<div class="markup">
-									<p class="engagements__important">
-										IMPORTANT: La conservation de nos pommes de terre en sachet sous vide, ne doit pas dépasser 7 jours au réfrigérateur entre 3°C et 4°C. Après ouverture, nous recommandons la conservation de nos produits, dans l’eau, au maximum 24H, et toujours au réfrigérateur.
-									</p>
-								</div>
-								<div class="engagements__pictos-container">
-                    <img src="https://maison-fraiche.fr/wp-content/uploads/2021/06/pictos.svg" alt="pictogramme">
-                </div>
+
 			</div>
 			<div class="empty-lg-100 empty-md-70 empty-sm-30 empty-xs-30"></div>
 		</section>
-		
+
+		<section  style="padding: 60px;">
+					 <div class="container" >
+								<div class="row" >
+
+									<div style="text-align-last: center;" class="intro__macaron">
+										<img  src="https://maison-fraiche.fr/wp-content/uploads/2021/06/macaron.svg" alt="">
+				        </div>
+								</div>
+						</div>
+		</section>

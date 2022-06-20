@@ -64,4 +64,28 @@ class PageController extends Controller
 	{
 		return View::make( Shop::template( 'page.terms' ), ['page' => 'page-terms'] );
 	}
+
+	public function contactAction()
+	{
+		foreach( app( 'config' )->get( 'shop.page.contact' ) as $name )
+		{
+			$params['aiheader'][$name] = Shop::get( $name )->header();
+			$params['aibody'][$name] = Shop::get( $name )->body();
+		}
+
+		return Response::view( Shop::template( 'page.contact' ), $params )
+			->header( 'Cache-Control', 'private, max-age=10' );
+	}
+
+	public function introduceAction()
+	{
+		foreach( app( 'config' )->get( 'shop.page.introduce' ) as $name )
+		{
+			$params['aiheader'][$name] = Shop::get( $name )->header();
+			$params['aibody'][$name] = Shop::get( $name )->body();
+		}
+
+		return Response::view( Shop::template( 'page.introduce' ), $params )
+			->header( 'Cache-Control', 'private, max-age=10' );
+	}
 }

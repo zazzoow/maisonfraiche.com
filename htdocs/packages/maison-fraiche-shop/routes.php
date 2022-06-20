@@ -1,5 +1,6 @@
 <?php
 
+
 if( ( $conf = config( 'shop.routes.admin', ['prefix' => 'admin', 'middleware' => ['web']] ) ) !== false ) {
 
 	Route::group( $conf, function() {
@@ -265,6 +266,18 @@ if( ( $conf = config( 'shop.routes.home', ['middleware' => ['web']] ) ) !== fals
 if( ( $conf = config( 'shop.routes.legal', [] ) ) !== false ) {
 
 	Route::group( $conf, function() {
+
+		Route::get( 'contact', array(
+			'as' => 'contact',
+			'uses' => 'Aimeos\Shop\Controller\PageController@contactAction'
+		) )->where( ['site' => '[A-Za-z0-9\.\-]+'] );
+
+		Route::post('contact', [App\Http\Controllers\ContactController::class, 'save'])->name('contact.store');
+
+		Route::get( 'introduce', array(
+			'as' => 'introduce',
+			'uses' => 'Aimeos\Shop\Controller\PageController@introduceAction'
+		) )->where( ['site' => '[A-Za-z0-9\.\-]+'] );
 
 		Route::get( 'terms', array(
 			'as' => 'aimeos_shop_terms',

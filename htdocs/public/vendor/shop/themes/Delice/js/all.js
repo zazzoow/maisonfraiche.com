@@ -20,25 +20,28 @@
 /* 17 - SHOP MENU FILTER  */
 /* 18 - CHOOSE ANIMATION  */
 
+
+
+
 jQuery(function($) { "use strict";
-	
+
 	/*============================*/
 	/* 01 - VARIABLES */
-	/*============================*/					
-	
+	/*============================*/
+
 	var swipers = [], winW, winH, winScr, _isresponsive, xsPoint = 480, smPoint = 768, mdPoint = 992, lgPoint = 1200, addPoint = 1600, _ismobile = navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i), footerHeight = $('.footer').height();
-	
+
 	function pageCalculations(){
 		winW = $(window).width();
-		winH = $(window).height(); 
+		winH = $(window).height();
 		if ($(window).width()>992){
-			$('.main-content').css({"margin-bottom":footerHeight-1});	
+			$('.main-content').css({"margin-bottom":footerHeight-1});
 		}else{
-			$('.main-content').css({"margin-bottom":"0"});	
+			$('.main-content').css({"margin-bottom":"0"});
 		}
 	}
 	pageCalculations();
-					
+
    if(_ismobile) {
 	   $('body').addClass('mobile');
 		$('.bg').removeClass('data-jarallax');
@@ -48,35 +51,35 @@ jQuery(function($) { "use strict";
 		 $('.swiper-container').each(function(){
 			 $(this).removeAttr('data-parallax');
 		 });
-	 }	
+	 }
 
     initSwiper();
-    
-    if ($('.map-wrapper').length){	
+
+    if ($('.map-wrapper').length){
         setTimeout(function(){initialize();}, 1000);
     }
 	$('.preloader').fadeOut();
 
-					
+
 	var ua = window.navigator.userAgent;
     var msie = ua.indexOf("MSIE ");
 
     if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))
     {
-       $('.bg.ready').removeAttr('data-jarallax').addClass('fix'); 
-    }				
-					
+       $('.bg.ready').removeAttr('data-jarallax').addClass('fix');
+    }
+
 	function updateSlidesPerView(swiperContainer){
 		if(winW>=addPoint) return parseInt(swiperContainer.attr('data-add-slides'),10);
 		else if(winW>=lgPoint) return parseInt(swiperContainer.attr('data-lg-slides'),10);
 		else if(winW>=mdPoint) return parseInt(swiperContainer.attr('data-md-slides'),10);
 		else if(winW>=smPoint) return parseInt(swiperContainer.attr('data-sm-slides'),10);
 		else return parseInt(swiperContainer.attr('data-xs-slides'),10);
-	}             
+	}
 
 	function resizeCall(){
 		pageCalculations();
-      
+
 		$('.swiper-container.initialized[data-slides-per-view="responsive"]').each(function(){
 			var thisSwiper = swipers['swiper-'+$(this).attr('id')], $t = $(this), slidesPerViewVar = updateSlidesPerView($t), centerVar = thisSwiper.params.centeredSlides;
 			thisSwiper.params.slidesPerView = slidesPerViewVar;
@@ -99,15 +102,15 @@ jQuery(function($) { "use strict";
 			resizeCall();
 		}, false);
 	}
-                                                  
+
 	/*============================*/
 	/* 02 - SWIPER SLIDER */
 	/*============================*/
-                          
+
 	function initSwiper(){
 		var initIterator = 0;
-		$('.swiper-container').each(function(){								  
-			var $t = $(this);								  
+		$('.swiper-container').each(function(){
+			var $t = $(this);
 			var index = 'swiper-unique-id-'+initIterator;
 
 			$t.addClass('swiper-'+index + ' initialized').attr('id', index);
@@ -116,7 +119,7 @@ jQuery(function($) { "use strict";
 			var autoPlayVar = parseInt($t.attr('data-autoplay'),10);
             var slideEffect = $t.attr('data-effect');
 			var slidesPerViewVar = $t.attr('data-slides-per-view');
-	
+
 			if(slidesPerViewVar == 'responsive'){
 				slidesPerViewVar = updateSlidesPerView($t);
 			}
@@ -136,7 +139,7 @@ jQuery(function($) { "use strict";
 				paginationClickable: true,
 				autoplay: autoPlayVar,
 				slidesPerView: slidesPerViewVar,
-				keyboardControl: true, 
+				keyboardControl: true,
 				simulateTouch: true,
 				centeredSlides: centerVar,
 				effect: slideEffect,
@@ -178,9 +181,9 @@ jQuery(function($) { "use strict";
 						swiper.slideTo(activeIndex1);
 					}
 				}
-                
+
 			});
-			
+
 			swipers['swiper-'+index].update();
 			initIterator++;
 		});
@@ -191,27 +194,27 @@ jQuery(function($) { "use strict";
 			swipers['swiper-'+$(this).attr('id')].params.control = swipers['swiper-'+$(this).parent().find('.swiper-control-top').attr('id')];
 		});
 	}
-               
+
     $(document).on('click','.slide-swich', function(){
 		var swichIndex = $(this).closest('.slider-swiching').find('.slide-swich').index(this);
-		 $(this).closest('.slider-swiching').find('.slide-swich').removeClass('active');	
-		  $(this).addClass('active');	
-			swipers['swiper-'+$(this).closest('.slider-swiching').find('.container-swich').attr('id')].slideTo(swichIndex);		
+		 $(this).closest('.slider-swiching').find('.slide-swich').removeClass('active');
+		  $(this).addClass('active');
+			swipers['swiper-'+$(this).closest('.slider-swiching').find('.container-swich').attr('id')].slideTo(swichIndex);
 		  return false;
-	});                
-           
+	});
+
     $(document).on('click', '.swiper-arrow-left', function(){
 		swipers['swiper-'+$(this).closest('.arrow-closest').find('.swiper-container').attr('id')].slidePrev();
 	});
-                    
+
 	$(document).on('click', '.swiper-arrow-right', function(){
-		swipers['swiper-'+$(this).closest('.arrow-closest').find('.swiper-container').attr('id')].slideNext();  
+		swipers['swiper-'+$(this).closest('.arrow-closest').find('.swiper-container').attr('id')].slideNext();
 	});
-	
+
 	/*============================*/
 	/* 03 - WINDOW LOAD */
 	/*============================*/
-	
+
 	$(window).load(function(){
         izotopInit();
 
@@ -222,80 +225,80 @@ jQuery(function($) { "use strict";
 			});
 	    }
 	});
-	
+
 	/*============================*/
 	/* 04 - MENU */
 	/*============================*/
-            
+
 	$('.burger-menu').on('click', function(){
         if ($(this).hasClass('open-menu')) {
             $(this).removeClass('open-menu');
             $('.nav').removeClass('active');
             $('body').removeClass('overflow');
-            $('.header').removeClass('open-search'); 
+            $('.header').removeClass('open-search');
         }else{
             $(this).addClass('open-menu');
             $('.nav').addClass('active');
             $('body').addClass('overflow');
         }
     });
-                    
+
     $('.menu-arr').on('click', function(){
         $(this).parent().parent().find('ul').first().slideToggle(300);
         return false;
-    });  
-                    
+    });
+
     $('.search-open').on('click', function(){
-       $('.header').toggleClass('open-search');  
-    });  
-                    
+       $('.header').toggleClass('open-search');
+    });
+
     $('.close-search').on('click', function(){
-       $('.header').removeClass('open-search');  
-    });                
-                                
+       $('.header').removeClass('open-search');
+    });
+
 	/*============================*/
 	/* 05 - WINDOW SCROLL */
 	/*============================*/
-                    
+
     $(window).scroll(function() {
 	   headerScroll();
         headerFixed();
 		animateItem();
 	});
-                    
+
     function headerFixed() {
        if ($(window).scrollTop() >= $('.full-height-slider').height() - 138) {
 		    $('header').addClass('fixed');
 		}else{
             $('header').removeClass('fixed');
         }
-    }                
-             
+    }
+
     function headerScroll() {
        if ($(window).scrollTop() >= $('.header').height()) {
 		   $('header').addClass('scrol');
 		}else{
 		   $('header').removeClass('scrol');
-		} 
+		}
     }
-                    
+
     $('.up-button').on('click', function(){
 		$('body, html').animate({'scrollTop':'0'});
 		   return false;
 	});
-					
+
 	function animateItem(){
 	   if ($('.item-animation').length) {
-		 $('.item-animation').not('.animated').each(function(){ 
+		 $('.item-animation').not('.animated').each(function(){
 		  if($(window).scrollTop() >= $(this).offset().top - ($(window).height()*1.1))
 		   {$(this).addClass('animated');}});
 		}
-	}				
-	            
+	}
+
     /*============================*/
 	/* 06 - ISOTOPE */
-	/*============================*/                
-                    
+	/*============================*/
+
     function izotopInit() {
 	  if ($('.izotope-container').length) {
 	    var $container = $('.izotope-container');
@@ -314,14 +317,14 @@ jQuery(function($) { "use strict";
 				 $(this).addClass('active');
 				   var filterValue = $(this).attr('data-filter');
 					$container.isotope({filter: filterValue});
-			});  
+			});
 	  }
-	}                
-                    
+	}
+
     /*============================*/
 	/* 07 - GOOGLE MAP */
 	/*============================*/
-                    
+
     var marker = [], infowindow = [], map, image = $('.map-wrapper').attr('data-marker');
 
      function addMarker(location,name,contentstr){
@@ -335,12 +338,12 @@ jQuery(function($) { "use strict";
 		infowindow[name] = new google.maps.InfoWindow({
 			content:contentstr
 		});
-		
+
 		google.maps.event.addListener(marker[name], 'click', function() {
 			infowindow[name].open(map,marker[name]);
 		});
      }
-	
+
 	 function initialize() {
 
 		var lat = $('#map-canvas').attr("data-lat");
@@ -357,14 +360,14 @@ jQuery(function($) { "use strict";
 			styles = [{"featureType":"all","elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#000000"},{"lightness":40}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#000000"},{"lightness":16}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":17},{"weight":1.2}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":21}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":16}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":19}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":17}]}];
 		}
 		var styledMap = new google.maps.StyledMapType(styles,{name: "Styled Map"});
-        
+
         var draggMap;
         if (!_ismobile) {
-           draggMap = true;  
+           draggMap = true;
         }else{
-           draggMap = false;  
+           draggMap = false;
         }
-         
+
 		var mapOptions = {
 			zoom: setZoom,
 			disableDefaultUI: false,
@@ -375,10 +378,10 @@ jQuery(function($) { "use strict";
             draggable: draggMap
 		};
 		map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-		
+
 		map.mapTypes.set('map_style', styledMap);
   		map.setMapTypeId('map_style');
-		
+
 
 		$('.addresses-block a').each(function(){
 			var mark_lat = $(this).attr('data-lat');
@@ -387,14 +390,14 @@ jQuery(function($) { "use strict";
 			var mark_name = 'template_marker_'+this_index;
 			var mark_locat = new google.maps.LatLng(mark_lat, mark_lng);
 			var mark_str = $(this).attr('data-string');
-			addMarker(mark_locat,mark_name,mark_str);	
+			addMarker(mark_locat,mark_name,mark_str);
 		});
-	 } 
-                    
+	 }
+
     /*============================*/
 	/* 08 - VIDEO YOUTUBE - VIMEO */
-	/*============================*/				
-					
+	/*============================*/
+
 	$(document).on('click', '.play-button', function(){
 	   var videoLink = $(this).attr('data-video'),
 		   thisAppend = $(this).closest('.video-open').find('.video-iframe');
@@ -403,19 +406,19 @@ jQuery(function($) { "use strict";
 		   $('<iframe>').attr('src', videoLink).appendTo(thisAppend);
 		return false;
 	});
-			  
+
 	$(document).on('click', '.close-video', function(){
 		var videoClose = $(this).parent().find('.video-iframe');
 	     $(this).closest('.video-open').find('.video-item').removeClass('act');
          $('.video-open').removeClass('over');
 		  videoClose.find('iframe').remove();
 		  return false;
-	});                           
-                    
+	});
+
     /*============================*/
 	/* 09 - ACCORDEON  */
 	/*============================*/
-                   			
+
 	$('.accordeon-triger').on('click', function(){
 		var $this = $(this),
 			item = $this.closest('.accordeon-item'),
@@ -430,20 +433,20 @@ jQuery(function($) { "use strict";
 		   otherContent.stop(true, true).slideUp(times);
 		   content.stop(true, true).slideDown(times);
 		}else{
-		   item.removeClass('active');	
-		   content.stop(true, true).slideUp(times);	
+		   item.removeClass('active');
+		   content.stop(true, true).slideUp(times);
 		}
         return false;
 	});
-              
+
     /*============================*/
 	/* 10 - CLICK AND HOVER  */
 	/*============================*/
-     
+
     $('.like-item').on('click', function(){
         $(this).toggleClass('active');
     });
-                    
+
     $(document).on('click', '.custom-input-number .cin-increment', function(e) {
          var $input = $(this).siblings('.cin-input'),
             val = parseInt($input.val()),
@@ -460,56 +463,56 @@ jQuery(function($) { "use strict";
         var temp = val - step;
         $input.val(temp >= min ? temp : min);
     });
-    
+
     $('.open-popup').on('click', function(){
        var indexPopup = $(this).attr('data-open');
         $('.index-'+indexPopup).addClass('active');
         $('body').addClass('overflow');
         return false;
-    }); 
-                    
+    });
+
     $('.close-popup').on('click', function(){
         $('.popup').removeClass('active');
         $('body').removeClass('overflow');
     });
-                    
+
     $('.close-item').on('click', function(){
-       $(this).parent().remove(); 
-    });                
-    
+       $(this).parent().remove();
+    });
+
     $('.shop-icon').on('click', function(){
         $('.shop-card-list').toggleClass('active');
     });
-                    
+
     $('.close-card-mobile').on('click', function(){
         $('.shop-card-list').removeClass('active');
-    });                
-    
+    });
+
 	$('.select-open').on('click', function(){
 	  	$(this).toggleClass('active').next().slideToggle();
 	});
-    
+
     if ($(window).width() < 992){
 		$('.mobile-select ul li').on('click', function(){
 			$(this).closest('.mobile-select').find('.select-open .txt').text($(this).text());
 			   $(this).closest('.mobile-select').find('.select-open').removeClass('active');
 			    $(this).closest('.mobile-select').find('ul').slideUp(300);
 			return false;
-		});	
-	}					
-				
-					
-                    
+		});
+	}
+
+
+
     /*============================*/
 	/* 11 - SLIDER RANGE  */
-	/*============================*/                                  
+	/*============================*/
     $('.slider-range').each(function(index) {
      	var counter = $(this).data('counter');
      	var position = $(this).data('position');
      	var from = parseInt($(this).data('from'),10);
-     	var to = parseInt($(this).data('to'),10);     	     	
-     	var min = parseInt($(this).data('min'),10);     	     	
-     	var max = parseInt($(this).data('max'),10);     	     	
+     	var to = parseInt($(this).data('to'),10);
+     	var min = parseInt($(this).data('min'),10);
+     	var max = parseInt($(this).data('max'),10);
      	$(this).find('.range').attr('id','slider-range-'+index);
      	$(this).find('.amount-start').attr('id','amount-start-'+index);
      	$(this).find('.amount-end').attr('id','amount-end-'+index);
@@ -524,7 +527,7 @@ jQuery(function($) { "use strict";
 					$('#amount-end-'+index).text(counter + ui.values[ 1 ]);
 				} else{
 					$('#amount-start-'+index).text(ui.values[ 0 ] + counter);
-					$('#amount-end-'+index).text(ui.values[ 1 ] + counter);					
+					$('#amount-end-'+index).text(ui.values[ 1 ] + counter);
 				}
 			}
 	    });
@@ -533,21 +536,21 @@ jQuery(function($) { "use strict";
     		$('#amount-end-'+index).text(counter + $('#slider-range-'+index).slider('values',1));
     	} else {
     		$('#amount-start-'+index).text($('#slider-range-'+index).slider('values',0) + counter);
-    		$('#amount-end-'+index).text($('#slider-range-'+index).slider('values',1) + counter);    		
+    		$('#amount-end-'+index).text($('#slider-range-'+index).slider('values',1) + counter);
     	}
     });
-                    
+
     /*============================*/
 	/* 12 - COLORPICKER  */
-	/*============================*/ 
-                    
+	/*============================*/
+
     $('.piker-open').on('click', function(){
-        $('.color-piker').toggleClass('active');        
+        $('.color-piker').toggleClass('active');
     });
-                    
+
     /*============================*/
 	/* 13 - TIMER */
-	/*============================*/      
+	/*============================*/
     function initCounter(){
           if(!$('.countdown').length) return false;
           $('.countdown').not('.initialized').each(function(){
@@ -585,23 +588,23 @@ jQuery(function($) { "use strict";
                                 }
                             }
                        }
-            }); 
+            });
         });
-     } 
+     }
      initCounter();
-                    
+
     /*============================*/
 	/* 14 - TABS*/
-	/*============================*/ 
+	/*============================*/
     $('.item-tabs li').on('click', function(){
-        var indexSlTab = $('.item-tabs li').index(this); 
+        var indexSlTab = $('.item-tabs li').index(this);
          $('.item-tabs li').removeClass('active');
          $(this).addClass('active');
-         $('.tab-container-item').fadeOut(200).removeClass('active');    
+         $('.tab-container-item').fadeOut(200).removeClass('active');
          $('.tab-container-item').eq(indexSlTab).fadeIn(200).addClass('active');
             if ($('.tab-container-item').eq(indexSlTab).find('.swiper-container').length){
                 setTimeout(function(){
-                   initSwiper(); 
+                   initSwiper();
                 },100);
             }
         return false;
@@ -632,15 +635,15 @@ jQuery(function($) { "use strict";
 
 	/*============================*/
 	/* 17 - SHOP MENU FILTER  */
-	/*============================*/ 
+	/*============================*/
     $('.filter-open').on('click', function(){
-        $('.menu-filter').toggleClass('active');        
+        $('.menu-filter').toggleClass('active');
     });
 
     $('.close-filter').on('click', function(){
         $('.menu-filter').removeClass('active');
     });
-	
+
 	/*============================*/
 	/* 18 - CHOOSE ANIMATION  	*/
 	/*============================*/
@@ -654,5 +657,5 @@ jQuery(function($) { "use strict";
 		}
 		e.preventDefault();
 	});
-                    
+
 });

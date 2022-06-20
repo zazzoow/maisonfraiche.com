@@ -149,7 +149,9 @@ div[class*="empty-"] {width: 100%; clear: both;}
 .fr {position: relative; float: right;}
 .fl {position: relative; float: left;}
 .full-h {height: 100%; position: relative;}
-.full-height-slider {height: 100vmin; min-height: 550px; position: relative; width: 100%;}
+.full-height-slider {
+  height: 100vmin;
+  min-height: 1030px; position: relative; width: 100%;}
 .full-height-slider.type-1{max-height: 770px;}
 .text-center {text-align: center;}
 .text-left {text-align: left;}
@@ -546,7 +548,7 @@ div[class*="empty-"] {width: 100%; clear: both;}
 .elem-button .follow, .elem-button .play-button {float: left; margin: 0 50px 30px 0;}
 .simple-item {position: relative;}
 .simple-item.color-type-1 .simple-text {color: rgba(255,255,255,0.6);}
-.simple-item.color-type-1 .sub-title, .simple-item.color-type-1 .caption {color: #fff;}
+/* .simple-item.color-type-1 .sub-title, .simple-item.color-type-1 .caption {color: #fff;} */
 .simple-item.color-type-2 .title:not(.main-col), .simple-item.color-type-2 .caption {color: #222327;}
 .simple-item.color-type-2 .simple-text {color: #898989;}
 .simple-item.color-type-2 {color: #464646;}
@@ -560,7 +562,7 @@ div[class*="empty-"] {width: 100%; clear: both;}
 .color-type-1 .simple-text.color-2 p {color: #fff;}
 .simple-item-style-2.color-type-1 .simple-text p {color: #fff;}
 .color-type-1 .list-style-1 i {border-color: #fff;}
-.color-type-1 .caption, .color-type-1 .title:not(.main-col), .main-caption.col-type-1 .caption, .color-type-1 .sub-title:not(.main-col) {color: #fff;}
+/* .color-type-1 .caption, .color-type-1 .title:not(.main-col), .main-caption.col-type-1 .caption, .color-type-1 .sub-title:not(.main-col) {color: #fff;} */
 
 /*========TESTIMONIALS ITEM=========*/
 
@@ -1629,7 +1631,6 @@ select.input-field.type-2 {font-weight: 700;background: url(../img/select-arrow-
 .simple-text.news-data p {color: rgba(137,137,137,0.8);}
 .location-bottom{position: absolute; width: 100%; bottom: 60px;}
 .location-bottom .contact-icon path{fill: #fff;}
-.location-bottom .color-type-3, .simple-text.color-2 {color: #fff;}
 .location-bottom .color-type-3 .contact a, .location-bottom .color-type-3 .contact p {color: rgba(255, 255, 255, 0.6);}
 .page-style-7 .contact-icon path{fill: #fff!important;}
 
@@ -2118,4 +2119,125 @@ transition: all 0.35s ease-out; }
       font: inherit;
       vertical-align: baseline;
       color: #1a1f22;
+}
+
+.main-wrapper {
+    margin: 0 auto;
+}
+
+#content[data-template=about] #about-txt .about__title .title {
+    font-weight: 700;
+    font-size: 28px;
+    font-size: 1.75em;
+    text-transform: uppercase;
+    font-family: din-condensed;
+}
+
+#content[data-template=about] #about-txt {
+    padding: 100px 13.08411%;
+    position: relative;
+    background-color: #faf5d8;
+}
+
+#content[data-template=about] #about-txt .about__title {
+    text-align: center;
+    margin-bottom: 70px;
+}
+
+#content[data-template=about] #about-txt .about__desc {
+    text-align: center;
+    font-weight: 500;
+    padding: 0 11.39241%;
+}
+
+#content[data-template=about] #about-txt .about__video {
+    margin: 70px auto 0;
+    width: 100%;
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+}
+
+#content[data-template=about] #about-txt .about__video iframe {
+    position: absolute;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#content[data-template=about] #about-txt .about__graph {
+    display: block;
+    margin: 70px auto auto;
+    width: 64.55696%;
+}
+
+#content[data-template=about] #about-txt .about__desc p {
+    font-size: 18px;
+    font-size: 1.125em;
+}
+
+.markup ol, .markup p, .markup ul {
+    font-size: 16px;
+    font-size: 1em;
+    line-height: 26px;
+    margin: 20px 0;
+}
+
+.location-bottom .color-type-3, .simple-text.color-2 {
+    color: #black;
+}
+.caption {
+  color: #black;
+}
+
+.simple-item.color-type-1 .sub-title, .simple-item.color-type-1 .caption {
+  color: #black;
+}
+
+#content {
+    max-width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+#content[data-template=contact] {
+    position: relative;
+    background-color: #faf5d8;
+}
+
+.main-wrapper {
+    margin: 0 auto;
+}
+
+#content[data-template=contact] #contact-team {
+    padding: 100px 0;
+}
+
+#content[data-template=contact] #contact-infos {
+    padding: 100px 13.08411%;
+    display: flex;
+    justify-content: space-between;
+}
+
+#content[data-template=contact] #contact-team .team__title {
+    text-align: center;
+    margin-bottom: 70px;
+}
+
+#content[data-template=contact] #contact-team .team__list {
+    display: flex;
+    justify-content: space-between;
+}
+
+.admin {
+  width: 200px;
+  height: 200px;
+}
+
+#content[data-template=home] #home-intro .intro__macaron {
+    text-align: center;
+    padding: 100px 0;
 }

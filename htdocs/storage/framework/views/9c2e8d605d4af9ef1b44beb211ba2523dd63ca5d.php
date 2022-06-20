@@ -22,7 +22,7 @@
 		<!-- MDB PLUGINS -->
 		<link rel="stylesheet" href="<?= asset('mdb') ?>/plugins/css/all.min.css" />
 
-
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBjkje2b_6MeLNY6TYgEzuWUmzDKvmIeE&callback=initMap" async defer></script>
 
 		<link rel="icon" href="<?php echo e(asset( 'aimeos/' . ( app( 'aimeos.context' )->get()->locale()->getSiteItem()->getIcon() ?: '../vendor/shop/themes/default/assets/icon.png' ) )); ?>"/>
 
@@ -126,7 +126,7 @@
 								<div class="login-item">
 			                <a href="#" class="open-popup" data-open="popup-login" data-rel="3">
 												<div class="page-button button-style-1 type-2">
-			                  <span class="txt"><?php echo e(__( 'Login' )); ?></span><i></i>
+			                  <span class="txt"><?php echo e(__( 'Se Connecter' )); ?></span><i></i>
 			                </div>
 											</a>
 			          </div>
@@ -141,7 +141,7 @@
 
 									<div class="page-button button-style-1 type-2">
 										<input type="submit">
-											  <span class="txt"><?php echo e(__( 'Logout' )); ?></span><i></i>
+											  <span class="txt"><?php echo e(__( 'Se Deconnecter' )); ?></span><i></i>
 									</div>
 					      </form>
 					 <?php endif; ?>
@@ -161,13 +161,15 @@
 	 <div class="empty-sm-60 empty-xs-40"></div>
 		 <div class="container">
 				 <div class="row">
-						 <div class="col-md-3 col-sm-6 col-sm-12">
+						 <div class="col-md-6 col-sm-6 col-sm-12">
 								 <div class="footer-item">
 									   <img src="<?php echo e(asset( 'aimeos/' . ( app( 'aimeos.context' )->get()->locale()->getSiteItem()->getLogo() ?: '../vendor/shop/themes/default/assets/logo.png' ) )); ?>" height="40" title="Logo">
 										 <div class="empty-sm-15 empty-xs-15"></div>
 										 <div class="simple-text">
-												 <p>Ut enim ad minim veniam, quis nostrud at exercitation ullamco laboris nisi nemo  sit enim ipsam voluptatem quia voluptas</p>
-										 </div>
+												 <p>
+                            Installée à Gémenos dans les Bouches-du-Rhône, notre entreprise familiale prépare et distribue des produits frais autour de la pomme de terre, de la pâtisserie et de la boulangerie, pour les professionnels des métiers de bouche.
+												 </p>
+ 										 </div>
 										 <div class="empty-sm-20 empty-xs-20"></div>
 										 <div class="follow follow-style-2 sm">
 													<a href="#">
@@ -190,27 +192,16 @@
 								 </div>
 									<div class="empty-sm-30 empty-xs-30"></div>
 						 </div>
-						 <div class="col-md-3 col-sm-6 col-sm-12">
-								 <div class="footer-item">
-										<h5 class="h5">Work time</h5>
-										<div class="empty-sm-15 empty-xs-15"></div>
-										<ul class="list-style-1 ul-list">
-												<li><div class="flex-wrap"><span>Monday  -  Friday</span><i></i><b>09:00 - 23:00</b></div></li>
-												<li><div class="flex-wrap"><span>Saturday</span><i></i><b>11:00 - 01:00</b></div></li>
-												<li><div class="flex-wrap"><span>Sunday</span><i></i><b>12:00 - 23:00</b></div></li>
-										</ul>
-								 </div>
-									<div class="empty-sm-30 empty-xs-30"></div>
-						 </div>
+
 						 <div class="clearfix hidden-xs visible-sm hidden-md hidden-lg"></div>
 						 <div class="col-md-3 col-sm-6 col-sm-12">
 							 <div class="footer-item">
-								 <h5 class="h5">Contact Us</h5>
+								 <h5 class="h5">Contacter Nous</h5>
 								 <div class="empty-sm-15 empty-xs-15"></div>
 								 <ul class="list-style-2 ul-list">
-										 <li>150 Duffy Ave, Hicksville, NY 11801, USA</li>
-										 <li><a href="tel:" class="link-hover">+38 056 23 15 7851</a></li>
-										 <li><a href="mailto:" class="link-hover">delice.info@mail.com</a></li>
+										 <li>4 Av. du Chemin de Jouques, 13420 Gémenos</li>
+										 <li><a href="tel:" class="link-hover">04.42.84.37.25</a></li>
+										 <li><a href="mailto:" class="link-hover">contact@maison-fraiche.fr</a></li>
 								 </ul>
 							</div>
 							 <div class="empty-sm-30 empty-xs-30"></div>
@@ -219,12 +210,7 @@
 
 				 </div>
 		 </div>
-		 <div class="copyright text-center">
-				 <div class="container">
-						 <span>© 2017 All Rights Reserved. Development by <a href="#">UnionAgency</a></span>
-				 </div>
-				 <div class="empty-sm-40 empty-xs-40"></div>
-		 </div>
+
  </footer>
 
  <!-- POPUP LOGIN -->
@@ -376,13 +362,54 @@
 		    });
 		    return false;
 		  }
+
 		</script>
+
+
+    <script async type="text/javascript">
+
+					// GOOGLE MAP PART START
+
+					const myLatlng = {lat: 43.28693771362305, "lng": 5.622753143310547 };
+
+					const map = new google.maps.Map(document.getElementById("map"), {
+			      zoom: 17,
+			      center: myLatlng,
+			    });
+
+			    const marker = new google.maps.Marker({
+			      position: myLatlng,
+			      map: map,
+			    });
+
+			    infoWindow.open(map);
+			    // Configure the click listener.
+			    map.addListener("click", (mapsMouseEvent) => {
+			      // Close the current InfoWindow.
+			      infoWindow.close();
+			      // Create a new InfoWindow.
+			      infoWindow = new google.maps.InfoWindow({
+			        position: mapsMouseEvent.latLng,
+			      });
+			      infoWindow.setContent(
+			        JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
+			      );
+			      infoWindow.open(map);
+			    });
+
+
+						window.onload = function(){
+								// Fonction d'initialisation qui s'exécute lorsque le DOM est chargé
+								initMap();
+					  };
+
+  	</script>
+
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/js/swiper.jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.1/isotope.pkgd.min.js"></script>
 		<script src="<?= asset('delice') ?>/js/jquery-ui.min.js"></script>
-		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOJxqBTpjRXdgM8UM0UXuLCmK_AKF9NPs"></script>
 		<script src="<?= asset('delice') ?>/js/all.js"></script>
 		<script src="<?= asset('delice') ?>/js/jscolor.min.js"></script>
 		<script src="<?= asset('delice') ?>/js/jquery.knob.js"></script>
