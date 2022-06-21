@@ -3,6 +3,9 @@
 namespace Aimeos\Client\Html\Catalog\Lists;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+use App\Models\Confirm;
+use Mail;
 
 class Standard
 	extends \Aimeos\Client\Html\Catalog\Base
@@ -185,7 +188,7 @@ class Standard
 			// $this->createOrderItem();
 			$this->saveOrderItem();
 
-			return back()->with('info','votre commande a biete enregistré');
+			return back()->with('info3','votre commande a biete enregistré');
 	  }
 
 		$site = $context->locale()->getSiteItem()->getCode();
@@ -200,8 +203,8 @@ class Standard
 		}
 
 		$context->session()->set( 'aimeos/catalog/lists/params/last/' . $site, $params );
-	}
 
+	}
 
 	/**
 	 * Sets the necessary parameter values in the view.
@@ -851,10 +854,11 @@ class Standard
 			 $manager->commit();
 			 $manager->commit();
 
+       $this->sendMail();
+
      }
      catch( \Exception $e )
      {
-
        $manager->rollback();
 			 $error = array( $context->translate( 'client', 'A non-recoverable error occured' ) );
  			 $view->detailErrorList = array_merge( $view->get( 'detailErrorList', [] ), $error );
@@ -1105,5 +1109,41 @@ class Standard
     }
 
   }
+
+	protected function sendMail()
+	{
+		$confirm = new Confirm;
+
+		$context = $this->context();
+
+		$view = $this->view();
+
+
+		$input = $request->all();
+
+		 Confirm::create($input);
+
+		\Mail::send(Shop::template( 'page.confirmMail' ), array(
+
+				'firstname' => $input['firstname'],
+
+				'lastname' => $input['lastname'],
+
+				'email' => $input['email'],
+
+				'subject' => $input['subject'],
+
+				'messages' => $input['message'],
+
+		), function($message) use ($request){
+
+				$message->from($request->email);
+
+				$message->to('boukli_devel@yahoo.com', 'Admin')->subject($request->get('subject'));
+
+		});
+
+		$confirm->save();
+	}
 
 }

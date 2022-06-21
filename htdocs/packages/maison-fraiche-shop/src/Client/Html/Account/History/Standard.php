@@ -27,7 +27,7 @@ class Standard
 
 				 $manager->delete( $view->param('prodid') );
 
-				 return back()->with('info','votre commande a bien ete annulé');
+				 return back()->with('info1','votre commande a bien ete annulé');
 		}
 	}
 

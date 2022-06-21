@@ -12,7 +12,7 @@ $enc = $this->encoder();
 	<section class="aimeos account-history" style="background-color: #eee;" data-jsonurl="<?= $enc->attr( $this->link( 'client/jsonapi/url' ) ) ?>">
 		<div class="container py-5">
 
-			<?php if( Session::has('info') ) : ?>
+			<?php if( Session::has('info1') ) : ?>
 				<!-- Modal -->
 			 <div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				 <div class="modal-dialog" role="document">

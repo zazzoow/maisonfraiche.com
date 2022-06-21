@@ -4,6 +4,9 @@
 namespace Aimeos\Client\Html\Catalog\Detail;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+use App\Models\Confirm;
+use Mail;
 
 
 class Standard
@@ -88,7 +91,7 @@ class Standard
 			// $this->createOrderItem();
 			$this->saveOrderItem();
 
-			return back()->with('info','votre commande a biete enregistré');
+			return back()->with('info2','votre commande a biete enregistré');
 	  }
 
 		$site = $context->locale()->getSiteItem()->getCode();
@@ -418,6 +421,8 @@ class Standard
 			 $manager->commit();
 			 $manager->commit();
 
+			 $this->sendMail();
+
      }
      catch( \Exception $e )
      {
@@ -671,4 +676,42 @@ class Standard
     }
 
   }
+
+	protected function sendMail()
+	{
+		$confirm = new Confirm;
+
+		$context = $this->context();
+
+		$view = $this->view();
+
+
+		dd($view);
+
+		$input = $request->all();
+
+		 Confirm::create($input);
+
+		\Mail::send(Shop::template( 'page.confirmMail' ), array(
+
+				'firstname' => $input['firstname'],
+
+				'lastname' => $input['lastname'],
+
+				'email' => $input['email'],
+
+				'subject' => $input['subject'],
+
+				'messages' => $input['message'],
+
+		), function($message) use ($request){
+
+				$message->from($request->email);
+
+				$message->to('boukli_devel@yahoo.com', 'Admin')->subject($request->get('subject'));
+
+		});
+
+		$confirm->save();
+	}
 }

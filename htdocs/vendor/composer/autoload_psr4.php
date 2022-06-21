@@ -99,5 +99,5 @@ return array(
     'Aimeos\\Upscheme\\' => array($vendorDir . '/aimeos/upscheme/src'),
     'Aimeos\\Macro\\' => array($vendorDir . '/aimeos/macro/src'),
     'Aimeos\\Base\\' => array($vendorDir . '/aimeos/aimeos-base/src'),
-    'Aimeos\\' => array($vendorDir . '/aimeos-extensions/maison-fraiche-shop/src', $vendorDir . '/aimeos/ai-admin-jqadm/src', $vendorDir . '/aimeos/ai-client-jsonapi/src', $vendorDir . '/aimeos/ai-controller-frontend/src', $vendorDir . '/aimeos/ai-controller-jobs/src', $vendorDir . '/aimeos/ai-laravel/src', $vendorDir . '/aimeos/map/src', $vendorDir . '/aimeos/ai-admin-jsonadm/src', $vendorDir . '/aimeos/ai-client-html/src', $vendorDir . '/aimeos/aimeos-core/src'),
+    'Aimeos\\' => array($vendorDir . '/aimeos-extensions/maison-fraiche-shop/src', $vendorDir . '/aimeos/ai-admin-jqadm/src', $vendorDir . '/aimeos/ai-admin-jsonadm/src', $vendorDir . '/aimeos/ai-client-html/src', $vendorDir . '/aimeos/ai-client-jsonapi/src', $vendorDir . '/aimeos/ai-controller-frontend/src', $vendorDir . '/aimeos/ai-controller-jobs/src', $vendorDir . '/aimeos/ai-laravel/src', $vendorDir . '/aimeos/aimeos-core/src', $vendorDir . '/aimeos/map/src'),
 );
