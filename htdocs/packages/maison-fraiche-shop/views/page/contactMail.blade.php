@@ -2,7 +2,7 @@ You received an email from : {{ $firstname }} <br><br>
 
 
 
-<p>{{ $message }}<p>
+<p>{{ $messages }}</p>
 
 
 

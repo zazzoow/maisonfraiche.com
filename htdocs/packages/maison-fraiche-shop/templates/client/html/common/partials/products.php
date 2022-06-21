@@ -51,14 +51,14 @@ $count = 0;
 								<div class="vertical-align full menu-button">
 										<a href="<?= $enc->attr( $url ) ?>" title="<?= $enc->attr( $productItem->getName(), $enc::TRUST ) ?>" class="page-button button-style-1 type-4">
 											<span class="txt">
-												<?= $enc->attr( $this->translate( 'client', 'See Details' ) ) ?>
+												<?= $enc->attr( $this->translate( 'client', 'voir en detail' ) ) ?>
 											</span>
 										</a>
 										<div class="empty-sm-10 empty-xs-10"></div>
 
 										<a href="#" class="page-button button-style-1 type-2" data-mdb-toggle="modal" data-mdb-target="#product-<?= $enc->attr( $productItem->getId() ) ?>">
 											<span class="txt">
-												<?= $enc->attr( $this->translate( 'client', 'order' ) ) ?>
+												<?= $enc->attr( $this->translate( 'client', 'commander' ) ) ?>
 											</span>
 										</a>
 								</div>
@@ -192,7 +192,7 @@ $count = 0;
 																	 </div>
 																		<button type="submit" class="page-button button-style-1 type-2">
 																			<span class="txt">
-																				 <?= $enc->html( $this->translate( 'client', 'order' ), $enc::TRUST ) ?>
+																				 <?= $enc->html( $this->translate( 'client', 'confirmer la commande' ), $enc::TRUST ) ?>
 																			</span>
 																		</button>
 																	</div>

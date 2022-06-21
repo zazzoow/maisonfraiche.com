@@ -148,7 +148,7 @@ $pos = 0;
 			                   <a href="#" data-mdb-toggle="modal" data-mdb-target="#exampleModal"
 												    class="page-button button-style-1 type-2">
 														<span class="txt">
-													        <?= $enc->html( $this->translate( 'client', 'Add to basket' ), $enc::TRUST ) ?>
+													        <?= $enc->html( $this->translate( 'client', 'commander' ), $enc::TRUST ) ?>
 												    </span>
 												  </a>
 
@@ -211,7 +211,7 @@ $pos = 0;
 															                  </div>
 																			         <button type="submit" class="page-button button-style-1 type-2">
 																								 <span class="txt">
-																										<?= $enc->html( $this->translate( 'client', 'order' ), $enc::TRUST ) ?>
+																										<?= $enc->html( $this->translate( 'client', 'confirmer la commander' ), $enc::TRUST ) ?>
 																								 </span>
 																							 </button>
 																			       </div>

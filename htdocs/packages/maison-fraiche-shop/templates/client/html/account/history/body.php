@@ -14,9 +14,14 @@ $enc = $this->encoder();
 
 
 			<div class="row">
-				<div class="col-lg-8">
+				<div class="col-xl-15">
 
-
+					<div class="markup">
+						<p class="engagements__important">
+							IMPORTANT: Vous pouver annuler une commande seulement si elle à été effectué dans les 18 heures qui suit la confirmation de cette commande.
+							 Apres ce delai passé, il n'est plus possible d'annuler la commande.
+						</p>
+					</div>
 
 			<div  class="datatable">
 					  <table>
@@ -26,17 +31,20 @@ $enc = $this->encoder();
 										<?= $enc->html( $this->translate( 'client', 'Order ID' ), $enc::TRUST ) ?>
 									</th>
 									<th class="th-sm">
-										<?= $enc->html( $this->translate( 'client', 'Created' ), $enc::TRUST ) ?>
+										<?= $enc->html( $this->translate( 'client', 'Creation' ), $enc::TRUST ) ?>
 									</th>
 					        <th class="th-sm">
-										<?= $enc->html( $this->translate( 'client', 'Channel' ), $enc::TRUST ) ?>
+										<?= $enc->html( $this->translate( 'client', 'Chaine' ), $enc::TRUST ) ?>
 									</th>
 					        <th class="th-sm">
-										<?= $enc->html( $this->translate( 'client', 'Payment' ), $enc::TRUST ) ?>
+										<?= $enc->html( $this->translate( 'client', 'Paiement' ), $enc::TRUST ) ?>
 									</th>
 					        <th class="th-sm">
-                    <?= $enc->html( $this->translate( 'client', 'Delivery' ), $enc::TRUST ) ?>
+                    <?= $enc->html( $this->translate( 'client', 'Livraison' ), $enc::TRUST ) ?>
 									</th>
+									<th class="th-sm">
+										<?= $enc->html( $this->translate( 'client', 'Annuler' ), $enc::TRUST ) ?>
+								 </th>
 					      </tr>
 					    </thead>
 					    <tbody>
@@ -57,7 +65,7 @@ $enc = $this->encoder();
 														<?php $code = 'pay:' . $orderItem->getStatusPayment(); $paystatus = $this->translate( 'mshop/code', $code ) ?>
 														<?= $enc->html( sprintf( $attrformat, $paystatus, date_create( $date )->format( $dateformat ) ), $enc::TRUST ) ?>
                          <?php else : ?>
-												   <?= $enc->html( $this->translate( 'client', 'empty' ), $enc::TRUST ) ?>
+												   <?= $enc->html( $this->translate( 'client', 'vide' ), $enc::TRUST ) ?>
 													<?php endif ?>
 												</td>
 												<td>
@@ -65,7 +73,21 @@ $enc = $this->encoder();
 														<?php $code = 'stat:' . $orderItem->getStatusDelivery(); $status = $this->translate( 'mshop/code', $code ) ?>
 														<?= $enc->html( sprintf( $attrformat, $status, date_create( $date )->format( $dateformat ) ), $enc::TRUST ) ?>
 													<?php else : ?>
-														 <?= $enc->html( $this->translate( 'client', 'empty' ), $enc::TRUST ) ?>
+														 <?= $enc->html( $this->translate( 'client', 'vide' ), $enc::TRUST ) ?>
+													<?php endif ?>
+												</td>
+												<td>
+													<?php if( $orderItem->getTimeCreatedInHours() <= 18 ) : ?>
+													<form method="post" action="<?= $enc->attr( $this->link( 'client/html/account/history/url' ) ) ?>">
+                               <?= $this->csrf()->formfield() ?>
+														<div class="page-button button-style-1 type-2">
+															<input typ"hidden" name="prodid" value="<?= $enc->html( $id ) ?>">
+															<input type="submit">
+																	  <span class="txt">annuler la commande</span><i></i>
+														</div>
+													</form>
+												<?php else : ?>
+													    <?= $enc->html( $this->translate( 'mshop', "impossible d'annuler la commande" ), $enc::TRUST ) ?>
 													<?php endif ?>
 												</td>
 								      </tr>

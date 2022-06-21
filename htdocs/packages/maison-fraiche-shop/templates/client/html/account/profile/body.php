@@ -15,7 +15,7 @@ $pos = 0;
 
 <section style="background-color: #eee;">
 
-<div class="container py-5">
+<div class="container pt-5">
  <div class="row">
    <div class="col-lg-8">
 			<div class="page-button button-style-1 type-2">
@@ -35,7 +35,7 @@ $pos = 0;
  </div>
 </div>
 
-<div class="container py-5">
+<div class="container">
 		<form method="POST" action="<?= $enc->attr( $this->link( 'client/html/account/profile/url' ) ) ?>">
 					<?= $this->csrf()->formfield() ?>
     <div class="row collapse mt-3" id="collapseExample">
