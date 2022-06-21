@@ -12,6 +12,45 @@ $enc = $this->encoder();
 	<section class="aimeos account-history" style="background-color: #eee;" data-jsonurl="<?= $enc->attr( $this->link( 'client/jsonapi/url' ) ) ?>">
 		<div class="container py-5">
 
+			<?php if( Session::has('info') ) : ?>
+				<!-- Modal -->
+			 <div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				 <div class="modal-dialog" role="document">
+					 <div class="modal-content">
+						 <div class="modal-header">
+							 <h5 class="modal-title" id="exampleModalLabel">
+								 Confirmation
+							 </h5>
+							 <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+						 </div>
+						 <div class="modal-body">
+							 <div class="block description simple-text">
+
+									<div class="long item">
+										<div class="markup">
+											<p>
+													La commande a bien ete annulé.
+											 </p>
+										</div>
+									</div>
+
+							</div>
+						 </div>
+						 <div class="modal-footer">
+							 <button data-mdb-dismiss="modal" aria-label="Close" type="button" class="page-button button-style-1 type-2">
+								 <span class="txt">
+										<?= $enc->html( $this->translate( 'client', "fermer" ), $enc::TRUST ) ?>
+								 </span>
+							 </button>
+						 </div>
+					 </div>
+				 </div>
+			 </div>
+
+			<?php endif ?>
+
+
+
 
 			<div class="row">
 				<div class="col-xl-15">
@@ -78,14 +117,19 @@ $enc = $this->encoder();
 												</td>
 												<td>
 													<?php if( $orderItem->getTimeCreatedInHours() <= 18 ) : ?>
-													<form method="post" action="<?= $enc->attr( $this->link( 'client/html/account/history/url' ) ) ?>">
-                               <?= $this->csrf()->formfield() ?>
-														<div class="page-button button-style-1 type-2">
-															<input typ"hidden" name="prodid" value="<?= $enc->html( $id ) ?>">
-															<input type="submit">
-																	  <span class="txt">annuler la commande</span><i></i>
-														</div>
-													</form>
+
+															<div class="buy-bar type-2">
+
+																<div class="fr">
+																		<a href="#" data-mdb-toggle="modal" data-mdb-target="#exampleModal"
+																			 class="page-button button-style-1 type-2">
+																			 <span class="txt">
+																						 <?= $enc->html( $this->translate( 'client', 'annuler la commande' ), $enc::TRUST ) ?>
+																			 </span>
+																		 </a>
+																</div>
+														 </div>
+
 												<?php else : ?>
 													    <?= $enc->html( $this->translate( 'mshop', "impossible d'annuler la commande" ), $enc::TRUST ) ?>
 													<?php endif ?>
@@ -100,5 +144,55 @@ $enc = $this->encoder();
 		</div>
 		</div>
 	</section>
+
+		<?php foreach( $this->get( 'historyItems', [] ) as $id => $orderItem ) : ?>
+
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+
+					<form method="post" action="<?= $enc->attr( $this->link( 'client/html/account/history/url' ) ) ?>">
+
+											<?= $this->csrf()->formfield() ?>
+
+											<div class="cf_response"></div>
+
+								 <input type="hidden" value="remove" name="<?= $enc->attr( $this->formparam( 'b_action' ) ) ?>">
+								 <input type="hidden" name="prodid" value="<?= $enc->html( $orderItem->getId() ) ?>">
+
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">
+											Confirmation
+										</h5>
+										<button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+									</div>
+
+										<div class="block description simple-text">
+
+											 <div class="long item">
+												 <div class="markup">
+													 <p class="engagements__important">
+                               Voulez vous annuler la commande ?
+														</p>
+												 </div>
+											 </div>
+
+									 </div>
+
+									<div class="modal-footer">
+										<button type="submit" class="page-button button-style-1 type-2">
+											<span class="txt">
+												 <?= $enc->html( $this->translate( 'client', "confirmer l'anulation de la commander" ), $enc::TRUST ) ?>
+											</span>
+										</button>
+									</div>
+						</form>
+					</div>
+			</div>
+		</div>
+	</div>
+		<?php endforeach ?>
 
 <?php endif ?>

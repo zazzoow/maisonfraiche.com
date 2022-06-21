@@ -88,7 +88,7 @@ class Standard
 			// $this->createOrderItem();
 			$this->saveOrderItem();
 
-			return back();
+			return back()->with('info','votre commande a biete enregistré');
 	  }
 
 		$site = $context->locale()->getSiteItem()->getCode();

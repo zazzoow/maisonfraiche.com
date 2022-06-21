@@ -223,7 +223,7 @@
 							<div class="text-center">
 								<div class="page-button button-style-1 type-2">
 								   <input type="submit">
-									 <span class="txt">SUBMIT</span><i></i>
+									 <span class="txt">soumettre</span><i></i>
 								</div>
 							</div>
 

@@ -53,6 +53,44 @@ $key = $this->param( 'f_catid' ) ? 'client/html/catalog/tree/url' : 'client/html
 
 				<?php endif ?>
 
+
+	       <?php if( Session::has('info') ) : ?>
+							<!-- Modal -->
+						 <div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							 <div class="modal-dialog" role="document">
+								 <div class="modal-content">
+									 <div class="modal-header">
+										 <h5 class="modal-title" id="exampleModalLabel">
+											 Confirmation
+										 </h5>
+										 <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+									 </div>
+									 <div class="modal-body">
+										 <div class="block description simple-text">
+
+												<div class="long item">
+													<div class="markup">
+														<p>
+																La commande a bien ete enregistré. Merci.
+														 </p>
+													</div>
+												</div>
+
+										</div>
+									 </div>
+									 <div class="modal-footer">
+										 <button data-mdb-dismiss="modal" aria-label="Close" type="button" class="page-button button-style-1 type-2">
+											 <span class="txt">
+													<?= $enc->html( $this->translate( 'client', "fermer" ), $enc::TRUST ) ?>
+											 </span>
+										 </button>
+									 </div>
+								 </div>
+							 </div>
+						 </div>
+
+				<?php endif ?>
+
 	      <div class="container-fluid padding-70 padding-top-70">
 	        <div class="row">
 	          <div class="col-lg-10 col-md-9 col-xs-12">
@@ -123,7 +161,7 @@ $key = $this->param( 'f_catid' ) ? 'client/html/catalog/tree/url' : 'client/html
 
 
 
-	           
+
 	          </div>
 	        </div>
 	      </div>

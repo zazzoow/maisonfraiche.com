@@ -23,9 +23,11 @@ class Standard
 
     $manager = \Aimeos\MShop::create( $this->context(), 'order' );
 
-		if( $view->param('prodid') !== null ) {
+		if( $view->param('prodid') !== null && $view->param('b_action') === 'remove') {
 
 				 $manager->delete( $view->param('prodid') );
+
+				 return back()->with('info','votre commande a bien ete annulé');
 		}
 	}
 
