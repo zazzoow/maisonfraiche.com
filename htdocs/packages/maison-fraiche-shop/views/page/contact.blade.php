@@ -225,3 +225,7 @@
 
 
 @stop
+
+@section('aimeos_aside')
+    <?= $aibody['catalog/session'] ?>
+@stop

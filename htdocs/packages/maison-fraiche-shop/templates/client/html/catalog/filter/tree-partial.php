@@ -13,15 +13,26 @@ $config = $this->config( 'client/html/catalog/tree/url/config', [] );
 ?>
 
 	<?php foreach( $this->get( 'nodes', [] ) as $item ) : ?>
+
+			<?php if( Auth::guest() ) : ?>
+
+					<?php $item->setStatus('0'); ?>
+
+		 <?php else : ?>
+
+					<?php $item->setStatus('1'); ?>
+
+			<?php endif ?>
+
 		<?php if( $item->getStatus() > 0 ) : ?>
+
 			<?php $params = array_merge( $this->get( 'params', [] ), ['f_name' => $item->getName( 'url' ), 'f_catid' => $item->getId()] ) ?>
 
-
 			<li class="cat-item catid-<?= $enc->attr( $item->getId() .
-			( $item->hasChildren() ? ' withchild' : ' nochild' ) .
-			( $this->get( 'path', map() )->has( $item->getId() ) ? ' active' : '' ) .
-			' catcode-' . $item->getCode() . ' ' . $item->getConfigValue( 'css-class' ) ) ?>"
-			data-id="<?= $item->getId() ?>">
+					( $item->hasChildren() ? ' withchild' : ' nochild' ) .
+					( $this->get( 'path', map() )->has( $item->getId() ) ? ' active' : '' ) .
+					' catcode-' . $item->getCode() . ' ' . $item->getConfigValue( 'css-class' ) ) ?>"
+					data-id="<?= $item->getId() ?>">
 
 			<a class="cat-link <?= ( $this->get( 'path', map() )->has( $item->getId() ) ? ' active' : '' ) ?>"
 				href="<?= $enc->attr( $this->url( $item->getTarget() ?: $target, $controller, $action, $params, [], $config ) ) ?>">
@@ -46,5 +57,5 @@ $config = $this->config( 'client/html/catalog/tree/url/config', [] );
 
 		</li>
 
-		<?php endif ?>
-	<?php endforeach ?>
+	<?php endif ?>
+<?php endforeach ?>

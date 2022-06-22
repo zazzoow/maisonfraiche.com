@@ -26,7 +26,6 @@
 @stop
 
 @section('aimeos_body')
-<?= $aibody['catalog/stage'] ?? '' ?>
 
 <div id="content" role="main" class="content-wrapper " data-template="about" style="background-image: none">
 				<div class="main-wrapper" style="background-image: none">
@@ -53,4 +52,8 @@
 			</div>
 </div>
 
+@stop
+
+@section('aimeos_aside')
+    <?= $aibody['catalog/session'] ?>
 @stop

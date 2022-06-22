@@ -115,34 +115,29 @@
 						 <div class="collapse navbar-collapse" id="navbarNav">
 	           </div>
 					<div>
-					@if (Auth::guest() && config('app.shop_registration'))
-								<div class="login-item">
-												<a href="{{ airoute( 'login' ) }}" title="{{ __( 'Login' ) }}" class="open-popup" data-open="popup-login" data-rel="3">{{ __( 'Login' ) }}</a>
-												 / <a href="{{ airoute( 'register' ) }}" title="{{ __( 'Register' ) }}" class="open-popup" data-open="popup-register" data-rel="">{{ __('Register') }}/a>
-								</div>
-								@endif
-								@if (Auth::guest())
-								<div class="login-item">
-			                <a href="#" class="open-popup" data-open="popup-login" data-rel="3">
-												<div class="page-button button-style-1 type-2">
-			                  <span class="txt">{{ __( 'Se Connecter' ) }}</span><i></i>
-			                </div>
-											</a>
-			          </div>
-								@else
-								<div class="login-item">
-									<div class="page-button button-style-1 type-2">
-			               	<a class="txt" href="{{ airoute( 'aimeos_shop_account' ) }}" data-rel="3">{{ __( 'Profile' ) }}</a>
-								  </div>
-								</div>
-								<form class="login-item" id="logout" action="{{ airoute( 'logout' ) }}" method="POST">
-									{{ csrf_field() }}
-									<div class="page-button button-style-1 type-2">
-										<input type="submit">
-											  <span class="txt">{{ __( 'Se Deconnecter' ) }}</span><i></i>
-									</div>
-					      </form>
-					 @endif
+
+			@if ( Auth::guest() )
+						<div class="login-item">
+	                <a href="#" class="open-popup" data-open="popup-login" data-rel="3">
+										<div class="page-button button-style-1 type-2">
+	                  <span class="txt">{{ __( 'Connexion' ) }}</span><i></i>
+	                </div>
+									</a>
+	          </div>
+			@else
+						<div class="login-item">
+							<div class="page-button button-style-1 type-2">
+	               	<a class="txt" href="{{ airoute( 'aimeos_shop_account' ) }}" data-rel="3">{{ __( 'Profile' ) }}</a>
+						  </div>
+						</div>
+						<form class="login-item" id="logout" action="{{ airoute( 'logout' ) }}" method="POST">
+							{{ csrf_field() }}
+							<div class="page-button button-style-1 type-2">
+								<input type="submit">
+									  <span class="txt">{{ __( 'Se Deconnecter' ) }}</span><i></i>
+							</div>
+			      </form>
+			@endif
 
 				 </div>
 
@@ -217,7 +212,7 @@
             </svg>
             </div>
             <div class="main-caption text-center color-type-2">
-              <h2 class="h2 tt">{{ __('SE CONNECTER') }}</h2>
+              <h2 class="h2 tt">{{ __('Connexion') }}</h2>
             </div>
             <div class="empty-sm-30 empty-xs-30"></div>
             <form method="post" action="{{ route('login') }}">
@@ -240,7 +235,6 @@
               <div class="simple-text xs reg-now fr">
                 <a href="#"><p>Register now</p></a>
               </div> -->
-              <div class="empty-sm-30 empty-xs-20"></div>
               <div class="text-center">
                 <div class="page-button button-style-1 type-2">
                   <input type="submit">

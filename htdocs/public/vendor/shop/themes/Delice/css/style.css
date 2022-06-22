@@ -2246,3 +2246,11 @@ transition: all 0.35s ease-out; }
     height: 676px;
     width: -webkit-fill-available;
 }
+
+.nav-align-wrap {
+  z-index: 1;
+}
+
+.login-item {
+  z-index: -1;
+}

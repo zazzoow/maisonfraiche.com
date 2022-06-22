@@ -7,19 +7,20 @@ return [
 	// 'pcntl_max' => 4, // maximum number of parallel command line processes when starting jobs
 	// 'num_formatter' => 'Locale', // locale based number formatter (alternative: "Standard")
 	//
-	// 'routes' => [
-	// 	// Docs: https://aimeos.org/docs/latest/laravel/extend/#custom-routes
-	// 	// Multi-sites: https://aimeos.org/docs/latest/laravel/customize/#multiple-shops
-	// 	'admin' => ['prefix' => 'admin', 'middleware' => ['web']],
-	// 	'jqadm' => ['prefix' => 'admin/{site}/jqadm', 'middleware' => ['web', 'auth']],
-	// 	'jsonadm' => ['prefix' => 'admin/{site}/jsonadm', 'middleware' => ['web', 'auth']],
-	// 	'jsonapi' => ['prefix' => 'jsonapi', 'middleware' => ['web', 'api']],
-	// 	'account' => ['prefix' => 'profile', 'middleware' => ['web', 'auth']],
-	// 	'default' => ['prefix' => 'shop', 'middleware' => ['web', 'auth']],
-	// 	'supplier' => ['prefix' => 's', 'middleware' => ['web', 'auth']],
-	// 	'update' => [],
-	// ],
-	//
+	'routes' => [
+		// Docs: https://aimeos.org/docs/latest/laravel/extend/#custom-routes
+		// Multi-sites: https://aimeos.org/docs/latest/laravel/customize/#multiple-shops
+		'admin' => ['prefix' => 'admin', 'middleware' => ['web']],
+		'jqadm' => ['prefix' => 'admin/{site}/jqadm', 'middleware' => ['web', 'auth']],
+		'jsonadm' => ['prefix' => 'admin/{site}/jsonadm', 'middleware' => ['web', 'auth']],
+		'jsonapi' => ['prefix' => 'jsonapi', 'middleware' => ['web', 'api']],
+		'account' => ['prefix' => 'profile', 'middleware' => ['web', 'auth']],
+		'default' => ['prefix' => 'shop', 'middleware' => ['web', 'auth']],
+		'info' => ['middleware' => ['web']],
+		'supplier' => ['prefix' => 's', 'middleware' => ['web', 'auth']],
+		'update' => [],
+	],
+
 
 	'page' => [		// Docs: https://aimeos.org/docs/latest/laravel/extend/#adapt-pages
 		'basket-index' => [ 'locale/select', 'catalog/tree','catalog/search','basket/standard','basket/bulk','basket/related' ],
@@ -36,8 +37,8 @@ return [
 		'checkout-index' => [ 'locale/select', 'catalog/tree','catalog/search','checkout/standard' ],
 		'checkout-update' => [ 'checkout/update' ],
 		'supplier-detail' => [ 'locale/select','basket/mini','catalog/tree','catalog/search','supplier/detail','catalog/lists'],
-		'introduce' => [ 'locale/select','basket/mini','catalog/tree','catalog/search','catalog/stage'],
-		'contact' => [ 'locale/select','basket/mini','catalog/tree','catalog/search','catalog/stage'],
+		'introduce' => [ 'locale/select','basket/mini','catalog/tree','catalog/search','catalog/session'],
+		'contact' => [ 'locale/select','basket/mini','catalog/tree','catalog/search','catalog/stage','catalog/session'],
 	],
 
 	/*

@@ -115,35 +115,30 @@
 						 <div class="collapse navbar-collapse" id="navbarNav">
 	           </div>
 					<div>
-					<?php if(Auth::guest() && config('app.shop_registration')): ?>
-								<div class="login-item">
-												<a href="<?php echo e(airoute( 'login' )); ?>" title="<?php echo e(__( 'Login' )); ?>" class="open-popup" data-open="popup-login" data-rel="3"><?php echo e(__( 'Login' )); ?></a>
-												 / <a href="<?php echo e(airoute( 'register' )); ?>" title="<?php echo e(__( 'Register' )); ?>" class="open-popup" data-open="popup-register" data-rel=""><?php echo e(__('Register')); ?>/a>
-								</div>
-								<?php endif; ?>
-								<?php if(Auth::guest()): ?>
-								<div class="login-item">
-			                <a href="#" class="open-popup" data-open="popup-login" data-rel="3">
-												<div class="page-button button-style-1 type-2">
-			                  <span class="txt"><?php echo e(__( 'Se Connecter' )); ?></span><i></i>
-			                </div>
-											</a>
-			          </div>
-								<?php else: ?>
-								<div class="login-item">
-									<div class="page-button button-style-1 type-2">
-			               	<a class="txt" href="<?php echo e(airoute( 'aimeos_shop_account' )); ?>" data-rel="3"><?php echo e(__( 'Profile' )); ?></a>
-								  </div>
-								</div>
-								<form class="login-item" id="logout" action="<?php echo e(airoute( 'logout' )); ?>" method="POST">
-									<?php echo e(csrf_field()); ?>
 
-									<div class="page-button button-style-1 type-2">
-										<input type="submit">
-											  <span class="txt"><?php echo e(__( 'Se Deconnecter' )); ?></span><i></i>
-									</div>
-					      </form>
-					 <?php endif; ?>
+			<?php if( Auth::guest() ): ?>
+						<div class="login-item">
+	                <a href="#" class="open-popup" data-open="popup-login" data-rel="3">
+										<div class="page-button button-style-1 type-2">
+	                  <span class="txt"><?php echo e(__( 'Connexion' )); ?></span><i></i>
+	                </div>
+									</a>
+	          </div>
+			<?php else: ?>
+						<div class="login-item">
+							<div class="page-button button-style-1 type-2">
+	               	<a class="txt" href="<?php echo e(airoute( 'aimeos_shop_account' )); ?>" data-rel="3"><?php echo e(__( 'Profile' )); ?></a>
+						  </div>
+						</div>
+						<form class="login-item" id="logout" action="<?php echo e(airoute( 'logout' )); ?>" method="POST">
+							<?php echo e(csrf_field()); ?>
+
+							<div class="page-button button-style-1 type-2">
+								<input type="submit">
+									  <span class="txt"><?php echo e(__( 'Se Deconnecter' )); ?></span><i></i>
+							</div>
+			      </form>
+			<?php endif; ?>
 
 				 </div>
 
@@ -218,7 +213,7 @@
             </svg>
             </div>
             <div class="main-caption text-center color-type-2">
-              <h2 class="h2 tt"><?php echo e(__('SE CONNECTER')); ?></h2>
+              <h2 class="h2 tt"><?php echo e(__('Connexion')); ?></h2>
             </div>
             <div class="empty-sm-30 empty-xs-30"></div>
             <form method="post" action="<?php echo e(route('login')); ?>">
@@ -241,7 +236,6 @@
               <div class="simple-text xs reg-now fr">
                 <a href="#"><p>Register now</p></a>
               </div> -->
-              <div class="empty-sm-30 empty-xs-20"></div>
               <div class="text-center">
                 <div class="page-button button-style-1 type-2">
                   <input type="submit">
