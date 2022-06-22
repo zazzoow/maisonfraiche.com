@@ -856,7 +856,7 @@ class Standard
 			 $manager->commit();
 			 $manager->commit();
 
-       // $this->sendMail( $itemProductBase, $item );
+       $this->sendMail( $itemProductBase, $item );
 
      }
      catch( \Exception $e )

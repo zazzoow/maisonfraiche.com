@@ -62,7 +62,7 @@ $enc = $this->encoder();
 						</p>
 					</div>
 
-			<div  class="datatable">
+			<div class="datatable">
 					  <table>
 					    <thead>
 					      <tr>
