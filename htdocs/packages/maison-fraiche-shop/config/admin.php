@@ -265,29 +265,29 @@ return [
 				'groups' => ['admin', 'editor', 'super'],
 			],
 		],
-		'navbar' => [
-			0 => 'dashboard',
-			10 => [
-				'' => 'sales',
-				10 => 'order',
-				20 => 'subscription',
-			],
-			20 => [
-				'' => 'goods',
-				10 => 'product',
-				20 => 'catalog',
-				30 => 'attribute',
-				40 => 'supplier',
+		// 'navbar' => [
+			// 0 => 'dashboard',
+			// 10 => [
+			// 	'' => 'sales',
+			// 	10 => 'order',
+			// 	20 => 'subscription',
+			// ],
+			// 20 => [
+			// 	'' => 'goods',
+			// 	10 => 'product',
+			// 	20 => 'catalog',
+			// 	30 => 'attribute',
+			// 	40 => 'supplier',
 				// 50 => 'slider',
 				// 60 => 'lab',
 				// 20 => 'upload',
-			],
-			30 => [
-				'' => 'users',
-				10 => 'customer',
-				20 => 'group',
+			// ],
+			// 30 => [
+			// 	'' => 'users',
+			// 	10 => 'customer',
+			// 	20 => 'group',
 				// 30 => 'quote',
-			],
+			// ],
 			// 40 => [
 			// 	'' => 'marketing',
 			// 	10 => 'coupon',
@@ -333,7 +333,7 @@ return [
 			// 	220 => 'type/text/lists',
 			// ],
 			// 80 => 'log',
-		],
+		// ],
 
 	],
 	'jsonadm' => [

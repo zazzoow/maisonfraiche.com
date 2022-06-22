@@ -17,10 +17,6 @@ function slideToggle(t,e,o){0===t.clientHeight?j(t,e,o,!0):j(t,e,o)}function sli
  */
 
 
- $(function() {
-     $('#basicExampleModal').modal('show');
- });
-
 /**
  * Aimeos common actions
  */

@@ -10,6 +10,6 @@ class Confirm extends Model
     use HasFactory;
 
     public $fillable = [
-        'firstname', 'lastname' ,'email', 'phone', 'message'
+        'name', 'userid' ,'email'
     ];
 }

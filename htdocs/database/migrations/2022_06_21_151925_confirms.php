@@ -13,19 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-      Schema::create('confirm', function (Blueprint $table) {
+      Schema::create('confirms', function (Blueprint $table) {
 
           $table->id();
 
-          $table->string('fistname');
+          $table->string('name')->nullable();
 
-          $table->string('lastname');
+          $table->string('userid')->nullable();
 
-          $table->string('email');
-
-          $table->string('phone')->nullable();
-
-          $table->text('message');
+          $table->string('email')->nullable();
 
           $table->timestamps();
 
@@ -34,6 +30,6 @@ return new class extends Migration
 
     public function down()
     {
-      Schema::dropIfExists('confirm');
+      Schema::dropIfExists('confirms');
     }
 };

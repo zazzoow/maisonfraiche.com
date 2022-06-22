@@ -5,6 +5,8 @@ namespace Aimeos\Client\Html\Catalog\Lists;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Confirm;
+use Aimeos\Upscheme\Schema\Table;
+use Aimeos\Shop\Facades\Shop;
 use Mail;
 
 class Standard
@@ -188,7 +190,7 @@ class Standard
 			// $this->createOrderItem();
 			$this->saveOrderItem();
 
-			return back()->with('info3','votre commande a biete enregistré');
+			return back()->with('info3','votre commande a bien enregistré');
 	  }
 
 		$site = $context->locale()->getSiteItem()->getCode();
@@ -854,7 +856,7 @@ class Standard
 			 $manager->commit();
 			 $manager->commit();
 
-       $this->sendMail();
+       // $this->sendMail( $itemProductBase, $item );
 
      }
      catch( \Exception $e )
@@ -1110,40 +1112,59 @@ class Standard
 
   }
 
-	protected function sendMail()
+	protected function sendMail($itemProductBase, $item)
 	{
-		$confirm = new Confirm;
+		try {
 
-		$context = $this->context();
+			$confirm = new Confirm;
 
-		$view = $this->view();
+			$context = $this->context();
 
+			$view = $context->view();
 
-		$input = $request->all();
+			$request = $view->request();
 
-		 Confirm::create($input);
+			$userid = $this->context()->user();
 
-		\Mail::send(Shop::template( 'page.confirmMail' ), array(
+      $dataUser = DB::table('users')->find( $userid );
 
-				'firstname' => $input['firstname'],
+			$input = [
+				'name' => $dataUser->firstname,
+				'userid' => $userid,
+				'email' => $dataUser->email,
+			];
 
-				'lastname' => $input['lastname'],
+			$confirm = Confirm::create($input);
 
-				'email' => $input['email'],
+			\Mail::send(Shop::template( 'page.confirmMail' ), array(
 
-				'subject' => $input['subject'],
+					'name' => $dataUser->firstname,
 
-				'messages' => $input['message'],
+					'userid' => $userid,
 
-		), function($message) use ($request){
+					'item' => $item,
 
-				$message->from($request->email);
+					'productItem' => $itemProductBase,
 
-				$message->to('boukli_devel@yahoo.com', 'Admin')->subject($request->get('subject'));
+					'email' => $dataUser->email,
 
-		});
+			), function($message) use ($request){
 
-		$confirm->save();
+					$message->from( config('app.email') );
+
+					$message->to('boukli_devel@yahoo.com', 'Admin')->subject('maison fraiche');
+
+			});
+
+			$confirm->save();
+		}
+		catch( \Exception $e )
+		{
+			$error = array( $context->translate( 'client', 'A non-recoverable error occured' ) );
+			$view->detailErrorList = array_merge( $view->get( 'detailErrorList', [] ), $error );
+			$this->logException( $e );
+		}
+
 	}
 
 }

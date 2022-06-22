@@ -26,9 +26,9 @@ return [
 					'video/mp4' => 'mp4',
 					'video/webm' => 'webm',
 				],
-				'previews' => [[
-					'force-size' => 0,
-				]],
+				// 'previews' => [[
+				// 	'force-size' => 0,
+				// ]],
 				// 'product' => [
 				// 	'previews' => [[
 				// 		'maxwidth' => 240,
@@ -64,9 +64,16 @@ return [
 				 ],
 			 ],
 				'catalog' => [
+					// 'previews' => [
+					// 			'image/jpeg' =>   ['width' => 1240, 'maxheight' => 780, 'force-size' => false],
+					// 			'image/jpg' =>   [ 'width' => 1200, 'maxheight' => 600, 'force-size' => true ],
+					// 			'image/webp' =>   [ 'width' => 1200, 'maxheight' => 600, 'force-size' => true ],
+					// ],
 					'stage' => [
 						'previews' => [
-									'image/jpeg' =>   ['width' => 2240, 'maxheight' => 2180, 'force-size' => false],
+									'image/jpeg' =>   ['width' => 1240, 'maxheight' => 780, 'force-size' => false],
+									'image/jpg' =>   [ 'width' => 1200, 'maxheight' => 600, 'force-size' => true ],
+									'image/webp' =>   [ 'width' => 1200, 'maxheight' => 600, 'force-size' => true ],
 						],
 					],
 					'lists' => [
@@ -90,7 +97,8 @@ return [
 			'product'=> [
 				'show-all' => false,
 			],
-			'catalog' => [
+			'catalo
+			g' => [
 				'levels-always' => 4,
 			],
 		],

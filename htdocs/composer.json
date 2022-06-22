@@ -8,6 +8,7 @@
         "php": "^8.0.2",
         "aimeos-extensions/maison-fraiche-shop": "dev-main",
         "aimeos/aimeos-laravel": "~2022.04",
+        "aimeos/upscheme": "^0.8.1",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/breeze": "^1.9",
         "laravel/framework": "^9.11",

@@ -2241,3 +2241,8 @@ transition: all 0.35s ease-out; }
     text-align: center;
     padding: 100px 0;
 }
+
+.stage-item img {
+    height: 676px;
+    width: -webkit-fill-available;
+}

@@ -7,15 +7,13 @@ Vous avez reçu un mail de maison fraiche <br><br>
 
 
 
-<p>{{ $messages }}<p>
+<p>Nous confirmons la reservation de blabla a blabla<p>
 
 
 
 Name:  {{ $name }}<br>
 
 Email:  {{ $email }}<br>
-
-Phone:  {{ $phone }}<br>
 
 
 Thanks

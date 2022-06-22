@@ -5,6 +5,8 @@ namespace Aimeos\Client\Html\Catalog\Detail;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Aimeos\Upscheme\Schema\Table;
+use Aimeos\Shop\Facades\Shop;
 use App\Models\Confirm;
 use Mail;
 
@@ -421,7 +423,7 @@ class Standard
 			 $manager->commit();
 			 $manager->commit();
 
-			 $this->sendMail();
+       $this->sendMail( $itemProductBase, $item );
 
      }
      catch( \Exception $e )
@@ -677,41 +679,58 @@ class Standard
 
   }
 
-	protected function sendMail()
+	protected function sendMail($itemProductBase, $item)
 	{
-		$confirm = new Confirm;
+		try {
 
-		$context = $this->context();
+			$confirm = new Confirm;
 
-		$view = $this->view();
+			$context = $this->context();
 
+			$view = $context->view();
 
-		dd($view);
+			$request = $view->request();
 
-		$input = $request->all();
+			$userid = $this->context()->user();
 
-		 Confirm::create($input);
+			$dataUser = DB::table('users')->find( $userid );
 
-		\Mail::send(Shop::template( 'page.confirmMail' ), array(
+			$input = [
+				'name' => $dataUser->firstname,
+				'userid' => $userid,
+				'email' => $dataUser->email,
+			];
 
-				'firstname' => $input['firstname'],
+			$confirm = Confirm::create($input);
 
-				'lastname' => $input['lastname'],
+			\Mail::send(Shop::template( 'page.confirmMail' ), array(
 
-				'email' => $input['email'],
+					'name' => $dataUser->firstname,
 
-				'subject' => $input['subject'],
+					'userid' => $userid,
 
-				'messages' => $input['message'],
+					'item' => $item,
 
-		), function($message) use ($request){
+					'productItem' => $itemProductBase,
 
-				$message->from($request->email);
+					'email' => $dataUser->email,
 
-				$message->to('boukli_devel@yahoo.com', 'Admin')->subject($request->get('subject'));
+			), function($message) use ($request){
 
-		});
+					$message->from( config('app.email') );
 
-		$confirm->save();
+					$message->to('boukli_devel@yahoo.com', 'Admin')->subject('maison fraiche');
+
+			});
+
+			$confirm->save();
+		}
+		catch( \Exception $e )
+		{
+			$error = array( $context->translate( 'client', 'A non-recoverable error occured' ) );
+			$view->detailErrorList = array_merge( $view->get( 'detailErrorList', [] ), $error );
+			$this->logException( $e );
+		}
+
 	}
 }
